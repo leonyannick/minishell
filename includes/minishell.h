@@ -6,7 +6,7 @@
 /*   By: lbaumann <lbaumann@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/19 11:42:54 by lbaumann          #+#    #+#             */
-/*   Updated: 2023/05/23 13:25:19 by lbaumann         ###   ########.fr       */
+/*   Updated: 2023/05/23 17:06:53 by lbaumann         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,6 @@
 #include <readline/readline.h>
 #include <stdbool.h> //true, false
 #include "../libft/includes/libft.h"
-#include "../includes/lexer.h"
 
 //color macro for printing status messages in color
 # define GR	"\033[32;1m"
