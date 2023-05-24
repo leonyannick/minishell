@@ -6,7 +6,7 @@
 /*   By: lbaumann <lbaumann@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/12 15:38:03 by lbaumann          #+#    #+#             */
-/*   Updated: 2023/05/24 16:12:45 by lbaumann         ###   ########.fr       */
+/*   Updated: 2023/05/24 16:51:43 by lbaumann         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 bool	is_whitespace(char c)
 {
-	if (c == ' ' || c == '\t' || c == '\n')
+	if (c == ' ' || c == '\t')
 		return (true);
 	else
 		return (false);
@@ -23,7 +23,7 @@ bool	is_whitespace(char c)
 bool	is_metacharacter(char c)
 {
 	if (c == ' ' || c == '\t' || c == '\n' || c == '\n' || c == '|'
-		|| c == '<' || c == '>' || c == '$' || c == '\'' || c == '\"')
+		|| c == '<' || c == '>')
 		return (true);
 	else
 		return (false);
@@ -61,23 +61,27 @@ char	*save_redirection_token(t_list *head, char *token_begin)
 {
 	if (token_begin[0] == '<' && !is_operator(token_begin[1]))
 	{
-		ft_lstadd_back(&head, ft_lstnew(assign_token_attr(ft_strdup("<"), I_RED)));
-		return &token_begin[1];
+		ft_lstadd_back(&head,
+			ft_lstnew(assign_token_attr(ft_strdup("<"), I_RED)));
+		return (&token_begin[1]);
 	}
 	else if (token_begin[0] == '>' && !is_operator(token_begin[1]))
 	{
-		ft_lstadd_back(&head, ft_lstnew(assign_token_attr(ft_strdup(">"), O_RED)));
-		return &token_begin[1];
+		ft_lstadd_back(&head,
+			ft_lstnew(assign_token_attr(ft_strdup(">"), O_RED)));
+		return (&token_begin[1]);
 	}
 	else if (!ft_strncmp(token_begin, "<<", 2) && !is_operator(token_begin[2]))
 	{
-		ft_lstadd_back(&head, ft_lstnew(assign_token_attr(ft_strdup("<<"), I_RED_HD)));
-		return &token_begin[2];
+		ft_lstadd_back(&head,
+			ft_lstnew(assign_token_attr(ft_strdup("<<"), I_RED_HD)));
+		return (&token_begin[2]);
 	}
 	else if (!ft_strncmp(token_begin, ">>", 2) && !is_operator(token_begin[2]))
 	{
-		ft_lstadd_back(&head, ft_lstnew(assign_token_attr(ft_strdup(">>"), O_RED_APP)));
-		return &token_begin[2];
+		ft_lstadd_back(&head,
+			ft_lstnew(assign_token_attr(ft_strdup(">>"), O_RED_APP)));
+		return (&token_begin[2]);
 	}
 	printf("syntax error near unexpected token\n");
 	return (NULL);
@@ -192,24 +196,3 @@ t_list	*scan_tokens(char *line)
 	ft_lstdelone(head, free);
 	return (temp);
 }
-
-
-
-
-// char	*tokenBegin;
-// 	char	*forward;
-// 	int		i;
-
-// 	i = 0;
-// 	head = NULL;
-// 	tokenBegin = line;
-// 	forward = line;
-// 	while (forward)
-// 	{
-// 		if (is_metacharacter(*forward))
-// 		{
-// 			saveToken(head, tokenBegin, forward);
-// 			tokenBegin = forward;
-// 		}
-// 		forward++;
-// 	}
