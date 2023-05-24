@@ -6,7 +6,7 @@
 /*   By: lbaumann <lbaumann@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/19 11:42:54 by lbaumann          #+#    #+#             */
-/*   Updated: 2023/05/23 18:21:57 by lbaumann         ###   ########.fr       */
+/*   Updated: 2023/05/24 12:17:50 by lbaumann         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,9 +27,7 @@
 # define YE "\033[33;1m"
 # define RC "\033[0m"
 
-typedef struct s_token	t_token;
-
-typedef enum tokenTypes
+typedef enum token_types
 {
 	I_RED,
 	O_RED,
@@ -41,20 +39,18 @@ typedef enum tokenTypes
 	DQUOTES,
 	SQUOTES,
 	PARAMETER,
-} e_tokenTypes;
+} e_token_types;
 
 typedef struct s_token
 {
-	int		tokenType;
-	char	*tokenStr;
+	int		token_type;
+	char	*token_str;
 }	t_token;
 
-t_list	*getTokens(char *line);
+t_list	*scan_tokens(char *line);
 
 //lexer utils
 bool	is_whitespace(char c);
 bool	is_metacharacter(char c);
-
-void	test(char *test);
 
 #endif

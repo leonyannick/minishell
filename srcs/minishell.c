@@ -6,25 +6,43 @@
 /*   By: lbaumann <lbaumann@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/12 13:03:36 by lbaumann          #+#    #+#             */
-/*   Updated: 2023/05/23 20:36:55 by lbaumann         ###   ########.fr       */
+/*   Updated: 2023/05/24 14:11:14 by lbaumann         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/minishell.h"
 
-void	*printToken(void *arg)
+void	print_enum(e_token_types type)
 {
-	printf("%s\n", ((t_token *)arg)->tokenStr);
-	return (NULL);
+	if (type == O_RED)
+		printf("O_RED\n");
+	else if (type == I_RED)
+		printf("I_RED\n");
+	else if (type == I_RED)
+		printf("I_RED\n");
+	else if (type == I_RED_HD)
+		printf("I_RED_HD\n");
+	else if (type == O_RED_APP)
+		printf("O_RED_APP\n");
+	else if (type == EQUALS)
+		printf("EQUALS\n");
+	else if (type == PIPE)
+		printf("PIPE\n");
+	else if (type == WORD)
+		printf("WORD\n");
+	else if (type == DQUOTES)
+		printf("DQUOTES\n");
+	else if (type == SQUOTES)
+		printf("SQUOTES\n");
+	else if (type == PARAMETER)
+		printf("PARAMETER\n");
 }
 
-void printList(t_list *node)
+void	*print_token(void *arg)
 {
-	while (node != NULL)
-	{
-		printf(" %s ", ((t_token *)node->content)->tokenStr);
-		node = node->next;
-	}
+	printf("[%s]\t", ((t_token *)arg)->token_str);
+	print_enum(((t_token *)arg)->token_type);
+	return (NULL);
 }
 
 int	main(void)
@@ -34,11 +52,11 @@ int	main(void)
 
 	while(1)
 	{
-		line = readline("ushelless:>");
+		line = readline("ushelless:> ");
 		if (!line)
 			continue ;
-		tokens = getTokens(line);
+		tokens = scan_tokens(line);
 		// printList(tokens);
-		ft_lstmap(tokens, printToken, free);
+		ft_lstmap(tokens, print_token, free);
 	}
 }
