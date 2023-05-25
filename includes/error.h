@@ -1,32 +1,23 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   minishell.h                                        :+:      :+:    :+:   */
+/*   error.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: lbaumann <lbaumann@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/02/19 11:42:54 by lbaumann          #+#    #+#             */
-/*   Updated: 2023/05/25 10:43:57 by lbaumann         ###   ########.fr       */
+/*   Created: 2023/05/25 10:33:09 by lbaumann          #+#    #+#             */
+/*   Updated: 2023/05/25 10:39:10 by lbaumann         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef MINISHELL_H
-# define MINISHELL_H
+#ifndef ERROR_H
+# define ERROR_H
 
 #include <stdio.h> //printf, readline#include <readline/readline.h>
-#include <readline/history.h>
-#include <readline/readline.h>
 #include <stdbool.h> //true, false
+#include <stdlib.h>
+#include <errno.h>
 #include "../libft/includes/libft.h"
-#include "../includes/error.h"
-
-//color macro for printing status messages in color
-# define GR	"\033[32;1m"
-# define RE	"\033[31;1m"
-# define PU	"\033[35;1m"
-# define BL	"\033[34;1m"
-# define YE "\033[33;1m"
-# define RC "\033[0m"
 
 #endif
 
