@@ -6,7 +6,7 @@
 /*   By: lbaumann <lbaumann@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/12 13:03:36 by lbaumann          #+#    #+#             */
-/*   Updated: 2023/05/24 14:11:14 by lbaumann         ###   ########.fr       */
+/*   Updated: 2023/05/26 15:28:51 by lbaumann         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,6 +36,8 @@ void	print_enum(e_token_types type)
 		printf("SQUOTES\n");
 	else if (type == PARAMETER)
 		printf("PARAMETER\n");
+	else if (type == WHITESPACE)
+		printf("WHITESPACE\n");
 }
 
 void	*print_token(void *arg)

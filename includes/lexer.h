@@ -6,7 +6,7 @@
 /*   By: lbaumann <lbaumann@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/19 11:42:54 by lbaumann          #+#    #+#             */
-/*   Updated: 2023/05/24 12:17:50 by lbaumann         ###   ########.fr       */
+/*   Updated: 2023/05/26 14:08:18 by lbaumann         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,6 +39,7 @@ typedef enum token_types
 	DQUOTES,
 	SQUOTES,
 	PARAMETER,
+	WHITESPACE
 } e_token_types;
 
 typedef struct s_token
