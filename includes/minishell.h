@@ -6,7 +6,7 @@
 /*   By: lbaumann <lbaumann@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/19 11:42:54 by lbaumann          #+#    #+#             */
-/*   Updated: 2023/05/25 10:43:57 by lbaumann         ###   ########.fr       */
+/*   Updated: 2023/05/26 12:12:15 by lbaumann         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,6 +27,13 @@
 # define BL	"\033[34;1m"
 # define YE "\033[33;1m"
 # define RC "\033[0m"
+
+typedef struct	data
+{
+	char	**envp;
+}	t_data;
+
+void	init_data(t_data *data, char **envp);
 
 #endif
 

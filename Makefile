@@ -6,7 +6,7 @@
 #    By: lbaumann <lbaumann@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/02/19 09:17:44 by lbaumann          #+#    #+#              #
-#    Updated: 2023/05/25 10:44:38 by lbaumann         ###   ########.fr        #
+#    Updated: 2023/05/26 12:13:55 by lbaumann         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -52,6 +52,7 @@ LDFLAGS = -lreadline $(LIBFTINCL)
 SRCS = \
 	minishell.c \
 	error/error.c \
+	data_init.c \
 
 ifeq ($(UNAME), Linux)
 endif
