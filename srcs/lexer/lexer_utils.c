@@ -6,7 +6,7 @@
 /*   By: lbaumann <lbaumann@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/12 15:38:03 by lbaumann          #+#    #+#             */
-/*   Updated: 2023/05/26 16:07:31 by lbaumann         ###   ########.fr       */
+/*   Updated: 2023/05/31 18:46:40 by lbaumann         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,16 +49,15 @@ t_token	*assign_token_attr(char *token_str, e_token_types type)
 	return (token);
 }
 
-void	save_token(t_list *head, char *token_begin, size_t token_length, e_token_types type)
+t_list	*save_token(t_list *tokens, char *token_str, e_token_types type)
 {
-	char *token_str;
 	t_list *new_token;
 	t_token	*token_data;
 
-	token_str = ft_substr(token_begin, 0, token_length);
 	token_data = assign_token_attr(token_str, type);
 	new_token = ft_lstnew(token_data);
-	ft_lstadd_back(&head, new_token);
+	ft_lstadd_back(&tokens, new_token);
+	return (tokens);
 }
 
 bool	is_red_operator(char c)
@@ -69,118 +68,142 @@ bool	is_red_operator(char c)
 		return (false);
 }
 
-size_t	save_redirection_token(t_list *head, char *token_begin)
+char	*redirection_token(char *line, size_t *i, e_token_types *type)
 {
-	if (token_begin[0] == '<' && !is_operator(token_begin[1]))
+	if (line[*i] == '<' && !is_operator(line[*(i + 1)]))
 	{
-		save_token(head, token_begin, 1, I_RED);
-		return (1);
+		(*i)++;
+		*type = I_RED;
+		return (ft_strdup("<"));
 	}
-	else if (token_begin[0] == '>' && !is_operator(token_begin[1]))
+	else if (line[*i] == '>' && !is_operator(line[*(i + 1)]))
 	{
-		save_token(head, token_begin, 1, O_RED);
-		return (1);
+		(*i)++;
+		*type = O_RED;
+		return (ft_strdup(">"));
 	}
-	else if (!ft_strncmp(token_begin, "<<", 2) && !is_operator(token_begin[2]))
+	else if (!ft_strncmp(&line[*i], "<<", 2) && !is_operator(line[*(i + 2)]))
 	{
-		save_token(head, token_begin, 2, I_RED_HD);
-		return (2);
+		*i += 2;
+		*type = I_RED_HD;
+		return (ft_strdup("<<"));
 	}
-	else if (!ft_strncmp(token_begin, ">>", 2) && !is_operator(token_begin[2]))
+	else if (!ft_strncmp(&line[*i], ">>", 2) && !is_operator(line[*(i + 2)]))
 	{
-		save_token(head, token_begin, 2, O_RED_APP);
-		return (2);
+		*i += 2;
+		*type = O_RED_APP;
+		return (ft_strdup(">>"));
 	}
 	printf("syntax error near unexpected token\n");
 	return (0);
 }
 
-char	*expand(char *to_be_expanded)
+char	*expand(char *line, size_t *i, char **envp)
 {
-	size_t	token_length;
-	char	*replacement;
-
-	token_length = 0;
-	while (!is_metacharacter(to_be_expanded[token_length]) && to_be_expanded[token_length])
-		token_length++;
-	replacement = ft_strdup("PLACE HOLDER");
-	return (ft_strjoin(replacement, &to_be_expanded[token_length]));
+	envp = NULL;
+	if (!line[*i] || line[*i] == '"')
+		return (ft_strdup(""));
+	while (!is_metacharacter(line[*i]) && line[*i] != '"' && line[*i])
+		(*i)++;
+	//expand(*i - token_begin)
+	return (ft_strdup("REPLACEMENT"));
 }
 
 /**
  * increase token_begin by one to omit the $, the info is saved as the token_type anyways
 */
-size_t	save_parameter_token(t_list *head, char *token_begin)
+char	*parameter_token(char *line, size_t *i, e_token_types *type, char **envp)
 {
-	size_t	token_length;
-
-	token_begin++;
-	token_length = 0;
-	while (!is_metacharacter(token_begin[token_length]) && token_begin[token_length])
-		token_length++;
-	token_begin = expand(token_begin);
-	save_token(head, token_begin, ft_strlen(token_begin), PARAMETER);
-	return (token_length + 1);
+	(*i)++;
+	*type = PARAMETER;
+	return (expand(line, i, envp));
 }
 
-size_t	save_quote_token(t_list *head, char *token_begin)
+char	*char_to_str(char c)
 {
-	size_t			token_length;
+	char	*result;
 
-	token_length = 0;
-	if (token_begin[0] == '\'')
-	{
-		token_begin++;
-		while (token_begin[token_length] != '\'' && token_begin[token_length])
-			token_length++;
-		save_token(head, token_begin, token_length, SQUOTES);
-	}
+	result = ft_calloc(2, sizeof(char));
+	if (!result)
+		return (NULL);
+	result[0] = c;
+	return (result);
+}
+
+char	*append_str(char *str, char *appendix)
+{
+	char	*junction;
+
+	if (!str)
+		return (appendix);
+	junction = ft_strjoin(str, appendix);
+	free(str);
+	free(appendix);
+	return (junction);
+}
+
+char	*quote_token(char *line, size_t *i, e_token_types *type, char **envp)
+{
+	char	*token_str;
+	char	*expansion;
+
+	token_str = NULL;
+	if (line[(*i)++] == '"')
+		*type = DQUOTES;
 	else
+		*type = SQUOTES;
+	while (*type == SQUOTES && line[*i] != '\'' && line[*i])
 	{
-		token_begin++;
-		while (token_begin[token_length] != '\"' && token_begin[token_length])
-		{
-			if (token_begin[token_length] == '$')
-			{
-				token_begin[token_length] = expand(&token_begin[token_length]);
-				token_length += ft_strlen(token_begin);
-			}
-			else
-				token_length++;
-		}
-		save_token(head, token_begin, token_length, DQUOTES);
+		token_str = append_str(token_str, char_to_str(line[*i]));
+		(*i)++;
 	}
-	return (token_length + 2);
-}
-
-size_t	save_word_token(t_list *head, char *token_begin)
-{
-	size_t	token_length;
-
-	token_length = 0;
-	while (!is_metacharacter(token_begin[token_length]) && token_begin[token_length])
-		token_length++;
-	save_token(head, token_begin, token_length, WORD);
-	return (token_length);
-}
-
-size_t	skip_whitespace(t_list *head, char *token_begin)
-{
-	size_t	token_length;
-
-	token_length = 0;
-	while (is_whitespace(token_begin[token_length]) && token_begin[token_length])
-		token_length++;
-	save_token(head, token_begin, token_length, WHITESPACE);
-	return (token_length);
-}
-
-size_t	save_pipe_token(t_list *head, char *token_begin)
-{
-	if (token_begin[0] == '|' && !is_operator(token_begin[1]))
+	while (*type == DQUOTES && line[*i] != '"' && line[*i])
 	{
-		save_token(head, token_begin, 1, PIPE);
-		return (1);
+		if (line[(*i)] == '$')
+		{
+			(*i)++;
+			expansion = expand(line, i, envp);
+			token_str = append_str(token_str, expansion);
+		}
+		else
+		{
+			token_str = append_str(token_str, char_to_str(line[*i]));
+			(*i)++;
+		}
+	}
+	(*i)++;
+	return (token_str);
+}
+
+char	*word_token(char *line, size_t *i, e_token_types *type)
+{
+	size_t	token_begin;
+
+	token_begin = *i;
+	*type = WORD;
+	while (!is_metacharacter(line[*i]) && line[*i])
+		(*i)++;
+	return (ft_substr(line, token_begin, *i - token_begin));
+}
+
+char	*whitespace_token(char *line, size_t *i, e_token_types *type)
+{
+	size_t	token_begin;
+
+	token_begin = *i;
+	*type = WHITESPACE;
+	while (is_whitespace(line[*i]) && line[*i])
+		(*i)++;
+	return (ft_substr(line, token_begin, *i - token_begin));
+}
+
+char	*pipe_token(char *line, size_t *i, e_token_types *type)
+{
+	*type = PIPE;
+	if (line[*i] == '|' && !is_operator(line[*(i + 1)]))
+	{
+		(*i)++;
+		return (ft_strdup("|"));
 	}
 	printf("syntax error near unexpected token\n");
 	return (0);
@@ -193,30 +216,27 @@ size_t	save_pipe_token(t_list *head, char *token_begin)
  * 
  * -> function when quote is recognized
 */	
-t_list	*scan_tokens(char *line)
+t_list	*scan_tokens(char *line, t_data *data)
 {
-	t_list	*head;
-	t_list	*temp;
-	size_t	i;
+	size_t			i;
+	e_token_types	type;
+	char			*token_str;
 
-	head = ft_lstnew(NULL);
 	i = 0;
 	while (line && line[i])
 	{
 		if (line[i] == '<' || line[i] == '>')
-			i += save_redirection_token(head, &line[i]);//detect what redirection operator there is << >> < >
+			token_str = redirection_token(line, &i, &type);//detect what redirection operator there is << >> < >
 		else if (line[i] == '$')
-			i += save_parameter_token(head, &line[i]);
+			token_str = parameter_token(line, &i, &type, data->envp);
 		else if (line[i] == '\'' || line[i] == '\"')
-			i += save_quote_token(head, &line[i]);
+			token_str = quote_token(line, &i, &type, data->envp);
 		else if (is_whitespace(line[i]))
-			i += skip_whitespace(head, &line[i]);
+			token_str = whitespace_token(line, &i, &type);
 		else if (line[i] == '|')
-			i += save_pipe_token(head, &line[i]);
+			token_str = pipe_token(line, &i, &type);
 		else
-			i += save_word_token(head, &line[i]);
+			token_str = word_token(line, &i, &type);
 	}
-	temp = head->next;
-	ft_lstdelone(head, free);
-	return (temp);
+	return (save_token(data->tokens, token_str, type));
 }

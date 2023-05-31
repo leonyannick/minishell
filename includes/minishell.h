@@ -6,7 +6,7 @@
 /*   By: lbaumann <lbaumann@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/19 11:42:54 by lbaumann          #+#    #+#             */
-/*   Updated: 2023/05/31 13:01:28 by lbaumann         ###   ########.fr       */
+/*   Updated: 2023/05/31 17:52:34 by lbaumann         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,6 +33,7 @@
 typedef struct	data
 {
 	char	**envp;
+	t_list	*tokens;
 }	t_data;
 
 void	init_data(t_data *data, char **envp);

@@ -6,7 +6,7 @@
 /*   By: lbaumann <lbaumann@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/19 11:42:54 by lbaumann          #+#    #+#             */
-/*   Updated: 2023/05/26 14:08:18 by lbaumann         ###   ########.fr       */
+/*   Updated: 2023/05/31 16:18:36 by lbaumann         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,7 @@
 #include <readline/readline.h>
 #include <stdbool.h> //true, false
 #include "../libft/includes/libft.h"
+#include "../includes/minishell.h"
 
 //color macro for printing status messages in color
 # define GR	"\033[32;1m"
@@ -48,7 +49,9 @@ typedef struct s_token
 	char	*token_str;
 }	t_token;
 
-t_list	*scan_tokens(char *line);
+typedef struct data t_data;
+
+t_list	*scan_tokens(char *line, t_data *data);
 
 //lexer utils
 bool	is_whitespace(char c);

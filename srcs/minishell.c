@@ -6,7 +6,7 @@
 /*   By: lbaumann <lbaumann@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/12 13:03:36 by lbaumann          #+#    #+#             */
-/*   Updated: 2023/05/31 13:04:30 by lbaumann         ###   ########.fr       */
+/*   Updated: 2023/05/31 17:55:07 by lbaumann         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,19 +51,25 @@ int	main(int argc, char **argv, char **envp)
 {
 	t_data	data;
 	char	*line;
-	t_list	*tokens;
 
+	argc = 0;
+	argv = NULL;
 	memset(&data, 0, sizeof(t_data));
 	init_data(&data, envp);
-	printf("%s\n", data.envp[0]);
 	
 	while(1)
 	{
 		line = readline("ushelless:> ");
 		if (!line)
 			continue ;
-		tokens = scan_tokens(line);
+		data.tokens = scan_tokens(line, &data);
 		// printList(tokens);
-		ft_lstmap(tokens, print_token, free);
+		ft_lstmap(data.tokens, print_token, free);
 	}
 }
+	// int i = 11;
+	
+	// t_list *test = NULL;
+	// t_list *node = ft_lstnew(&i);
+	// ft_lstadd_back(&test, node);
+	// ft_lstmap(test, print_token, free);
