@@ -6,7 +6,7 @@
 /*   By: lbaumann <lbaumann@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/12 13:03:36 by lbaumann          #+#    #+#             */
-/*   Updated: 2023/05/26 15:28:51 by lbaumann         ###   ########.fr       */
+/*   Updated: 2023/05/31 13:04:30 by lbaumann         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,11 +47,16 @@ void	*print_token(void *arg)
 	return (NULL);
 }
 
-int	main(void)
+int	main(int argc, char **argv, char **envp)
 {
+	t_data	data;
 	char	*line;
 	t_list	*tokens;
 
+	memset(&data, 0, sizeof(t_data));
+	init_data(&data, envp);
+	printf("%s\n", data.envp[0]);
+	
 	while(1)
 	{
 		line = readline("ushelless:> ");

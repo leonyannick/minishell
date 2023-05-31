@@ -6,7 +6,7 @@
 #    By: lbaumann <lbaumann@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/02/19 09:17:44 by lbaumann          #+#    #+#              #
-#    Updated: 2023/05/25 10:48:31 by lbaumann         ###   ########.fr        #
+#    Updated: 2023/05/31 13:05:11 by lbaumann         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -38,7 +38,7 @@ LEXDIR := $(SRCDIR)/lexer
 GR	= \033[32;1m
 RE	= \033[31;1m
 PU	= \033[35;1m
-BL	= \033[34;1m
+BL	= \033[34;1m3
 RC	= \033[0m
 
 HEADERS = -I $(INCDIR)
@@ -53,6 +53,7 @@ SRCS = \
 	minishell.c \
 	lexer/lexer_utils.c \
 	error/error.c \
+	data_init.c \
 
 ifeq ($(UNAME), Linux)
 endif
