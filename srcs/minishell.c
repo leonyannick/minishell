@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lbaumann <lbaumann@student.42.fr>          +#+  +:+       +#+        */
+/*   By: lbaumann <lbaumann@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/12 13:03:36 by lbaumann          #+#    #+#             */
-/*   Updated: 2023/05/31 17:55:07 by lbaumann         ###   ########.fr       */
+/*   Updated: 2023/06/01 12:44:30 by lbaumann         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,11 +40,11 @@ void	print_enum(e_token_types type)
 		printf("WHITESPACE\n");
 }
 
-void	*print_token(void *arg)
+void	print_token(void *arg)
 {
 	printf("[%s]\t", ((t_token *)arg)->token_str);
 	print_enum(((t_token *)arg)->token_type);
-	return (NULL);
+	// return (NULL);
 }
 
 int	main(int argc, char **argv, char **envp)
@@ -54,7 +54,7 @@ int	main(int argc, char **argv, char **envp)
 
 	argc = 0;
 	argv = NULL;
-	memset(&data, 0, sizeof(t_data));
+	ft_memset(&data, 0, sizeof(t_data));
 	init_data(&data, envp);
 	
 	while(1)
@@ -62,9 +62,12 @@ int	main(int argc, char **argv, char **envp)
 		line = readline("ushelless:> ");
 		if (!line)
 			continue ;
+		char **split_arr = ft_split(line, ' ');
+		
 		data.tokens = scan_tokens(line, &data);
-		// printList(tokens);
-		ft_lstmap(data.tokens, print_token, free);
+		// // printList(tokens);
+		ft_lstiter(data.tokens, print_token);
+		// ft_lstmap(data.tokens, print_token, free);
 	}
 }
 	// int i = 11;
