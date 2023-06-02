@@ -6,7 +6,7 @@
 /*   By: lbaumann <lbaumann@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/12 15:38:03 by lbaumann          #+#    #+#             */
-/*   Updated: 2023/06/02 12:02:21 by lbaumann         ###   ########.fr       */
+/*   Updated: 2023/06/02 14:33:01 by lbaumann         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -220,45 +220,81 @@ void	skip_whitespace(char *str, size_t *i)
 		(*i)++;
 }
 
-void	insert_token(t_list *tokens, t_list *token, char *token_str, e_token_types type)
+void	insert_token(t_list *tokens, t_list *old, char *token_str, e_token_types type)
 {
 	t_list *new_token;
 	t_token	*token_data;
 
 	token_data = assign_token_attr(token_str, type);
 	new_token = ft_lstnew(token_data);
-	ft_lstadd_insert(tokens, token, new_token);
+	ft_lstadd_insert(tokens, old, new_token);
 }
 
-t_list	*word_splitting(t_list **tokens)
+t_list	*modify_list(t_list **lst, t_list *(*f)(t_list **lst, t_list *node))
+{
+	t_list	*node;
+	t_list	*next;
+
+	node = *lst;
+	while (node)
+	{
+		next = node->next;
+		*lst = (*f)(lst, node);
+		node = next;
+	}
+	return (*lst);
+}
+
+t_list	*word_splitting(t_list **tokens, t_list *node)
 {
 	char			*token_str;
-	t_list			*next_up;
-	t_list			*token;
 	t_list			*temp;
 	e_token_types	type;
 	size_t			i;
 	
-	token = *tokens;
-	while (token)
+	if (((t_token *)node->content)->token_type == PARAMETER)
 	{
-		next_up = token->next;
-		if (((t_token *)(token)->content)->token_type == PARAMETER)
+		token_str = ((t_token *)node->content)->token_str;
+		i = 0;
+		temp = node->next;
+		while (token_str[i])
 		{
-			token_str = ((t_token *)(token)->content)->token_str;
-			i = 0;
-			temp = token->next;
-			while (token_str[i])
-			{
-				if (is_whitespace(token_str[i]))
-					insert_token(*tokens, temp, whitespace_token(token_str, &i, &type), type);
-				else
-					insert_token(*tokens, temp, word_token(token_str, &i, &type), type);
-			}
-			ft_lstremove(tokens, token);
+			if (is_whitespace(token_str[i]))
+				insert_token(*tokens, temp, whitespace_token(token_str, &i, &type), type);
+			else
+				insert_token(*tokens, temp, word_token(token_str, &i, &type), type);
 		}
-		token = next_up;
+		ft_lstremove(tokens, node);
 	}
+	return (*tokens);
+}
+
+t_list	*merge_words(t_list **tokens, t_list *node)
+{
+	t_list	*prev;
+	char	*new_token_str;
+
+	// ft_lstiter(*tokens, print_token);
+	if (((t_token *)node->content)->token_type == WORD)
+	{
+		prev = ft_lstfindprev(*tokens, node);
+		if (prev && ((t_token *)prev->content)->token_type == WORD)
+		{
+			new_token_str = ft_strjoin(((t_token *)prev->content)->token_str,
+			((t_token *)node->content)->token_str);
+			free(((t_token *)prev->content)->token_str);
+			((t_token *)prev->content)->token_str = new_token_str;
+			ft_lstremove(tokens, node);
+		}
+	}
+	return (*tokens);
+}
+
+t_list	*remove_whitespace(t_list **tokens, t_list *node)
+{
+
+	if (((t_token *)node->content)->token_type == WHITESPACE)
+		ft_lstremove(tokens, node);
 	return (*tokens);
 }
 
@@ -294,7 +330,8 @@ t_list	*scan_tokens(char *line, t_data *data)
 			token_str = word_token(line, &i, &type);
 		tokens = save_token(&tokens, token_str, type);
 	}
-	// ft_lstiter(tokens, print_token);
-	tokens = word_splitting(&tokens);
+	tokens = modify_list(&tokens, word_splitting);
+	tokens = modify_list(&tokens, merge_words);
+	tokens = modify_list(&tokens, remove_whitespace);
 	return (tokens);
 }
