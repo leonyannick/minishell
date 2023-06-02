@@ -6,7 +6,7 @@
 /*   By: lbaumann <lbaumann@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/12 15:38:03 by lbaumann          #+#    #+#             */
-/*   Updated: 2023/06/02 11:27:07 by lbaumann         ###   ########.fr       */
+/*   Updated: 2023/06/02 12:02:21 by lbaumann         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -176,6 +176,7 @@ char	*quote_token(char *line, size_t *i, e_token_types *type, char **envp)
 			token_str = append_str(token_str, char_to_str(line[(*i)++]));
 	}
 	(*i)++;
+	*type = WORD;
 	return (token_str);
 }
 
@@ -219,14 +220,14 @@ void	skip_whitespace(char *str, size_t *i)
 		(*i)++;
 }
 
-void	insert_token(t_list *token, char *token_str, e_token_types type)
+void	insert_token(t_list *tokens, t_list *token, char *token_str, e_token_types type)
 {
 	t_list *new_token;
 	t_token	*token_data;
 
 	token_data = assign_token_attr(token_str, type);
 	new_token = ft_lstnew(token_data);
-	ft_lstadd_insert(token, new_token);
+	ft_lstadd_insert(tokens, token, new_token);
 }
 
 t_list	*word_splitting(t_list **tokens)
@@ -234,6 +235,7 @@ t_list	*word_splitting(t_list **tokens)
 	char			*token_str;
 	t_list			*next_up;
 	t_list			*token;
+	t_list			*temp;
 	e_token_types	type;
 	size_t			i;
 	
@@ -245,12 +247,13 @@ t_list	*word_splitting(t_list **tokens)
 		{
 			token_str = ((t_token *)(token)->content)->token_str;
 			i = 0;
+			temp = token->next;
 			while (token_str[i])
 			{
 				if (is_whitespace(token_str[i]))
-					insert_token(token, whitespace_token(token_str, &i, &type), type);
+					insert_token(*tokens, temp, whitespace_token(token_str, &i, &type), type);
 				else
-					insert_token(token, word_token(token_str, &i, &type), type);
+					insert_token(*tokens, temp, word_token(token_str, &i, &type), type);
 			}
 			ft_lstremove(tokens, token);
 		}
