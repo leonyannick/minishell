@@ -6,7 +6,7 @@
 /*   By: lbaumann <lbaumann@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/12 15:38:03 by lbaumann          #+#    #+#             */
-/*   Updated: 2023/06/01 12:48:48 by lbaumann         ###   ########.fr       */
+/*   Updated: 2023/06/02 11:27:07 by lbaumann         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -232,31 +232,31 @@ void	insert_token(t_list *token, char *token_str, e_token_types type)
 t_list	*word_splitting(t_list **tokens)
 {
 	char			*token_str;
-	char			*new_token_str;
-	t_list			*head;
 	t_list			*next_up;
+	t_list			*token;
 	e_token_types	type;
 	size_t			i;
 	
-	head = *tokens;
-	while (*tokens)
+	token = *tokens;
+	while (token)
 	{
-		next_up = (*tokens)->next;
-		if (((t_token *)(*tokens)->content)->token_type == PARAMETER)
+		next_up = token->next;
+		if (((t_token *)(token)->content)->token_type == PARAMETER)
 		{
-			token_str = ((t_token *)(*tokens)->content)->token_str;
+			token_str = ((t_token *)(token)->content)->token_str;
 			i = 0;
 			while (token_str[i])
 			{
-				skip_whitespace(token_str, &i);
-				new_token_str = word_token(token_str, &i, &type);
-				insert_token(*tokens, new_token_str, type);
+				if (is_whitespace(token_str[i]))
+					insert_token(token, whitespace_token(token_str, &i, &type), type);
+				else
+					insert_token(token, word_token(token_str, &i, &type), type);
 			}
-			ft_lstremove(tokens, *tokens);
+			ft_lstremove(tokens, token);
 		}
-		*tokens = next_up;
+		token = next_up;
 	}
-	return (head);
+	return (*tokens);
 }
 
 /**
@@ -291,6 +291,7 @@ t_list	*scan_tokens(char *line, t_data *data)
 			token_str = word_token(line, &i, &type);
 		tokens = save_token(&tokens, token_str, type);
 	}
+	// ft_lstiter(tokens, print_token);
 	tokens = word_splitting(&tokens);
 	return (tokens);
 }
