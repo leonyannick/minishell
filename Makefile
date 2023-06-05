@@ -6,7 +6,7 @@
 #    By: lbaumann <lbaumann@student.42berlin.de>    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/02/19 09:17:44 by lbaumann          #+#    #+#              #
-#    Updated: 2023/06/01 10:04:39 by lbaumann         ###   ########.fr        #
+#    Updated: 2023/06/05 10:20:27 by lbaumann         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -51,7 +51,12 @@ LDFLAGS = -lreadline $(LIBFTINCL)
 
 SRCS = \
 	minishell.c \
-	lexer/lexer_utils.c \
+	lexer/lexer.c \
+	lexer/lexer_utils_helper_1.c \
+	lexer/lexer_utils_helper_2.c \
+	lexer/lexer_utils_postprocess.c \
+	lexer/lexer_utils_token_1.c \
+	lexer/lexer_utils_token_2.c \
 	error/error.c \
 	data_init.c \
 
