@@ -1,0 +1,12 @@
+export TEST="REPLAC EMENT" assumption for tests
+
+
+ech"o" -> should result in just one word token
+" $TEST " -> one word token, but spaced are included in it
+$TEST -> 2 tokens: REPLAC and EMENT
+'$TEST' no expansion -> '' are removed
+'"$TEST"' no expansion -> '' are removed
+"asd$TESTfgh" -> asd (NOT WORKING RIGHT NOW, BECAUSE EXPANDER ALWAYS REPLACES WITH SAME STRING)
+"asd$TEST<fgh" -> asdREPLAC EMENT<fgh ->other operators work aswell
+$<space> -> should not expand
+$ -> should be $ as word token

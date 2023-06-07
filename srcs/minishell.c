@@ -6,7 +6,7 @@
 /*   By: lbaumann <lbaumann@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/12 13:03:36 by lbaumann          #+#    #+#             */
-/*   Updated: 2023/06/06 11:04:31 by lbaumann         ###   ########.fr       */
+/*   Updated: 2023/06/07 12:02:09 by lbaumann         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ int	main(int argc, char **argv, char **envp)
 	init_data(&data, envp);
 	
 	int i = 0;
-	while(i < 1)
+	while(1)
 	{
 		line = readline("ushelless:> ");
 		if (!line)
