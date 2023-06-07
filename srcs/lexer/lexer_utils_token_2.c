@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   lexer_utils_token_2.c                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lbaumann <lbaumann@student.42berlin.de>    +#+  +:+       +#+        */
+/*   By: lbaumann <lbaumann@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/05 10:05:14 by lbaumann          #+#    #+#             */
-/*   Updated: 2023/06/05 10:07:26 by lbaumann         ###   ########.fr       */
+/*   Updated: 2023/06/07 11:08:08 by lbaumann         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,12 +46,12 @@ t_list	*save_token(t_list **tokens, char *token_str, e_token_types type)
 	return (*tokens);
 }
 
-void	insert_token(t_list *tokens, t_list *old, char *token_str, e_token_types type)
+void	insert_token_before(t_list **tokens, t_list *token_prepended, char *token_str, e_token_types type)
 {
 	t_list *new_token;
 	t_token	*token_data;
 
 	token_data = assign_token_attr(token_str, type);
 	new_token = ft_lstnew(token_data);
-	ft_lstadd_insert(tokens, old, new_token);
+	ft_lst_insert_before(tokens, token_prepended, new_token);
 }
