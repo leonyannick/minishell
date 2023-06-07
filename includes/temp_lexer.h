@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   temp_lexer.h                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aehrlich <aehrlich@student.42berlin.de>    +#+  +:+       +#+        */
+/*   By: aehrlich <aehrlich@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/25 10:03:12 by aehrlich          #+#    #+#             */
-/*   Updated: 2023/06/05 11:26:58 by aehrlich         ###   ########.fr       */
+/*   Updated: 2023/06/07 15:38:10 by aehrlich         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,8 @@ typedef enum token_types
 	DQUOTES,
 	SQUOTES,
 	PARAMETER,
-	WHITESPACE
+	WHITESPACE,
+	NONE
 } e_token_types;
 
 typedef struct s_token
