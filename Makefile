@@ -6,7 +6,7 @@
 #    By: aehrlich <aehrlich@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/02/19 09:17:44 by lbaumann          #+#    #+#              #
-#    Updated: 2023/06/08 12:07:17 by aehrlich         ###   ########.fr        #
+#    Updated: 2023/06/08 12:41:10 by aehrlich         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -53,7 +53,8 @@ SRCS = \
 	minishell.c \
 	./parser/parser_utils_cmd.c \
 	./parser/parser_print.c \
-	./parser/parser.c
+	./parser/parser.c \
+	./parser/parser_utils.c
 
 ifeq ($(UNAME), Linux)
 endif

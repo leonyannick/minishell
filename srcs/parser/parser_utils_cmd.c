@@ -6,7 +6,7 @@
 /*   By: aehrlich <aehrlich@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/08 10:52:25 by aehrlich          #+#    #+#             */
-/*   Updated: 2023/06/08 12:17:27 by aehrlich         ###   ########.fr       */
+/*   Updated: 2023/06/08 13:20:02 by aehrlich         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ unsigned int	ft_cmd_count(t_list *token)
 	{
 		if (((t_token *)token->content)->token_type == PIPE)
 			count++;
-	token = token->next;
+		token = token->next;
 	}
 	return (count + 1);
 }
@@ -45,7 +45,7 @@ t_command	*ft_create_cmd(void)
 	return (cmd);
 }
 
-t_list		*ft_create_cmd_list(t_list *token_head)
+t_list	*ft_create_cmd_list(t_list *token_head)
 {
 	int			i;
 	t_command	*temp_cmd;
@@ -69,7 +69,7 @@ t_list		*ft_create_cmd_list(t_list *token_head)
 	return (cmd_list);
 }
 
-e_cmd_type ft_get_cmd_type(char *str)
+t_cmd_type	ft_get_cmd_type(char *str)
 {
 	if (!ft_strcmp(str, "echo") || !ft_strcmp(str, "cd")
 		|| !ft_strcmp(str, "pwd") || !ft_strcmp(str, "export")
