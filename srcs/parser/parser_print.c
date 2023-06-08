@@ -6,7 +6,7 @@
 /*   By: aehrlich <aehrlich@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/07 16:23:40 by aehrlich          #+#    #+#             */
-/*   Updated: 2023/06/08 13:16:04 by aehrlich         ###   ########.fr       */
+/*   Updated: 2023/06/08 15:38:02 by aehrlich         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,10 @@ void	print_cmd_list(t_list *cmd_head)
 	while (cmd_head)
 	{
 		temp_cmd = (t_command *)cmd_head->content;
-		printf("COMMAND %s:\n\n", (char *)temp_cmd->arguments->content);
+		if (temp_cmd->arguments)
+			printf("COMMAND: %s:\n\n", (char *)temp_cmd->arguments->content);
+		else 
+			printf("COMMAND: no command\n\n");
 		printf("arg list:\t");
 		print_string_list(temp_cmd->arguments);
 		printf("cmd type:\t");
