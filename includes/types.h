@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   structs.h                                          :+:      :+:    :+:   */
+/*   types.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lbaumann <lbaumann@student.42berlin.de>    +#+  +:+       +#+        */
+/*   By: aehrlich <aehrlich@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/05 10:33:26 by lbaumann          #+#    #+#             */
-/*   Updated: 2023/06/05 10:35:53 by lbaumann         ###   ########.fr       */
+/*   Updated: 2023/06/09 12:18:54 by aehrlich         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,12 +14,14 @@
 # define STRUCTS_H
 
 #include "../libft/includes/libft.h"
+#include <stdbool.h>
 
 //minishell
 typedef struct	data
 {
 	char	**envp;
 	t_list	*tokens;
+	t_list	*commands;
 }	t_data;
 
 //lexer
@@ -35,13 +37,33 @@ typedef enum token_types
 	DQUOTES,
 	SQUOTES,
 	PARAMETER,
-	WHITESPACE
+	WHITESPACE,
+	NONE
 } e_token_types;
 
 typedef struct s_token
 {
-	int		token_type;
-	char	*token_str;
+	int		type;
+	char	*str;
 }	t_token;
+
+//parser
+typedef enum cmd_type
+{
+	BUILTIN,
+	PATH,
+}	t_cmd_type;
+
+typedef struct command
+{
+	t_list			*arguments;
+	t_cmd_type		type;
+	bool			has_in_pipe;
+	bool			has_out_pipe;
+	e_token_types	in_redir_type;
+	e_token_types	out_redir_type;
+	char			*input_redir_path;
+	t_list			*output_redir_path;
+}					t_command;
 
 #endif

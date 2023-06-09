@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lbaumann <lbaumann@student.42.fr>          +#+  +:+       +#+        */
+/*   By: aehrlich <aehrlich@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/05/12 13:03:36 by lbaumann          #+#    #+#             */
-/*   Updated: 2023/06/07 12:02:09 by lbaumann         ###   ########.fr       */
+/*   Created: 2023/06/09 11:47:38 by aehrlich          #+#    #+#             */
+/*   Updated: 2023/06/09 12:12:14 by aehrlich         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,9 @@ int	main(int argc, char **argv, char **envp)
 			continue ;
 		
 		data.tokens = scan_tokens(line, &data);
-		ft_lstiter(data.tokens, print_token);
+		//ft_lstiter(data.tokens, print_token);
+		data.commands = parse(data.tokens);
+		print_cmd_list(data.commands);
 		ft_lstclear(&data.tokens, token_del);
 		i++;
 	}

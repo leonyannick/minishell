@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   lexer_utils.h                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lbaumann <lbaumann@student.42.fr>          +#+  +:+       +#+        */
+/*   By: aehrlich <aehrlich@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/05 09:59:02 by lbaumann          #+#    #+#             */
-/*   Updated: 2023/06/07 11:07:41 by lbaumann         ###   ########.fr       */
+/*   Updated: 2023/06/09 12:17:19 by aehrlich         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@
 #include <readline/readline.h>
 #include <stdbool.h> //true, false
 #include "../../libft/includes/libft.h"
-#include "../../includes/structs.h"
+#include "../../includes/types.h"
 #include "../../includes/lexer.h"
 
 //lexer_utils_token_1

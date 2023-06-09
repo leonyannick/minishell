@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   lexer.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lbaumann <lbaumann@student.42.fr>          +#+  +:+       +#+        */
+/*   By: aehrlich <aehrlich@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/02 12:23:20 by lbaumann          #+#    #+#             */
-/*   Updated: 2023/06/06 12:36:59 by lbaumann         ###   ########.fr       */
+/*   Updated: 2023/06/09 12:20:15 by aehrlich         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -91,8 +91,8 @@ void	print_e_token_types(e_token_types type)
 */
 void	print_token(void *arg)
 {
-	printf("%s\t", ((t_token *)arg)->token_str);
-	print_e_token_types(((t_token *)arg)->token_type);
+	printf("%s\t", ((t_token *)arg)->str);
+	print_e_token_types(((t_token *)arg)->type);
 }
 
 /**
@@ -109,6 +109,6 @@ void	token_del(void *arg)
 	token_data = (t_token *)arg;
 	if (!token_data)
 		return ;
-	token_data->token_str = ft_free_set_null(token_data->token_str);
+	token_data->str = ft_free_set_null(token_data->str);
 	token_data = ft_free_set_null(token_data);
 }

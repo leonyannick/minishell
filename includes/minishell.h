@@ -3,24 +3,25 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lbaumann <lbaumann@student.42berlin.de>    +#+  +:+       +#+        */
+/*   By: aehrlich <aehrlich@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/19 11:42:54 by lbaumann          #+#    #+#             */
-/*   Updated: 2023/06/05 10:36:22 by lbaumann         ###   ########.fr       */
+/*   Updated: 2023/06/09 12:17:03 by aehrlich         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef MINISHELL_H
 # define MINISHELL_H
 
+#include "../libft/includes/libft.h"
+#include "lexer.h"
+#include "types.h"
+#include "parser.h"
+#include <stdlib.h> //malloc
 #include <stdio.h> //printf, readline#include <readline/readline.h>
 #include <readline/history.h>
 #include <readline/readline.h>
 #include <stdbool.h> //true, false
-#include "../libft/includes/libft.h"
-#include "../includes/error.h"
-#include "../includes/structs.h"
-#include "../includes/lexer.h"
 
 //color macro for printing status messages in color
 # define GR	"\033[32;1m"

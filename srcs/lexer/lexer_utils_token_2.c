@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   lexer_utils_token_2.c                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lbaumann <lbaumann@student.42.fr>          +#+  +:+       +#+        */
+/*   By: aehrlich <aehrlich@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/05 10:05:14 by lbaumann          #+#    #+#             */
-/*   Updated: 2023/06/07 11:08:08 by lbaumann         ###   ########.fr       */
+/*   Updated: 2023/06/09 12:21:04 by aehrlich         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,8 +30,8 @@ t_token	*assign_token_attr(char *token_str, e_token_types type)
 	token = malloc(sizeof(t_token));
 	if (!token)
 		exit(1);
-	token->token_str = token_str;
-	token->token_type = type;
+	token->str = token_str;
+	token->type = type;
 	return (token);
 }
 
