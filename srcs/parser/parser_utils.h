@@ -6,14 +6,14 @@
 /*   By: aehrlich <aehrlich@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/08 10:56:18 by aehrlich          #+#    #+#             */
-/*   Updated: 2023/06/08 13:21:16 by aehrlich         ###   ########.fr       */
+/*   Updated: 2023/06/09 11:36:55 by aehrlich         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef PARSER_UTILS_H
 # define PARSER_UTILS_H
 
-# include "../includes/temp_lexer.h"
+# include "../includes/lexer.h"
 # include "../libft/includes/libft.h"
 
 typedef enum cmd_type

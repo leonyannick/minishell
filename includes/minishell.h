@@ -6,7 +6,7 @@
 /*   By: aehrlich <aehrlich@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/19 11:42:54 by lbaumann          #+#    #+#             */
-/*   Updated: 2023/06/08 11:50:08 by aehrlich         ###   ########.fr       */
+/*   Updated: 2023/06/09 11:36:55 by aehrlich         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 # define MINISHELL_H
 
 #include "../libft/includes/libft.h"
-#include "temp_lexer.h"
+#include "lexer.h"
 #include "parser.h"
 #include <stdlib.h> //malloc
 #include <stdio.h> //printf, readline#include <readline/readline.h>
