@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aehrlich <aehrlich@student.42.fr>          +#+  +:+       +#+        */
+/*   By: aehrlich <aehrlich@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/09 11:47:38 by aehrlich          #+#    #+#             */
-/*   Updated: 2023/06/09 12:12:14 by aehrlich         ###   ########.fr       */
+/*   Updated: 2023/06/11 20:14:35 by aehrlich         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,8 @@ int	main(int argc, char **argv, char **envp)
 		data.tokens = scan_tokens(line, &data);
 		//ft_lstiter(data.tokens, print_token);
 		data.commands = parse(data.tokens);
-		print_cmd_list(data.commands);
+		//print_cmd_list(data.commands);
+		execute(data.commands);
 		ft_lstclear(&data.tokens, token_del);
 		i++;
 	}

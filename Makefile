@@ -3,17 +3,17 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: aehrlich <aehrlich@student.42.fr>          +#+  +:+       +#+         #
+#    By: aehrlich <aehrlich@student.42berlin.de>    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/02/19 09:17:44 by lbaumann          #+#    #+#              #
-#    Updated: 2023/06/09 11:44:19 by aehrlich         ###   ########.fr        #
+#    Updated: 2023/06/10 15:24:11 by aehrlich         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME = minishell
 
 CC = cc
-CFLAGS = -Wall -Werror -Wextra
+CFLAGS = #-Wall -Werror -Wextra
 MAKEFLAGS   += --no-print-directory
 
 UNAME := $(shell uname)
@@ -62,7 +62,9 @@ SRCS = \
 	./parser/parser_utils_cmd.c \
 	./parser/parser_print.c \
 	./parser/parser.c \
-	./parser/parser_utils.c
+	./parser/parser_utils.c \
+	executor/executor_utils.c \
+	executor/executor.c 
 
 ifeq ($(UNAME), Linux)
 endif

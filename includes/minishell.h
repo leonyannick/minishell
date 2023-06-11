@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aehrlich <aehrlich@student.42.fr>          +#+  +:+       +#+        */
+/*   By: aehrlich <aehrlich@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/19 11:42:54 by lbaumann          #+#    #+#             */
-/*   Updated: 2023/06/09 12:17:03 by aehrlich         ###   ########.fr       */
+/*   Updated: 2023/06/10 15:30:22 by aehrlich         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,7 @@
 #include "lexer.h"
 #include "types.h"
 #include "parser.h"
+#include "executor.h"
 #include <stdlib.h> //malloc
 #include <stdio.h> //printf, readline#include <readline/readline.h>
 #include <readline/history.h>

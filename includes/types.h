@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   types.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aehrlich <aehrlich@student.42.fr>          +#+  +:+       +#+        */
+/*   By: aehrlich <aehrlich@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/05 10:33:26 by lbaumann          #+#    #+#             */
-/*   Updated: 2023/06/09 12:18:54 by aehrlich         ###   ########.fr       */
+/*   Updated: 2023/06/11 12:26:20 by aehrlich         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,5 +65,14 @@ typedef struct command
 	char			*input_redir_path;
 	t_list			*output_redir_path;
 }					t_command;
+
+//executor
+typedef struct pipeline
+{
+	int	**pipes;
+	int	*pids;
+	int	pipe_count;
+	
+}t_pipeline;
 
 #endif

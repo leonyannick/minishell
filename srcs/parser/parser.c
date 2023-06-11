@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parser.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aehrlich <aehrlich@student.42.fr>          +#+  +:+       +#+        */
+/*   By: aehrlich <aehrlich@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/22 14:16:45 by aehrlich          #+#    #+#             */
-/*   Updated: 2023/06/09 12:22:14 by aehrlich         ###   ########.fr       */
+/*   Updated: 2023/06/10 16:40:27 by aehrlich         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,7 +67,7 @@ t_list	*parse(t_list *token_head)
 	t_list		*cmds;
 	t_list		*cmd_head;
 
-	if (!ft_valid_grammar(token_head))
+	if (!ft_valid_grammar(token_head) || !token_head)
 		return (NULL);
 	cmds = ft_create_cmd_list(token_head);
 	if (!cmds)
