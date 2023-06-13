@@ -6,13 +6,13 @@
 /*   By: aehrlich <aehrlich@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/10 14:58:03 by aehrlich          #+#    #+#             */
-/*   Updated: 2023/06/12 15:46:01 by aehrlich         ###   ########.fr       */
+/*   Updated: 2023/06/13 11:38:50 by aehrlich         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "executor_utils.h"
 
-int	**ft_create_pipes(t_list *commands)
+static int	**ft_create_pipes(t_list *commands)
 {
 	int	**pipes;
 	int	pipe_count;
@@ -35,18 +35,6 @@ int	**ft_create_pipes(t_list *commands)
 		i++;
 	}
 	return (pipes);
-}
-
-int	io_redirection(t_list *command, int **pipes, int index)
-{
-	t_command *casted_cmd;
-
-	casted_cmd = (t_command *)command->content;
-	if (casted_cmd->has_in_pipe)
-		dup2(pipes[index - 1][0], STDIN_FILENO);
-	if (casted_cmd->has_out_pipe)
-		dup2(pipes[index][1], STDOUT_FILENO);
-	return (0);
 }
 
 int	children(int **pipes, int *pids, t_list *commands)
@@ -80,6 +68,8 @@ int	execute(t_list *commands)
 	int	cmd_count;
 	
 	i = 0;
+	if (!commands)
+		return (1);
 	cmd_count = ft_lstsize(commands);
 	pipes = ft_create_pipes(commands);
 	pids = malloc(cmd_count * sizeof(int));

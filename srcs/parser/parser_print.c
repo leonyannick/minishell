@@ -6,7 +6,7 @@
 /*   By: aehrlich <aehrlich@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/07 16:23:40 by aehrlich          #+#    #+#             */
-/*   Updated: 2023/06/09 12:21:40 by aehrlich         ###   ########.fr       */
+/*   Updated: 2023/06/13 10:58:22 by aehrlich         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,8 @@
 void	print_cmd_list(t_list *cmd_head)
 {
 	t_command *temp_cmd;
+	t_file	*temp_file;
+	t_list	*tmp_file_head;
 	
 	while (cmd_head)
 	{
@@ -56,9 +58,19 @@ void	print_cmd_list(t_list *cmd_head)
 		else if (temp_cmd->out_redir_type == O_RED_APP)
 			printf("O_RED_APP (>>)\n");
 		printf("in redir path:\t");
-		printf("%s\n", temp_cmd->input_redir_path);
+		printf("%s\n", temp_cmd->inred_file.path);
 		printf("out redir path:\t");
-		print_string_list(temp_cmd->output_redir_path);
+		tmp_file_head = temp_cmd->outred_file;
+		while (tmp_file_head)
+		{
+			temp_file = (t_file *)tmp_file_head->content;
+			if (temp_file->open_mode == O_RED)
+				printf("%s(%s) -> ", (char *)temp_file->path, ">");
+			else if (temp_file->open_mode == O_RED_APP)
+				printf("%s(%s) -> ", (char *)temp_file->path, ">>");
+			tmp_file_head = tmp_file_head->next;
+		}
+		printf("NULL\n");
 		printf("------------------------------------\n");
 		cmd_head = cmd_head->next;
 	}

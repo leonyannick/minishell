@@ -6,7 +6,7 @@
 /*   By: aehrlich <aehrlich@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/05 10:33:26 by lbaumann          #+#    #+#             */
-/*   Updated: 2023/06/12 15:44:43 by aehrlich         ###   ########.fr       */
+/*   Updated: 2023/06/13 09:50:09 by aehrlich         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,6 +54,13 @@ typedef enum cmd_type
 	PATH,
 }	t_cmd_type;
 
+typedef struct file
+{
+	char			*path;
+	int				fd;
+	e_token_types	open_mode;
+}t_file;
+
 typedef struct command
 {
 	t_list			*arguments;
@@ -62,8 +69,8 @@ typedef struct command
 	bool			has_out_pipe;
 	e_token_types	in_redir_type;
 	e_token_types	out_redir_type;
-	char			*input_redir_path;
-	t_list			*output_redir_path;
+	t_file			inred_file;
+	t_list			*outred_file;
 }					t_command;
 
 //executor

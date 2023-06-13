@@ -6,7 +6,7 @@
 /*   By: aehrlich <aehrlich@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/08 12:31:46 by aehrlich          #+#    #+#             */
-/*   Updated: 2023/06/12 15:45:18 by aehrlich         ###   ########.fr       */
+/*   Updated: 2023/06/13 10:57:02 by aehrlich         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,7 @@ void	ft_set_input_redirection(t_list **token_head, t_list *cmd_head)
 	temp_cmd->in_redir_type = temp_token->type;
 	*token_head = (*token_head)->next;
 	temp_token = (t_token *)(*token_head)->content;
-	temp_cmd->input_redir_path = ft_strdup(temp_token->str);
+	temp_cmd->inred_file.path = ft_strdup(temp_token->str);
 }
 
 void	ft_set_output_redirection(t_list **token_head, t_list *cmd_head)
@@ -48,14 +48,21 @@ void	ft_set_output_redirection(t_list **token_head, t_list *cmd_head)
 	t_command	*temp_cmd;
 	t_token		*temp_token;
 	t_list		*temp_node;
+	t_file		*new_file;
 
+	new_file = malloc(sizeof(t_file));
+	if (!new_file)
+		return ; //TODO: Cleanup
 	temp_token = (t_token *)(*token_head)->content;
 	temp_cmd = (t_command *)(cmd_head->content);
 	temp_cmd->out_redir_type = temp_token->type;
+	new_file->open_mode = temp_token->type;
 	*token_head = (*token_head)->next;
 	temp_token = (t_token *)(*token_head)->content;
-	temp_node = ft_lstnew((void *)temp_token->str);
-	ft_lstadd_back(&(temp_cmd->output_redir_path), temp_node);
+	new_file->fd = -1;
+	new_file->path = ft_strdup(temp_token->str);
+	temp_node = ft_lstnew((void *)new_file);
+	ft_lstadd_back(&(temp_cmd->outred_file), temp_node);
 }
 
 void	ft_set_words(t_list *token_head, t_list *cmd_head, bool *is_first_word)

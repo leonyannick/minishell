@@ -6,7 +6,7 @@
 /*   By: aehrlich <aehrlich@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/09 11:47:38 by aehrlich          #+#    #+#             */
-/*   Updated: 2023/06/12 10:33:17 by aehrlich         ###   ########.fr       */
+/*   Updated: 2023/06/13 11:24:34 by aehrlich         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,9 +38,3 @@ int	main(int argc, char **argv, char **envp)
 	}
 	free(line);
 }
-	// int i = 11;
-	
-	// t_list *test = NULL;
-	// t_list *node = ft_lstnew(&i);
-	// ft_lstadd_back(&test, node);
-	// ft_lstmap(test, print_token, free);

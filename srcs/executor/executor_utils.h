@@ -6,7 +6,7 @@
 /*   By: aehrlich <aehrlich@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/10 14:24:32 by aehrlich          #+#    #+#             */
-/*   Updated: 2023/06/12 09:48:01 by aehrlich         ###   ########.fr       */
+/*   Updated: 2023/06/13 11:32:01 by aehrlich         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,5 +20,6 @@
 # include "../../includes/types.h"
 
 char	**ft_lst_strarr(t_list *list);
+int		io_redirection(t_list *command, int **pipes, int index);
 
 #endif
