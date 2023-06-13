@@ -6,14 +6,12 @@
 /*   By: aehrlich <aehrlich@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/13 11:29:38 by aehrlich          #+#    #+#             */
-/*   Updated: 2023/06/13 11:52:08 by aehrlich         ###   ########.fr       */
+/*   Updated: 2023/06/13 14:03:47 by aehrlich         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-# include <fcntl.h>
-# include <stdio.h>
-# include "../../libft/includes/libft.h"
-# include "../../includes/types.h"
+
+#include "executor_utils.h"
 
 static int	get_open_flags(e_token_types redir_type)
 {
@@ -26,22 +24,16 @@ static int	get_open_flags(e_token_types redir_type)
 	return (0);
 }
 
-int	io_redirection(t_list *command, int **pipes, int index)
+int	io_redirection(t_list *command, int **pipes, int index, t_data *data)
 {
 	t_command	*c_cmd;
 	t_file		*tmp_outfile;
 
 	c_cmd = (t_command *)command->content;
 	if (c_cmd->has_in_pipe)
-	{
 		dup2(pipes[index - 1][0], STDIN_FILENO);
-		close(pipes[index - 1][0]);
-	}
 	if (c_cmd->has_out_pipe)
-	{
 		dup2(pipes[index][1], STDOUT_FILENO);
-		close(pipes[index][1]);
-	}
 	if (c_cmd->in_redir_type == I_RED)
 	{
 		c_cmd->inred_file.fd = open(c_cmd->inred_file.path, get_open_flags(c_cmd->in_redir_type), 0777);
@@ -64,5 +56,6 @@ int	io_redirection(t_list *command, int **pipes, int index)
 			c_cmd->outred_file = c_cmd->outred_file->next;
 		}
 	}
+	close_pipe_fd(pipes, data);
 	return (0);
 }

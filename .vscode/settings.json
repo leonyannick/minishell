@@ -1,6 +1,7 @@
 {
 	"files.associations": {
 		"minishell.h": "c",
-		"executor_utils.h": "c"
+		"executor_utils.h": "c",
+		"stdio.h": "c"
 	}
 }
