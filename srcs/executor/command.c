@@ -6,12 +6,15 @@
 /*   By: aehrlich <aehrlich@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/13 11:58:09 by aehrlich          #+#    #+#             */
-/*   Updated: 2023/06/13 12:33:08 by aehrlich         ###   ########.fr       */
+/*   Updated: 2023/06/13 17:07:53 by aehrlich         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "executor_utils.h"
 
+/* 
+	PULL REQUEST LEON LIBFT
+ */
 char	*ft_strjoin_free(char const *s1, char const *s2)
 {
 	char	*ret;
@@ -31,6 +34,12 @@ char	*ft_strjoin_free(char const *s1, char const *s2)
 	return (ret);
 }
 
+/* 
+	frees a string array and sets its pointer to NULL
+	to make it unreachable.
+	@argument:	pointer to the array of strings, to make it NULL settable
+	@return:	none
+ */
 static void	free_str_arr(char ***strs)
 {
 	int	i;
@@ -48,6 +57,12 @@ static void	free_str_arr(char ***strs)
 	*strs = 0;
 }
 
+/* 
+	splits the PATHS data representation of the PATHS environ var
+	and creates an array of strings.
+	@argument - data:	data object containing the envp
+	@return:			arry of strings with the available paths
+ */
 static char	**get_paths(t_data *data)
 {
 	int		i;
@@ -67,6 +82,12 @@ static char	**get_paths(t_data *data)
 	return (paths);
 }
 
+/* 
+	Searchs for a vaild execution path with the envp.
+	If successful executes the command in its child process.
+	@argument - data:		data object containing the envp for the PATHS
+	@argument - command:	command to execute
+ */
 int	execute_path_cmd(t_data *data, t_command *command)
 {
 	char		**paths;
@@ -80,7 +101,9 @@ int	execute_path_cmd(t_data *data, t_command *command)
 	while (*paths)
 	{
 		joined_path = ft_strjoin(*paths, "/");
-		joined_path = ft_strjoin_free(joined_path, (char *)command->arguments->content);
+		joined_path = ft_strjoin_free(
+				joined_path,
+				(char *)command->arguments->content);
 		if (access(joined_path, X_OK) == 0)
 			break ;
 		free(joined_path);

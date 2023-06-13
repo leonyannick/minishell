@@ -3,26 +3,26 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aehrlich <aehrlich@student.42berlin.de>    +#+  +:+       +#+        */
+/*   By: aehrlich <aehrlich@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/19 11:42:54 by lbaumann          #+#    #+#             */
-/*   Updated: 2023/06/10 15:30:22 by aehrlich         ###   ########.fr       */
+/*   Updated: 2023/06/13 16:52:13 by aehrlich         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef MINISHELL_H
 # define MINISHELL_H
 
-#include "../libft/includes/libft.h"
-#include "lexer.h"
-#include "types.h"
-#include "parser.h"
-#include "executor.h"
-#include <stdlib.h> //malloc
-#include <stdio.h> //printf, readline#include <readline/readline.h>
-#include <readline/history.h>
-#include <readline/readline.h>
-#include <stdbool.h> //true, false
+# include "../libft/includes/libft.h"
+# include "lexer.h"
+# include "types.h"
+# include "parser.h"
+# include "executor.h"
+# include <stdlib.h> //malloc
+# include <stdio.h> //printf, readline#include <readline/readline.h>
+# include <readline/history.h>
+# include <readline/readline.h>
+# include <stdbool.h> //true, false
 
 //color macro for printing status messages in color
 # define GR	"\033[32;1m"
@@ -36,4 +36,3 @@ void	init_data(t_data *data, char **envp);
 void	print_token(void *arg);
 
 #endif
-

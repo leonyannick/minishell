@@ -6,13 +6,28 @@
 /*   By: aehrlich <aehrlich@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/22 14:16:45 by aehrlich          #+#    #+#             */
-/*   Updated: 2023/06/13 11:36:07 by aehrlich         ###   ########.fr       */
+/*   Updated: 2023/06/13 16:54:40 by aehrlich         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/minishell.h"
 #include "parser_utils.h"
 
+/* 
+	checks the minishell BNF grammar:
+	------------------------------------------------------
+	pipeline		::=	cmd
+					|	cmd PIPE pipline
+				
+	cmd				::=	{WORD} io_redirection WORD {WORD}
+					|	WORD
+					|	WORD {WORD}
+				
+	io_redirection	::=	I_RED | O_RED | O_RED | I_RED_HD
+	------------------------------------------------------
+	@argument - token:	token list to check
+	@return:			true/flase
+ */
 static bool	ft_valid_grammar(t_list *token)
 {
 	t_token	*temp_token;
@@ -41,6 +56,12 @@ static bool	ft_valid_grammar(t_list *token)
 	return (true);
 }
 
+/* 
+	traverses the token linked list, splits at PIPES and populates the command,
+	sets the pipes and the redirections depending on the token type.
+	@argument - token_head: token list to traverse
+	@argument - cmd:		pointer to cmd_head to update the head
+ */
 static void	ft_traverse_tokenlist(t_list *token_head, t_list **cmd_head)
 {
 	t_token		*temp_token;
@@ -62,6 +83,12 @@ static void	ft_traverse_tokenlist(t_list *token_head, t_list **cmd_head)
 	}
 }
 
+/* 
+	parses the token linked list, extract piping and redircetion
+	information, populating the command linked list.
+	@argument - token_head:	head of token_linked list to parse
+	@return:				linked list of simple commands
+ */
 t_list	*parse(t_list *token_head)
 {
 	t_list		*cmds;

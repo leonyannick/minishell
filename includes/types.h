@@ -6,18 +6,18 @@
 /*   By: aehrlich <aehrlich@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/05 10:33:26 by lbaumann          #+#    #+#             */
-/*   Updated: 2023/06/13 09:50:09 by aehrlich         ###   ########.fr       */
+/*   Updated: 2023/06/13 16:53:41 by aehrlich         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef STRUCTS_H
-# define STRUCTS_H
+#ifndef TYPES_H
+# define TYPES_H
 
-#include "../libft/includes/libft.h"
-#include <stdbool.h>
+# include "../libft/includes/libft.h"
+# include <stdbool.h>
 
 //minishell
-typedef struct	data
+typedef struct data
 {
 	char	**envp;
 	t_list	*tokens;
@@ -39,7 +39,7 @@ typedef enum token_types
 	PARAMETER,
 	WHITESPACE,
 	NONE
-} e_token_types;
+}	e_token_types;
 
 typedef struct s_token
 {

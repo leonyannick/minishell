@@ -6,19 +6,31 @@
 /*   By: aehrlich <aehrlich@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/08 12:31:46 by aehrlich          #+#    #+#             */
-/*   Updated: 2023/06/13 10:57:02 by aehrlich         ###   ########.fr       */
+/*   Updated: 2023/06/13 16:58:47 by aehrlich         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
 #include "parser_utils.h"
 
+/* 
+	returns boolean when passedtype is a redircetion
+ */
 bool	ft_is_redirection(e_token_types type)
 {
 	return (type == I_RED || type == O_RED
 		|| type == I_RED_HD || type == O_RED_APP);
 }
 
+/* 
+	If a token is of type PIPE the current command is set to have
+	an outpipe. Going to the next command and sets this to have an inpipe.
+	@argument - cmd_head: pointer to head of commandlist, to update head
+	@argument - is_first_word: after a pipe the next word should be 
+	interpreted as first
+								word to determine if the word should be a command name
+	@return						none
+ */
 void	ft_set_pipe(t_list **cmd_head, bool *is_first_word)
 {
 	t_command	*temp_cmd;
@@ -30,6 +42,14 @@ void	ft_set_pipe(t_list **cmd_head, bool *is_first_word)
 	*is_first_word = true;
 }
 
+/* 
+	overides the input_red (if more input_redir appear in tokenstream) and
+	goes to next token to set the following WORD as the path. 
+	If there was alredy one, free the old one.
+	@argument - token_head:	Pointer to tokenhead, to be able to update the head
+	@argument - cmd_head:	Pointer to current cmd to be set
+	@return:				none
+ */
 void	ft_set_input_redirection(t_list **token_head, t_list *cmd_head)
 {
 	t_command	*temp_cmd;
@@ -40,9 +60,20 @@ void	ft_set_input_redirection(t_list **token_head, t_list *cmd_head)
 	temp_cmd->in_redir_type = temp_token->type;
 	*token_head = (*token_head)->next;
 	temp_token = (t_token *)(*token_head)->content;
+	if (temp_cmd->inred_file.path)
+		free(temp_cmd->inred_file.path);
 	temp_cmd->inred_file.path = ft_strdup(temp_token->str);
 }
 
+/* 
+	creates a node for every out_redirection because it get
+	not overwritten like in input. for every out_redir a file 
+	has to be created. The node is added to the end of the out_red
+	linked list. The file descriptor gets set in executor module.
+	@argument - token_head:	Pointer to tokenhead, to be able to update the head
+	@argument - cmd_head:	Pointer to current cmd to be set
+	@return:				none
+ */
 void	ft_set_output_redirection(t_list **token_head, t_list *cmd_head)
 {
 	t_command	*temp_cmd;
@@ -52,7 +83,7 @@ void	ft_set_output_redirection(t_list **token_head, t_list *cmd_head)
 
 	new_file = malloc(sizeof(t_file));
 	if (!new_file)
-		return ; //TODO: Cleanup
+		return ;
 	temp_token = (t_token *)(*token_head)->content;
 	temp_cmd = (t_command *)(cmd_head->content);
 	temp_cmd->out_redir_type = temp_token->type;
@@ -65,6 +96,15 @@ void	ft_set_output_redirection(t_list **token_head, t_list *cmd_head)
 	ft_lstadd_back(&(temp_cmd->outred_file), temp_node);
 }
 
+/* 
+	creates a node for every WORD. The node is added to the end of the argument
+	linked list. The first WORD is used to determine the command type.
+	is_first_word is then set to false. Is set to true after the next
+	PIPE when we facing a new command.
+	@argument - token_head: tokenhead
+	@argument - cmd_head:	current cmd to be set
+	@return:				none
+ */
 void	ft_set_words(t_list *token_head, t_list *cmd_head, bool *is_first_word)
 {
 	t_list		*temp_node;
