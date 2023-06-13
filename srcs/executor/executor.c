@@ -6,7 +6,7 @@
 /*   By: aehrlich <aehrlich@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/10 14:58:03 by aehrlich          #+#    #+#             */
-/*   Updated: 2023/06/13 11:38:50 by aehrlich         ###   ########.fr       */
+/*   Updated: 2023/06/13 12:32:39 by aehrlich         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,30 +37,35 @@ static int	**ft_create_pipes(t_list *commands)
 	return (pipes);
 }
 
-int	children(int **pipes, int *pids, t_list *commands)
+int	children(int **pipes, int *pids, t_data *data)
 {
-	int	i;
-
+	int			i;
+	t_list		*cmd_head;
+	t_command	*command;
+	
 	i = 0;
-	while (commands)
+	cmd_head = data->commands;
+	while (cmd_head)
 	{
 		pids[i] = fork();
 		if (pids[i] == -1)
 			return (-1);
 		if (pids[i] == 0)
 		{
-			char *temp[] = {"cat", "file1", NULL};
-			io_redirection(commands, pipes, i);
-			if (execve("/usr/bin/cat", temp, NULL) == -1)
-				perror("execve");
+			command = (t_command *)cmd_head->content;
+			//char *temp[] = {"cat", "file1", NULL};
+			io_redirection(cmd_head, pipes, i);
+			execute_path_cmd(data, command);
+			/* if (execve("/usr/bin/cat", temp, NULL) == -1)
+				perror("execve"); */
 		}
-		commands = commands->next;
+		cmd_head = cmd_head->next;
 		i++;
 	}
 	return (0);
 }
 
-int	execute(t_list *commands)
+int	execute(t_data *data)
 {
 	int	**pipes;
 	int	*pids;
@@ -68,14 +73,14 @@ int	execute(t_list *commands)
 	int	cmd_count;
 	
 	i = 0;
-	if (!commands)
+	if (!data->commands)
 		return (1);
-	cmd_count = ft_lstsize(commands);
-	pipes = ft_create_pipes(commands);
+	cmd_count = ft_lstsize(data->commands);
+	pipes = ft_create_pipes(data->commands);
 	pids = malloc(cmd_count * sizeof(int));
 	if (!pipes)
 		return (printf("Error creating pipes\n"), 1);
-	children(pipes, pids, commands);
+	children(pipes, pids, data);
 	while (i < cmd_count)
 		waitpid(pids[i++], NULL, 0);
 	return (0);

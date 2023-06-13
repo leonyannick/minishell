@@ -6,7 +6,7 @@
 #    By: aehrlich <aehrlich@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/02/19 09:17:44 by lbaumann          #+#    #+#              #
-#    Updated: 2023/06/13 11:32:46 by aehrlich         ###   ########.fr        #
+#    Updated: 2023/06/13 12:11:03 by aehrlich         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -65,7 +65,8 @@ SRCS = \
 	./parser/parser_utils.c \
 	executor/executor_utils.c \
 	executor/executor.c \
-	executor/redirection.c 
+	executor/redirection.c \
+	executor/command.c 
 
 ifeq ($(UNAME), Linux)
 endif

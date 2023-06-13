@@ -6,7 +6,7 @@
 /*   By: aehrlich <aehrlich@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/09 11:47:38 by aehrlich          #+#    #+#             */
-/*   Updated: 2023/06/13 11:24:34 by aehrlich         ###   ########.fr       */
+/*   Updated: 2023/06/13 12:32:09 by aehrlich         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,12 +27,11 @@ int	main(int argc, char **argv, char **envp)
 		line = readline("ushelless:> ");
 		if (!line)
 			continue ;
-		
 		data.tokens = scan_tokens(line, &data);
 		//ft_lstiter(data.tokens, print_token);
 		data.commands = parse(data.tokens);
 		//print_cmd_list(data.commands);
-		execute(data.commands);
+		execute(&data);
 		ft_lstclear(&data.tokens, token_del);
 		i++;
 	}
