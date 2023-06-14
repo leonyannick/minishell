@@ -6,7 +6,7 @@
 #    By: aehrlich <aehrlich@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/02/19 09:17:44 by lbaumann          #+#    #+#              #
-#    Updated: 2023/06/13 15:36:48 by aehrlich         ###   ########.fr        #
+#    Updated: 2023/06/14 11:41:17 by aehrlich         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -59,10 +59,11 @@ SRCS = \
 	lexer/lexer_utils_token_2.c \
 	error/error.c \
 	data_init.c \
-	./parser/parser_utils_cmd.c \
-	./parser/parser_print.c \
-	./parser/parser.c \
-	./parser/parser_utils.c \
+	parser/parser_utils_cmd.c \
+	parser/parser_print.c \
+	parser/parser.c \
+	parser/parser_utils.c \
+	parser/parser_free.c \
 	executor/executor_utils.c \
 	executor/executor.c \
 	executor/redirection.c \

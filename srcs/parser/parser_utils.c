@@ -6,7 +6,7 @@
 /*   By: aehrlich <aehrlich@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/08 12:31:46 by aehrlich          #+#    #+#             */
-/*   Updated: 2023/06/13 16:58:47 by aehrlich         ###   ########.fr       */
+/*   Updated: 2023/06/14 12:29:20 by aehrlich         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -116,6 +116,6 @@ void	ft_set_words(t_list *token_head, t_list *cmd_head, bool *is_first_word)
 	if (*is_first_word)
 		temp_cmd->type = ft_get_cmd_type(temp_token->str);
 	*is_first_word = false;
-	temp_node = ft_lstnew((void *)temp_token->str);
+	temp_node = ft_lstnew((void *)ft_strdup(temp_token->str));
 	ft_lstadd_back(&(temp_cmd->arguments), temp_node);
 }

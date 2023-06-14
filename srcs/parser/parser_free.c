@@ -1,25 +1,33 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   parser.h                                           :+:      :+:    :+:   */
+/*   parser_free.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: aehrlich <aehrlich@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/05/25 10:04:54 by aehrlich          #+#    #+#             */
-/*   Updated: 2023/06/14 11:52:43 by aehrlich         ###   ########.fr       */
+/*   Created: 2023/06/14 11:33:20 by aehrlich          #+#    #+#             */
+/*   Updated: 2023/06/14 19:00:26 by aehrlich         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef PARSER_H
-# define PARSER_H
+#include "parser_utils.h"
 
-# include "lexer.h"
-# include <stdbool.h>
-# include "../libft/includes/libft.h"
+static void	file_del(void *arg)
+{
+	t_file *file;
+	
+	file = (t_file *)arg;
+	ft_free_set_null(file->path);
+	ft_free_set_null(file);
+}
 
-t_list	*parse(t_list *token_head);
-void	print_cmd_list(t_list *cmd_head);
-void	print_string_list(t_list *head);
-void	print_token_list(t_list *token);
-void	command_del(void *arg);
-#endif
+void	command_del(void *arg)
+{
+	t_command *command;
+
+	command = (t_command *)arg;
+	ft_lstclear(&command->arguments, free);
+	ft_free_set_null(command->inred_file.path);
+	ft_lstclear(&command->outred_file, file_del);
+	free(command);
+}

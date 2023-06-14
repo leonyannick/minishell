@@ -6,33 +6,11 @@
 /*   By: aehrlich <aehrlich@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/13 11:58:09 by aehrlich          #+#    #+#             */
-/*   Updated: 2023/06/13 17:07:53 by aehrlich         ###   ########.fr       */
+/*   Updated: 2023/06/14 16:50:56 by aehrlich         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "executor_utils.h"
-
-/* 
-	PULL REQUEST LEON LIBFT
- */
-char	*ft_strjoin_free(char const *s1, char const *s2)
-{
-	char	*ret;
-	int		len_s1;
-	int		len_s2;
-
-	if (s1 == 0 || s2 == 0)
-		return (0);
-	len_s1 = ft_strlen(s1);
-	len_s2 = ft_strlen(s2);
-	ret = malloc((len_s1 + len_s2 + 1) * sizeof(char));
-	if (ret == 0)
-		return (0);
-	ft_strlcpy(ret, s1, len_s1 + 1);
-	ft_strlcpy(&ret[len_s1], s2, len_s2 + 1);
-	free((void *)s1);
-	return (ret);
-}
 
 /* 
 	frees a string array and sets its pointer to NULL
@@ -94,23 +72,29 @@ int	execute_path_cmd(t_data *data, t_command *command)
 	char		*joined_path;
 	char		**start;
 
-	paths = get_paths(data);
-	if (!paths)
-		return (printf("NO PATHS\n"), -1);
-	start = paths;
-	while (*paths)
+	if (access((char *)command->arguments->content, X_OK) == 0)
+		joined_path = ft_strdup((char *)command->arguments->content);
+	else
 	{
-		joined_path = ft_strjoin(*paths, "/");
-		joined_path = ft_strjoin_free(
-				joined_path,
-				(char *)command->arguments->content);
-		if (access(joined_path, X_OK) == 0)
-			break ;
-		free(joined_path);
-		paths++;
+		paths = get_paths(data);
+		if (!paths)
+			return (printf("NO PATHS\n"), -1);
+		start = paths;
+		while (*paths)
+		{
+			joined_path = ft_strjoin(*paths, "/");
+			joined_path = ft_strjoin_free(
+					joined_path,
+					(char *)command->arguments->content);
+			if (access(joined_path, X_OK) == 0)
+				break ;
+			free(joined_path);
+			paths++;
+		}
 	}
 	execve(joined_path, ft_lst_strarr(command->arguments), data->envp);
 	perror("execve");
 	free_str_arr(&start);
+	free(joined_path);
 	return (-1);
 }

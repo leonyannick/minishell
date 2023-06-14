@@ -6,14 +6,14 @@
 /*   By: aehrlich <aehrlich@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/22 14:16:45 by aehrlich          #+#    #+#             */
-/*   Updated: 2023/06/13 16:54:40 by aehrlich         ###   ########.fr       */
+/*   Updated: 2023/06/14 18:43:04 by aehrlich         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/minishell.h"
 #include "parser_utils.h"
 
-/* 
+/*
 	checks the minishell BNF grammar:
 	------------------------------------------------------
 	pipeline		::=	cmd
@@ -42,13 +42,14 @@ static bool	ft_valid_grammar(t_list *token)
 			if (!last || !token->next
 				|| ((t_token *)last->content)->type == PIPE
 				|| ((t_token *)token->next->content)->type == PIPE)
-				return (printf("parse error near |\n"), false);
+				return (printf("ushelless: syntax error near unexpected token '|'\n"), false);
 		}
 		else if (ft_is_redirection(temp_token->type))
 		{
-			if (!token->next
-				|| ((t_token *)token->next->content)->type != WORD)
-				return (printf("parse error near redirection\n"), false);
+			if (!token->next)
+				return (printf("ushelless: syntax error near unexpected token 'newline'\n"), false);
+			if (((t_token *)token->next->content)->type != WORD)
+				return (printf("ushelless: syntax error near unexpected token '%s'\n", ((t_token *)(token->next->content))->str), false);
 		}
 		last = token;
 		token = token->next;

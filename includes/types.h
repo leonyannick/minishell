@@ -6,7 +6,7 @@
 /*   By: aehrlich <aehrlich@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/05 10:33:26 by lbaumann          #+#    #+#             */
-/*   Updated: 2023/06/13 16:53:41 by aehrlich         ###   ########.fr       */
+/*   Updated: 2023/06/14 19:24:42 by aehrlich         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,14 +72,5 @@ typedef struct command
 	t_file			inred_file;
 	t_list			*outred_file;
 }					t_command;
-
-//executor
-typedef struct pipeline
-{
-	int	**pipes;
-	int	*pids;
-	int	pipe_count;
-	
-}t_pipeline;
 
 #endif

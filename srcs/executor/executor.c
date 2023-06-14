@@ -6,7 +6,7 @@
 /*   By: aehrlich <aehrlich@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/10 14:58:03 by aehrlich          #+#    #+#             */
-/*   Updated: 2023/06/13 17:00:39 by aehrlich         ###   ########.fr       */
+/*   Updated: 2023/06/14 19:26:25 by aehrlich         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,14 +45,6 @@ static int	**ft_create_pipes(t_list *commands)
 }
 
 /* 
-	PLACEHOLDER
- */
-static int	excute_builtin(void)
-{
-	return (0);
-}
-
-/* 
 	forks a child prcess for every command. if returned id is 0, we are in the 
 	forked child and can set up the command execution. The output gets redirected,
 	the pipes get set up and based on the cmd type the command gets executed either
@@ -80,9 +72,7 @@ static int	children(int **pipes, int *pids, t_data *data)
 			command = (t_command *)cmd_head->content;
 			io_redirection(cmd_head, pipes, i, data);
 			if (command->type == PATH)
-				execute_path_cmd(data, command);
-			else if (command->type == BUILTIN)
-				excute_builtin();
+				return (execute_path_cmd(data, command));
 		}
 		cmd_head = cmd_head->next;
 		i++;
@@ -136,9 +126,11 @@ int	execute(t_data *data)
 	pids = malloc(cmd_count * sizeof(int));
 	if (!pipes)
 		return (printf("Error creating pipes\n"), 1);
-	children(pipes, pids, data);
+	if (children(pipes, pids, data) == -1)
+		return (-1);
 	close_pipe_fd(pipes, data);
 	while (i < cmd_count)
 		waitpid(pids[i++], NULL, 0);
+	free(pids);
 	return (0);
 }
