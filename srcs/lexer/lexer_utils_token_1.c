@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   lexer_utils_tokentype_1.c                          :+:      :+:    :+:   */
+/*   lexer_utils_token_1.c                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lbaumann <lbaumann@student.42berlin.de>    +#+  +:+       +#+        */
+/*   By: lbaumann <lbaumann@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/05 10:03:20 by lbaumann          #+#    #+#             */
-/*   Updated: 2023/06/05 10:05:40 by lbaumann         ###   ########.fr       */
+/*   Updated: 2023/06/14 17:30:08 by lbaumann         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,32 +14,30 @@
 
 char	*redirection_token(char *line, size_t *i, e_token_types *type)
 {
-	if (line[*i] == '<' && !is_operator(line[*i + 1]))
-	{
-		(*i)++;
-		*type = I_RED;
-		return (ft_strdup("<"));
-	}
-	else if (line[*i] == '>' && !is_operator(line[*i + 1]))
-	{
-		(*i)++;
-		*type = O_RED;
-		return (ft_strdup(">"));
-	}
-	else if (!ft_strncmp(&line[*i], "<<", 2) && !is_operator(line[*i + 2]))
+	if (!ft_strncmp(&line[*i], "<<", 2))
 	{
 		*i += 2;
 		*type = I_RED_HD;
 		return (ft_strdup("<<"));
 	}
-	else if (!ft_strncmp(&line[*i], ">>", 2) && !is_operator(line[*i + 2]))
+	else if (!ft_strncmp(&line[*i], ">>", 2))
 	{
 		*i += 2;
 		*type = O_RED_APP;
 		return (ft_strdup(">>"));
 	}
-	printf("syntax error near unexpected token\n");
-	return (0);
+	else if (line[*i] == '<')
+	{
+		(*i)++;
+		*type = I_RED;
+		return (ft_strdup("<"));
+	}
+	else
+	{
+		(*i)++;
+		*type = O_RED;
+		return (ft_strdup(">"));
+	}
 }
 
 /**
@@ -94,11 +92,6 @@ char	*whitespace_token(char *line, size_t *i, e_token_types *type)
 char	*pipe_token(char *line, size_t *i, e_token_types *type)
 {
 	*type = PIPE;
-	if (line[*i] == '|' && !is_operator(line[*i + 1]))
-	{
-		(*i)++;
-		return (ft_strdup("|"));
-	}
-	printf("syntax error near unexpected token\n");
-	return (0);
+	(*i)++;
+	return (ft_strdup("|"));
 }
