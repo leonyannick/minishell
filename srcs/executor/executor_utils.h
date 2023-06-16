@@ -6,7 +6,7 @@
 /*   By: aehrlich <aehrlich@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/10 14:24:32 by aehrlich          #+#    #+#             */
-/*   Updated: 2023/06/14 19:05:49 by aehrlich         ###   ########.fr       */
+/*   Updated: 2023/06/15 18:11:00 by aehrlich         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,9 +21,8 @@
 # include "../../includes/types.h"
 
 char	**ft_lst_strarr(t_list *list);
-int		io_redirection(t_list *command, int **pipes, int index, t_data *data);
+int		io_redirection(int in_pipe[2], int out_pipe[2], t_list *command);
 int		execute_path_cmd(t_data *data, t_command *command);
 int		close_pipe_fd(int **pipes, t_data *data);
-void	free_pipes(int **pipes, int pipe_count);
 
 #endif
