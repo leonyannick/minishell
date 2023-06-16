@@ -6,7 +6,7 @@
 /*   By: lbaumann <lbaumann@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/07 12:55:20 by lbaumann          #+#    #+#             */
-/*   Updated: 2023/06/15 17:07:25 by lbaumann         ###   ########.fr       */
+/*   Updated: 2023/06/16 12:29:37 by lbaumann         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@
  * afterwards
  * only '-' is also returned as false
 */
-static bool	check_n_flag(char *arg)
+static bool	check_n_flag(const char *arg)
 {
 	if (!arg || (*arg++) != '-' || !(*arg))
 		return (false);
