@@ -1,22 +1,24 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   builtins.h                                         :+:      :+:    :+:   */
+/*   env.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: lbaumann <lbaumann@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/06/07 15:06:19 by lbaumann          #+#    #+#             */
-/*   Updated: 2023/06/16 15:08:49 by lbaumann         ###   ########.fr       */
+/*   Created: 2023/06/16 15:04:00 by lbaumann          #+#    #+#             */
+/*   Updated: 2023/06/16 15:07:44 by lbaumann         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef BUILTINS_H
-# define BUILTINS_H
+#include "builtin_utils.h"
 
-void	builtin_echo(const char	**argv);
-void	builtin_export(const char **argv, t_list *dict);
-void	builtin_unset(const char **argv, t_list *dict);
-void	builtin_pwd(void);
-void	builtin_env(t_list *dict);
+static void	print_env_entry(void *arg)
+{
+	printf("%s=%s\n", ((t_dict *)arg)->key,
+		(char *)(((t_dict *)arg)->value));
+}
 
-#endif
+void	builtin_env(t_list *dict)
+{
+	ft_lstiter(dict, print_env_entry);
+}

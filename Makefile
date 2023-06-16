@@ -6,7 +6,7 @@
 #    By: lbaumann <lbaumann@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/02/19 09:17:44 by lbaumann          #+#    #+#              #
-#    Updated: 2023/06/16 13:10:47 by lbaumann         ###   ########.fr        #
+#    Updated: 2023/06/16 15:10:20 by lbaumann         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -67,6 +67,7 @@ SRCS = \
 	builtins/echo.c \
 	builtins/unset.c \
 	builtins/pwd.c \
+	builtins/env.c \
 
 ifeq ($(UNAME), Linux)
 endif
