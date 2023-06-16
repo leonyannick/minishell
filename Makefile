@@ -6,7 +6,7 @@
 #    By: aehrlich <aehrlich@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/02/19 09:17:44 by lbaumann          #+#    #+#              #
-#    Updated: 2023/06/14 11:41:17 by aehrlich         ###   ########.fr        #
+#    Updated: 2023/06/16 12:58:01 by aehrlich         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -67,7 +67,8 @@ SRCS = \
 	executor/executor_utils.c \
 	executor/executor.c \
 	executor/redirection.c \
-	executor/command.c 
+	executor/command.c \
+	executor/pipe_utils.c 
 
 ifeq ($(UNAME), Linux)
 endif

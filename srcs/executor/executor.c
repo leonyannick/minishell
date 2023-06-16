@@ -6,14 +6,14 @@
 /*   By: aehrlich <aehrlich@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/10 14:58:03 by aehrlich          #+#    #+#             */
-/*   Updated: 2023/06/16 10:23:17 by aehrlich         ###   ########.fr       */
+/*   Updated: 2023/06/16 13:28:52 by aehrlich         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "executor_utils.h"
 
 /* 
-	forks a child prcess for every command. if returned id is 0, we are in the 
+	forks a child prcess for every command. if returnes id is 0, we are in the 
 	forked child and can set up the command execution. The output gets redirected,
 	the pipes get set up and based on the cmd type the command gets executed either
 	in the shell or via exec call.
@@ -31,27 +31,29 @@ static int	children(int *pids, t_data *data)
 	t_command	*command;
 
 	i = 0;
+	init_pipes(in_pipe, out_pipe);
 	cmd_head = data->commands;
-	command = (t_command *)cmd_head->content;
-	if (command->has_in_pipe)
-		ft_memcpy(in_pipe, out_pipe, 2 * sizeof(int));
-	if (command->has_out_pipe)
-		pipe(out_pipe);
 	while (cmd_head)
 	{
+		command = (t_command *)cmd_head->content;
+		if (command->has_in_pipe)
+			ft_memcpy(in_pipe, out_pipe, 2 * sizeof(int));
+		if (command->has_out_pipe)
+			pipe(out_pipe);
 		pids[i] = fork();
 		if (pids[i] == -1)
 			return (-1);
 		if (pids[i] == 0)
 		{
-			printf("Child: %s\n", (char *)command->arguments->content);
 			io_redirection(in_pipe, out_pipe, cmd_head);
 			if (command->type == PATH)
 				return (execute_path_cmd(data, command));
 		}
+		close_pipe_if_necessary(in_pipe);
 		cmd_head = cmd_head->next;
 		i++;
 	}
+	close_pipe_if_necessary(out_pipe);
 	return (0);
 }
 
