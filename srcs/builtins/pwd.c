@@ -1,21 +1,22 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   builtins.h                                         :+:      :+:    :+:   */
+/*   pwd.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: lbaumann <lbaumann@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/06/07 15:06:19 by lbaumann          #+#    #+#             */
-/*   Updated: 2023/06/16 14:59:00 by lbaumann         ###   ########.fr       */
+/*   Created: 2023/06/16 13:02:47 by lbaumann          #+#    #+#             */
+/*   Updated: 2023/06/16 15:00:33 by lbaumann         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef BUILTINS_H
-# define BUILTINS_H
+#include "builtin_utils.h"
 
-void	builtin_echo(const char	**argv);
-void	builtin_export(const char **argv, t_list *dict);
-void	builtin_unset(const char **argv, t_list *dict);
-void	builtin_pwd(void);
-
-#endif
+void	builtin_pwd(void)
+{
+	char	*pwd;
+	char	cwd[CWD_MAX_SIZE];
+	ft_memset(cwd, 0, CWD_MAX_SIZE);
+	getcwd(cwd, CWD_MAX_SIZE);
+	printf("%s\n", cwd);
+}
