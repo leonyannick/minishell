@@ -6,7 +6,7 @@
 /*   By: aehrlich <aehrlich@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/13 11:29:38 by aehrlich          #+#    #+#             */
-/*   Updated: 2023/06/16 12:49:48 by aehrlich         ###   ########.fr       */
+/*   Updated: 2023/06/16 15:03:16 by aehrlich         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,9 +86,11 @@ int	io_redirection(int in_pipe[2], int out_pipe[2], t_list *command)
 	if (c_cmd->has_out_pipe)
 		dup2(out_pipe[1], STDOUT_FILENO);
 	if (c_cmd->in_redir_type == I_RED)
-		redirect_input(c_cmd);
+		if (redirect_input(c_cmd) == -1)
+			return (-1);
 	if (c_cmd->out_redir_type == O_RED || c_cmd->out_redir_type == O_RED_APP)
-		redirect_output(c_cmd);
+		if (redirect_output(c_cmd) == -1)
+			return (-1);
 	close_pipe_if_necessary(in_pipe);
 	close_pipe_if_necessary(out_pipe);
 	return (0);
