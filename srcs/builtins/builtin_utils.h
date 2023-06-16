@@ -6,7 +6,7 @@
 /*   By: lbaumann <lbaumann@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/07 12:56:13 by lbaumann          #+#    #+#             */
-/*   Updated: 2023/06/07 15:05:56 by lbaumann         ###   ########.fr       */
+/*   Updated: 2023/06/15 12:44:07 by lbaumann         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,9 @@
 
 # include <stdbool.h>
 # include <stdio.h>
+# include <stdlib.h> //getenv
+#include "../../libft/includes/libft.h"
+
 
 
 #endif

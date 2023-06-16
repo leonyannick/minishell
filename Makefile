@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: aehrlich <aehrlich@student.42.fr>          +#+  +:+       +#+         #
+#    By: lbaumann <lbaumann@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/02/19 09:17:44 by lbaumann          #+#    #+#              #
-#    Updated: 2023/06/09 11:44:19 by aehrlich         ###   ########.fr        #
+#    Updated: 2023/06/16 11:47:36 by lbaumann         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -62,7 +62,9 @@ SRCS = \
 	./parser/parser_utils_cmd.c \
 	./parser/parser_print.c \
 	./parser/parser.c \
-	./parser/parser_utils.c
+	./parser/parser_utils.c \
+	builtins/export.c \
+	builtins/echo.c \
 
 ifeq ($(UNAME), Linux)
 endif
