@@ -6,7 +6,7 @@
 /*   By: lbaumann <lbaumann@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/16 13:02:47 by lbaumann          #+#    #+#             */
-/*   Updated: 2023/06/16 15:00:33 by lbaumann         ###   ########.fr       */
+/*   Updated: 2023/06/19 12:42:22 by lbaumann         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,8 +15,8 @@
 void	builtin_pwd(void)
 {
 	char	*pwd;
-	char	cwd[CWD_MAX_SIZE];
-	ft_memset(cwd, 0, CWD_MAX_SIZE);
-	getcwd(cwd, CWD_MAX_SIZE);
+	char	cwd[PATH_MAX];
+	ft_memset(cwd, 0, PATH_MAX);
+	getcwd(cwd, PATH_MAX);
 	printf("%s\n", cwd);
 }
