@@ -6,7 +6,7 @@
 /*   By: aehrlich <aehrlich@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/13 11:29:38 by aehrlich          #+#    #+#             */
-/*   Updated: 2023/06/16 15:03:16 by aehrlich         ###   ########.fr       */
+/*   Updated: 2023/06/19 16:17:00 by aehrlich         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,13 +39,30 @@ static int	get_open_flags(e_token_types redir_type)
  */
 static int	redirect_input(t_command *cmd)
 {
-	cmd->inred_file.fd = open(cmd->inred_file.path,
-			get_open_flags(cmd->in_redir_type),
-			0777);
-	if (cmd->inred_file.fd == -1)
-		return (perror("Infile"), -1);
-	dup2(cmd->inred_file.fd, STDIN_FILENO);
-	close(cmd->inred_file.fd);
+	t_file		*tmp_infile;
+	t_list		*file_head;
+
+	file_head = cmd->inred_file;
+	while (file_head)
+	{
+		tmp_infile = (t_file *)file_head->content;
+		if (tmp_infile->open_mode == I_RED)
+		{
+			tmp_infile->fd = open(
+					tmp_infile->path,
+					get_open_flags(cmd->in_redir_type),
+					0777);
+			if (tmp_infile->fd == -1)
+				perror("Infile");
+		}
+		if (file_head->next == NULL)
+		{
+			tmp_infile->fd = open(tmp_infile->path, O_RDONLY, 0777);
+			dup2(tmp_infile->fd, STDIN_FILENO);
+		}
+		close(tmp_infile->fd);
+		file_head = file_head->next;
+	}
 	return (0);
 }
 
@@ -58,20 +75,42 @@ static int	redirect_input(t_command *cmd)
 static int	redirect_output(t_command *cmd)
 {
 	t_file		*tmp_outfile;
+	t_list		*file_head;
 
-	while (cmd->outred_file)
+	file_head = cmd->outred_file;
+	while (file_head)
 	{
-		tmp_outfile = (t_file *)cmd->outred_file->content;
+		tmp_outfile = (t_file *)file_head->content;
 		tmp_outfile->fd = open(
 				tmp_outfile->path,
 				get_open_flags(cmd->out_redir_type),
 				0777);
 		if (tmp_outfile->fd == -1)
 			perror("Outfile");
-		if (cmd->outred_file->next == NULL)
+		if (file_head->next == NULL)
 			dup2(tmp_outfile->fd, STDOUT_FILENO);
 		close(tmp_outfile->fd);
-		cmd->outred_file = cmd->outred_file->next;
+		file_head = file_head->next;
+	}
+	return (0);
+}
+
+int	read_heredocs(t_command *cmd)
+{
+	t_file		*in_file;
+	t_list		*file_head;
+
+	file_head = cmd->inred_file;
+	while (file_head)
+	{
+		in_file = (t_file *)file_head->content;
+		if (in_file->open_mode == I_RED_HD)
+		{
+			in_file->fd = open(in_file->path, O_CREAT | O_RDWR, 0777);
+			ft_read_heredoc(in_file->fd, in_file->herdoc_lim);
+			close(in_file->fd);
+		}
+		file_head = file_head->next;
 	}
 	return (0);
 }
@@ -85,8 +124,8 @@ int	io_redirection(int in_pipe[2], int out_pipe[2], t_list *command)
 		dup2(in_pipe[0], STDIN_FILENO);
 	if (c_cmd->has_out_pipe)
 		dup2(out_pipe[1], STDOUT_FILENO);
-	if (c_cmd->in_redir_type == I_RED)
-		if (redirect_input(c_cmd) == -1)
+	if (c_cmd->in_redir_type == I_RED || c_cmd->in_redir_type == I_RED_HD)
+		if (read_heredocs(c_cmd) == -1 || redirect_input(c_cmd) == -1)
 			return (-1);
 	if (c_cmd->out_redir_type == O_RED || c_cmd->out_redir_type == O_RED_APP)
 		if (redirect_output(c_cmd) == -1)

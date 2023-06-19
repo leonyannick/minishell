@@ -6,7 +6,7 @@
 /*   By: aehrlich <aehrlich@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/08 10:52:25 by aehrlich          #+#    #+#             */
-/*   Updated: 2023/06/13 16:57:56 by aehrlich         ###   ########.fr       */
+/*   Updated: 2023/06/16 16:01:25 by aehrlich         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,8 +52,7 @@ static t_command	*ft_create_cmd(void)
 	cmd->has_out_pipe = false;
 	cmd->in_redir_type = NONE;
 	cmd->out_redir_type = NONE;
-	cmd->inred_file.path = NULL;
-	cmd->inred_file.fd = -1;
+	cmd->inred_file = NULL;
 	cmd->outred_file = NULL;
 	return (cmd);
 }

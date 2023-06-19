@@ -6,7 +6,7 @@
 /*   By: aehrlich <aehrlich@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/08 12:31:46 by aehrlich          #+#    #+#             */
-/*   Updated: 2023/06/14 12:29:20 by aehrlich         ###   ########.fr       */
+/*   Updated: 2023/06/19 15:13:50 by aehrlich         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,6 +42,18 @@ void	ft_set_pipe(t_list **cmd_head, bool *is_first_word)
 	*is_first_word = true;
 }
 
+char	*creat_unique_hd_filename(int cmd_idx)
+{
+	static int	hd_idx = 0;
+	char		*filename;
+
+	filename = ft_strdup(".heredoc_");
+	filename = ft_strjoin_free(filename, ft_itoa(cmd_idx));
+	filename = ft_strjoin_free(filename, "_");
+	filename = ft_strjoin_free(filename, ft_itoa(hd_idx++));
+	return (filename);
+}
+
 /* 
 	overides the input_red (if more input_redir appear in tokenstream) and
 	goes to next token to set the following WORD as the path. 
@@ -50,19 +62,35 @@ void	ft_set_pipe(t_list **cmd_head, bool *is_first_word)
 	@argument - cmd_head:	Pointer to current cmd to be set
 	@return:				none
  */
-void	ft_set_input_redirection(t_list **token_head, t_list *cmd_head)
+void	ft_set_input_redirection(t_list **token_head, t_list *cmd_head, int cmd_idx)
 {
 	t_command	*temp_cmd;
 	t_token		*temp_token;
+	t_list		*temp_node;
+	t_file		*new_file;
 
+	new_file = malloc(sizeof(t_file));
+	if (!new_file)
+		return ;
 	temp_token = (t_token *)(*token_head)->content;
 	temp_cmd = (t_command *)(cmd_head->content);
 	temp_cmd->in_redir_type = temp_token->type;
+	new_file->open_mode = temp_token->type;
 	*token_head = (*token_head)->next;
 	temp_token = (t_token *)(*token_head)->content;
-	if (temp_cmd->inred_file.path)
-		free(temp_cmd->inred_file.path);
-	temp_cmd->inred_file.path = ft_strdup(temp_token->str);
+	new_file->fd = -1;
+	if (temp_cmd->in_redir_type == I_RED)
+	{
+		new_file->path = ft_strdup(temp_token->str);
+		new_file->herdoc_lim = NULL;
+	}
+	else if (temp_cmd->in_redir_type == I_RED_HD)
+	{
+		new_file->path = creat_unique_hd_filename(cmd_idx);
+		new_file->herdoc_lim = ft_strdup(temp_token->str);
+	}
+	temp_node = ft_lstnew((void *)new_file);
+	ft_lstadd_back(&(temp_cmd->inred_file), temp_node);
 }
 
 /* 

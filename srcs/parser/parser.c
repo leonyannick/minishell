@@ -6,7 +6,7 @@
 /*   By: aehrlich <aehrlich@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/22 14:16:45 by aehrlich          #+#    #+#             */
-/*   Updated: 2023/06/14 18:43:04 by aehrlich         ###   ########.fr       */
+/*   Updated: 2023/06/19 15:11:23 by aehrlich         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,15 +67,20 @@ static void	ft_traverse_tokenlist(t_list *token_head, t_list **cmd_head)
 {
 	t_token		*temp_token;
 	bool		is_first_word;
+	int			cmd_idx;
 
 	is_first_word = true;
+	cmd_idx = 0;
 	while (token_head)
 	{
 		temp_token = (t_token *)token_head->content;
 		if (temp_token->type == PIPE)
+		{
 			ft_set_pipe(cmd_head, &is_first_word);
+			cmd_idx++;
+		}
 		else if (temp_token->type == I_RED || temp_token->type == I_RED_HD)
-			ft_set_input_redirection(&token_head, *cmd_head);
+			ft_set_input_redirection(&token_head, *cmd_head, cmd_idx);
 		else if (temp_token->type == O_RED || temp_token->type == O_RED_APP)
 			ft_set_output_redirection(&token_head, *cmd_head);
 		else if (temp_token->type == WORD)

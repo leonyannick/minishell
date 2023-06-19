@@ -6,7 +6,7 @@
 /*   By: aehrlich <aehrlich@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/05 10:33:26 by lbaumann          #+#    #+#             */
-/*   Updated: 2023/06/14 19:24:42 by aehrlich         ###   ########.fr       */
+/*   Updated: 2023/06/19 15:31:05 by aehrlich         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,6 +58,7 @@ typedef struct file
 {
 	char			*path;
 	int				fd;
+	char			*herdoc_lim;
 	e_token_types	open_mode;
 }t_file;
 
@@ -69,7 +70,7 @@ typedef struct command
 	bool			has_out_pipe;
 	e_token_types	in_redir_type;
 	e_token_types	out_redir_type;
-	t_file			inred_file;
+	t_list			*inred_file;
 	t_list			*outred_file;
 }					t_command;
 

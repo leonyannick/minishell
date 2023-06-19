@@ -6,7 +6,7 @@
 /*   By: aehrlich <aehrlich@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/10 14:25:51 by aehrlich          #+#    #+#             */
-/*   Updated: 2023/06/13 12:09:53 by aehrlich         ###   ########.fr       */
+/*   Updated: 2023/06/19 11:46:54 by aehrlich         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,8 @@
 
 # include "types.h"
 
-int	execute(t_data *data);
+int		execute(t_data *data);
+void	command_del(void *arg);
+int 	delete_heredocs(t_data *data);
 
 #endif
