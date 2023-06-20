@@ -3,17 +3,17 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: aehrlich <aehrlich@student.42berlin.de>    +#+  +:+       +#+         #
+#    By: aehrlich <aehrlich@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/02/19 09:17:44 by lbaumann          #+#    #+#              #
-#    Updated: 2023/06/20 09:35:12 by aehrlich         ###   ########.fr        #
+#    Updated: 2023/06/20 11:41:28 by aehrlich         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME = minishell
 
 CC = cc
-CFLAGS = #-Wall -Werror -Wextra
+CFLAGS = -Wall -Werror -Wextra
 MAKEFLAGS   += --no-print-directory
 
 UNAME := $(shell uname)

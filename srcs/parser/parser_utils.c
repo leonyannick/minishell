@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parser_utils.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aehrlich <aehrlich@student.42berlin.de>    +#+  +:+       +#+        */
+/*   By: aehrlich <aehrlich@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/08 12:31:46 by aehrlich          #+#    #+#             */
-/*   Updated: 2023/06/20 09:12:24 by aehrlich         ###   ########.fr       */
+/*   Updated: 2023/06/20 11:53:20 by aehrlich         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,8 +46,11 @@ char	*creat_unique_hd_filename()
 {
 	static int	hd_idx = 0;
 	char		*filename;
+	char		*idx_string;
 
-	filename = ft_strjoin(".heredoc_", ft_itoa(hd_idx++));
+	idx_string = ft_itoa(hd_idx++);
+	filename = ft_strjoin(".heredoc_", idx_string);
+	free(idx_string);
 	return (filename);
 }
 
@@ -59,7 +62,7 @@ char	*creat_unique_hd_filename()
 	@argument - cmd_head:	Pointer to current cmd to be set
 	@return:				none
  */
-void	ft_set_input_redirection(t_list **token_head, t_list *cmd_head, int cmd_idx)
+void	ft_set_input_redirection(t_list **token_head, t_list *cmd_head)
 {
 	t_command	*temp_cmd;
 	t_token		*temp_token;

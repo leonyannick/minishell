@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   redirection.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aehrlich <aehrlich@student.42berlin.de>    +#+  +:+       +#+        */
+/*   By: aehrlich <aehrlich@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/13 11:29:38 by aehrlich          #+#    #+#             */
-/*   Updated: 2023/06/20 09:00:32 by aehrlich         ###   ########.fr       */
+/*   Updated: 2023/06/20 12:01:20 by aehrlich         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,7 +60,8 @@ static int	redirect_input(t_command *cmd)
 			tmp_infile->fd = open(tmp_infile->path, O_RDONLY, 0777);
 			dup2(tmp_infile->fd, STDIN_FILENO);
 		}
-		close(tmp_infile->fd);
+		if (tmp_infile->fd != -1)
+			close(tmp_infile->fd);
 		file_head = file_head->next;
 	}
 	return (0);

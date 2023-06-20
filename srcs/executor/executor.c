@@ -3,17 +3,18 @@
 /*                                                        :::      ::::::::   */
 /*   executor.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aehrlich <aehrlich@student.42berlin.de>    +#+  +:+       +#+        */
+/*   By: aehrlich <aehrlich@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/10 14:58:03 by aehrlich          #+#    #+#             */
-/*   Updated: 2023/06/20 09:05:48 by aehrlich         ###   ########.fr       */
+/*   Updated: 2023/06/20 10:55:01 by aehrlich         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "executor_utils.h"
 
 /* 
-	forks a child prcess for every command. if returnes id is 0, we are in the 
+	Like bash, every heredoc of every pipe is read at the beginning before forking.
+	then forks a child prcess for every command. if returnes id is 0, we are in the 
 	forked child and can set up the command execution. The output gets redirected,
 	the pipes get set up and based on the cmd type the command gets executed either
 	in the shell or via exec call.
