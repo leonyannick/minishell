@@ -6,7 +6,7 @@
 /*   By: aehrlich <aehrlich@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/10 14:24:32 by aehrlich          #+#    #+#             */
-/*   Updated: 2023/06/20 10:24:07 by aehrlich         ###   ########.fr       */
+/*   Updated: 2023/06/20 12:30:22 by aehrlich         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,13 +18,14 @@
 # include <sys/wait.h>
 # include <dirent.h>
 # include <fcntl.h>
+# include <stdbool.h>
 # include "../../libft/includes/libft.h"
 # include "../../includes/types.h"
 
 char	**ft_lst_strarr(t_list *list);
 int		io_redirection(int in_pipe[2], int out_pipe[2], t_list *command);
 int		execute_path_cmd(t_data *data, t_command *command);
-void	close_pipe_if_necessary(int pipe[2]);
+void	close_pipe(int pipe[2]);
 void	init_pipes(int *in_pipe, int *out_pipe);
 void	set_pipes(int *in_pipe, int *out_pipe, t_command *command);
 int		read_heredocs(t_list *cmd_head);

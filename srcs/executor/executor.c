@@ -6,7 +6,7 @@
 /*   By: aehrlich <aehrlich@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/10 14:58:03 by aehrlich          #+#    #+#             */
-/*   Updated: 2023/06/20 10:55:01 by aehrlich         ###   ########.fr       */
+/*   Updated: 2023/06/20 12:11:57 by aehrlich         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,14 +49,14 @@ static int	children(int *pids, t_data *data)
 		{
 			if (io_redirection(in_pipe, out_pipe, cmd_head) == -1)
 				return (-1);
-		if (command->type == PATH)
+			if (command->type == PATH)
 				return (execute_path_cmd(data, command), -1);
 		}
-		close_pipe_if_necessary(in_pipe);
+		close_pipe(in_pipe);
 		cmd_head = cmd_head->next;
 		i++;
 	}
-	close_pipe_if_necessary(out_pipe);
+	close_pipe(out_pipe);
 	return (0);
 }
 

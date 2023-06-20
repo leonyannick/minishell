@@ -6,7 +6,7 @@
 /*   By: aehrlich <aehrlich@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/14 11:33:20 by aehrlich          #+#    #+#             */
-/*   Updated: 2023/06/20 11:32:52 by aehrlich         ###   ########.fr       */
+/*   Updated: 2023/06/20 12:13:05 by aehrlich         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 static void	file_del(void *arg)
 {
 	t_file	*file;
-	
+
 	file = (t_file *)arg;
 	file->path = ft_free_set_null(file->path);
 	file->herdoc_lim = ft_free_set_null(file->herdoc_lim);
@@ -24,7 +24,7 @@ static void	file_del(void *arg)
 
 void	command_del(void *arg)
 {
-	t_command *command;
+	t_command	*command;
 
 	command = (t_command *)arg;
 	ft_lstclear(&command->arguments, free);

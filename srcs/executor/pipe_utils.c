@@ -6,7 +6,7 @@
 /*   By: aehrlich <aehrlich@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/16 12:48:01 by aehrlich          #+#    #+#             */
-/*   Updated: 2023/06/16 13:16:10 by aehrlich         ###   ########.fr       */
+/*   Updated: 2023/06/20 12:09:49 by aehrlich         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@
 	with vaild fd, they are other than -1 and have to be closed.
 	@argument - pipe:	pipe to close possibly
 */
-void	close_pipe_if_necessary(int pipe[2])
+void	close_pipe(int pipe[2])
 {
 	if (pipe[0] != -1)
 	{

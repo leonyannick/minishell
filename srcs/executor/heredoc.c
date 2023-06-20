@@ -6,7 +6,7 @@
 /*   By: aehrlich <aehrlich@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/16 15:12:17 by aehrlich          #+#    #+#             */
-/*   Updated: 2023/06/20 11:51:24 by aehrlich         ###   ########.fr       */
+/*   Updated: 2023/06/20 12:11:01 by aehrlich         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,5 +74,5 @@ int	delete_heredocs(t_data *data)
 		}
 		command_head = command_head->next;
 	}
-	return(0);
+	return (0);
 }

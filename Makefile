@@ -6,7 +6,7 @@
 #    By: aehrlich <aehrlich@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/02/19 09:17:44 by lbaumann          #+#    #+#              #
-#    Updated: 2023/06/20 11:41:28 by aehrlich         ###   ########.fr        #
+#    Updated: 2023/06/20 12:18:38 by aehrlich         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -63,6 +63,7 @@ SRCS = \
 	parser/parser_print.c \
 	parser/parser.c \
 	parser/parser_utils.c \
+	parser/parser_utils_redirection.c \
 	executor/executor_utils.c \
 	executor/executor.c \
 	executor/redirection.c \

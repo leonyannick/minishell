@@ -6,7 +6,7 @@
 /*   By: aehrlich <aehrlich@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/13 11:29:38 by aehrlich          #+#    #+#             */
-/*   Updated: 2023/06/20 12:01:20 by aehrlich         ###   ########.fr       */
+/*   Updated: 2023/06/20 12:39:57 by aehrlich         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@
 	@argument- redir_type:	type to determine the open flags
 	@return:				flags connected wit hbitwise or
  */
-static int	get_open_flags(e_token_types redir_type)
+static int	get_flags(e_token_types redir_type)
 {
 	if (redir_type == I_RED)
 		return (O_RDONLY);
@@ -39,29 +39,25 @@ static int	get_open_flags(e_token_types redir_type)
  */
 static int	redirect_input(t_command *cmd)
 {
-	t_file		*tmp_infile;
+	t_file		*file;
 	t_list		*file_head;
 
 	file_head = cmd->inred_file;
 	while (file_head)
 	{
-		tmp_infile = (t_file *)file_head->content;
-		if (tmp_infile->open_mode == I_RED)
-		{
-			tmp_infile->fd = open(
-					tmp_infile->path,
-					get_open_flags(cmd->in_redir_type),
-					0777);
-			if (tmp_infile->fd == -1)
-				perror("Infile");
-		}
+		file = (t_file *)file_head->content;
+		file->fd = open(file->path, get_flags(cmd->in_redir_type), 0777);
+		if (file->open_mode == I_RED && file->fd == -1)
+			perror("Infile");
 		if (file_head->next == NULL)
 		{
-			tmp_infile->fd = open(tmp_infile->path, O_RDONLY, 0777);
-			dup2(tmp_infile->fd, STDIN_FILENO);
+			file->fd = open(file->path, O_RDONLY, 0777);
+			if (file->fd == -1)
+				return (-1);
+			dup2(file->fd, STDIN_FILENO);
 		}
-		if (tmp_infile->fd != -1)
-			close(tmp_infile->fd);
+		if (file->fd != -1)
+			close(file->fd);
 		file_head = file_head->next;
 	}
 	return (0);
@@ -75,22 +71,19 @@ static int	redirect_input(t_command *cmd)
  */
 static int	redirect_output(t_command *cmd)
 {
-	t_file		*tmp_outfile;
+	t_file		*file;
 	t_list		*file_head;
 
 	file_head = cmd->outred_file;
 	while (file_head)
 	{
-		tmp_outfile = (t_file *)file_head->content;
-		tmp_outfile->fd = open(
-				tmp_outfile->path,
-				get_open_flags(cmd->out_redir_type),
-				0777);
-		if (tmp_outfile->fd == -1)
+		file = (t_file *)file_head->content;
+		file->fd = open(file->path, get_flags(cmd->out_redir_type), 0777);
+		if (file->fd == -1)
 			perror("Outfile");
 		if (file_head->next == NULL)
-			dup2(tmp_outfile->fd, STDOUT_FILENO);
-		close(tmp_outfile->fd);
+			dup2(file->fd, STDOUT_FILENO);
+		close(file->fd);
 		file_head = file_head->next;
 	}
 	return (0);
@@ -111,7 +104,7 @@ int	io_redirection(int in_pipe[2], int out_pipe[2], t_list *command)
 	if (c_cmd->out_redir_type == O_RED || c_cmd->out_redir_type == O_RED_APP)
 		if (redirect_output(c_cmd) == -1)
 			return (-1);
-	close_pipe_if_necessary(in_pipe);
-	close_pipe_if_necessary(out_pipe);
+	close_pipe(in_pipe);
+	close_pipe(out_pipe);
 	return (0);
 }
