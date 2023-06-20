@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parser_utils.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aehrlich <aehrlich@student.42.fr>          +#+  +:+       +#+        */
+/*   By: aehrlich <aehrlich@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/08 12:31:46 by aehrlich          #+#    #+#             */
-/*   Updated: 2023/06/19 15:13:50 by aehrlich         ###   ########.fr       */
+/*   Updated: 2023/06/20 09:12:24 by aehrlich         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,15 +42,12 @@ void	ft_set_pipe(t_list **cmd_head, bool *is_first_word)
 	*is_first_word = true;
 }
 
-char	*creat_unique_hd_filename(int cmd_idx)
+char	*creat_unique_hd_filename()
 {
 	static int	hd_idx = 0;
 	char		*filename;
 
-	filename = ft_strdup(".heredoc_");
-	filename = ft_strjoin_free(filename, ft_itoa(cmd_idx));
-	filename = ft_strjoin_free(filename, "_");
-	filename = ft_strjoin_free(filename, ft_itoa(hd_idx++));
+	filename = ft_strjoin(".heredoc_", ft_itoa(hd_idx++));
 	return (filename);
 }
 
@@ -86,7 +83,7 @@ void	ft_set_input_redirection(t_list **token_head, t_list *cmd_head, int cmd_idx
 	}
 	else if (temp_cmd->in_redir_type == I_RED_HD)
 	{
-		new_file->path = creat_unique_hd_filename(cmd_idx);
+		new_file->path = creat_unique_hd_filename();
 		new_file->herdoc_lim = ft_strdup(temp_token->str);
 	}
 	temp_node = ft_lstnew((void *)new_file);

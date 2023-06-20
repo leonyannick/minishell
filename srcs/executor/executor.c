@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   executor.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aehrlich <aehrlich@student.42.fr>          +#+  +:+       +#+        */
+/*   By: aehrlich <aehrlich@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/10 14:58:03 by aehrlich          #+#    #+#             */
-/*   Updated: 2023/06/19 15:16:04 by aehrlich         ###   ########.fr       */
+/*   Updated: 2023/06/20 09:05:48 by aehrlich         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,6 +33,7 @@ static int	children(int *pids, t_data *data)
 	i = 0;
 	init_pipes(in_pipe, out_pipe);
 	cmd_head = data->commands;
+	read_heredocs(cmd_head);
 	while (cmd_head)
 	{
 		command = (t_command *)cmd_head->content;

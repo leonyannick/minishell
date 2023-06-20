@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   heredoc.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aehrlich <aehrlich@student.42.fr>          +#+  +:+       +#+        */
+/*   By: aehrlich <aehrlich@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/16 15:12:17 by aehrlich          #+#    #+#             */
-/*   Updated: 2023/06/19 16:02:04 by aehrlich         ###   ########.fr       */
+/*   Updated: 2023/06/20 09:39:44 by aehrlich         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "executor_utils.h"
 
-int	ft_read_heredoc(int fd, char *lim)
+static int	ft_read_heredoc(int fd, char *lim)
 {
 	char	*read;
 
@@ -26,9 +26,34 @@ int	ft_read_heredoc(int fd, char *lim)
 		read = get_next_line(STDIN_FILENO);
 	}
 	free(read);
+	close(fd);
 	return (0);
 }
 
+int	read_heredocs(t_list *cmd_head)
+{
+	t_file		*in_file;
+	t_list		*file_head;
+	t_command	*cmd;
+
+	while (cmd_head)
+	{
+		cmd = (t_command *)cmd_head->content;
+		file_head = cmd->inred_file;
+		while (file_head)
+		{
+			in_file = (t_file *)file_head->content;
+			if (in_file->open_mode == I_RED_HD)
+			{
+				in_file->fd = open(in_file->path, O_CREAT | O_RDWR, 0777);
+				ft_read_heredoc(in_file->fd, in_file->herdoc_lim);
+			}
+			file_head = file_head->next;
+		}
+		cmd_head = cmd_head->next;
+	}
+	return (0);
+}
 
 int	delete_heredocs(t_data *data)
 {
@@ -53,7 +78,6 @@ int	delete_heredocs(t_data *data)
 				if (create_cmd_list)
 				{
 					del_commad = malloc(sizeof(t_command));
-					command_head = data->commands;
 					ft_lstadd_back(&del_commad->arguments, ft_lstnew((void *)"rm"));
 					create_cmd_list = false;
 				}

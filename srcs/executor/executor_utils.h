@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   executor_utils.h                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aehrlich <aehrlich@student.42.fr>          +#+  +:+       +#+        */
+/*   By: aehrlich <aehrlich@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/10 14:24:32 by aehrlich          #+#    #+#             */
-/*   Updated: 2023/06/19 15:15:50 by aehrlich         ###   ########.fr       */
+/*   Updated: 2023/06/20 09:05:37 by aehrlich         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,6 +27,6 @@ int		execute_path_cmd(t_data *data, t_command *command);
 void	close_pipe_if_necessary(int pipe[2]);
 void	init_pipes(int *in_pipe, int *out_pipe);
 void	set_pipes(int *in_pipe, int *out_pipe, t_command *command);
-int		ft_read_heredoc(int fd, char *lim);
+int		read_heredocs(t_list *cmd_head);
 
 #endif

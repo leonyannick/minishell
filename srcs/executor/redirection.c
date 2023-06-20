@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   redirection.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aehrlich <aehrlich@student.42.fr>          +#+  +:+       +#+        */
+/*   By: aehrlich <aehrlich@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/13 11:29:38 by aehrlich          #+#    #+#             */
-/*   Updated: 2023/06/19 16:17:00 by aehrlich         ###   ########.fr       */
+/*   Updated: 2023/06/20 09:00:32 by aehrlich         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -95,26 +95,6 @@ static int	redirect_output(t_command *cmd)
 	return (0);
 }
 
-int	read_heredocs(t_command *cmd)
-{
-	t_file		*in_file;
-	t_list		*file_head;
-
-	file_head = cmd->inred_file;
-	while (file_head)
-	{
-		in_file = (t_file *)file_head->content;
-		if (in_file->open_mode == I_RED_HD)
-		{
-			in_file->fd = open(in_file->path, O_CREAT | O_RDWR, 0777);
-			ft_read_heredoc(in_file->fd, in_file->herdoc_lim);
-			close(in_file->fd);
-		}
-		file_head = file_head->next;
-	}
-	return (0);
-}
-
 int	io_redirection(int in_pipe[2], int out_pipe[2], t_list *command)
 {
 	t_command	*c_cmd;
@@ -125,7 +105,7 @@ int	io_redirection(int in_pipe[2], int out_pipe[2], t_list *command)
 	if (c_cmd->has_out_pipe)
 		dup2(out_pipe[1], STDOUT_FILENO);
 	if (c_cmd->in_redir_type == I_RED || c_cmd->in_redir_type == I_RED_HD)
-		if (read_heredocs(c_cmd) == -1 || redirect_input(c_cmd) == -1)
+		if (redirect_input(c_cmd) == -1)
 			return (-1);
 	if (c_cmd->out_redir_type == O_RED || c_cmd->out_redir_type == O_RED_APP)
 		if (redirect_output(c_cmd) == -1)
