@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cd.c                                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lbaumann <lbaumann@student.42.fr>          +#+  +:+       +#+        */
+/*   By: lbaumann <lbaumann@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/16 15:13:03 by lbaumann          #+#    #+#             */
-/*   Updated: 2023/06/19 15:24:04 by lbaumann         ###   ########.fr       */
+/*   Updated: 2023/06/20 15:55:03 by lbaumann         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,28 +18,20 @@
 static void	update_paths(char *new_path, t_list *dict)
 {
 	char	cwd[PATH_MAX];
+	char	*oldpwd;
+	char	*pwd;
 
 	if (!getcwd(cwd, PATH_MAX))
 		perror("cd");
-	ft_dict_modify_value(dict, "OLDPWD", cwd);
-	if (!chdir(new_path))
+	oldpwd = ft_strdup(cwd); 
+	if (chdir(new_path))
 		perror("cd");
 	if (!getcwd(cwd, PATH_MAX))
 		perror("cd");
-	ft_dict_modify_value(dict, "PWD", cwd);
+	pwd = ft_strdup(cwd);
+	ft_dict_modify_value(dict, "OLDPWD", oldpwd);
+	ft_dict_modify_value(dict, "PWD", pwd);
 	new_path = ft_free_set_null(new_path);
-}
-
-void	error_cd(const char *msg)
-{
-	printf("%s\n", msg);
-}
-
-static char	*skip_fwdslashes(char *path)
-{
-	while (*path == '/')
-		path++;
-	return (path);
 }
 
 /**
@@ -53,6 +45,7 @@ static char	*skip_fwdslashes(char *path)
 char	*process_path(const char *arg, t_list *dict)
 {
 	char	*pwd;
+	char	*temp;
 	char	*curpath;
 
 	if (!ft_strncmp(arg, ".", 1) || !ft_strncmp(arg, "..", 2) || !ft_strncmp(arg, "/", 1))
@@ -60,7 +53,9 @@ char	*process_path(const char *arg, t_list *dict)
 	else
 	{
 		pwd = ft_dict_get_value(dict, "PWD");
-		curpath = ft_strjoin(pwd, arg);
+		temp = ft_strjoin(pwd, "/");
+		curpath = ft_strjoin(temp, arg);
+		free(temp);
 	}
 	return (curpath);
 }
@@ -70,18 +65,26 @@ void	builtin_cd(const char **argv, t_list *dict)
 	char	*path;
 
 	path = NULL;
-	if (argv[2])
+	// printf("PWD: %s\n", (char *)ft_dict_get_value(dict, "PWD"));
+	// printf("OLDPWD: %s\n", (char *)ft_dict_get_value(dict, "OLDPWD"));
+	if (argv[2] != NULL)
 		printf("cd: too many arguments\n");
 	else if (!argv[1] || !ft_strcmp(argv[1], "~") || !ft_strcmp(argv[1], "--"))
-		path = ft_dict_get_node(dict, "HOME");
+	{
+		path = ft_strdup(ft_dict_get_value(dict, "HOME"));
+		update_paths(path, dict);
+	}
 	else if (!ft_strcmp(argv[1], "-"))
 	{
-		path = ft_dict_get_node(dict, "OLDPWD");
+		path = ft_strdup(ft_dict_get_value(dict, "OLDPWD"));
 		update_paths(path, dict);
 		return (builtin_pwd());
 	}
 	else
+	{
 		path = process_path(argv[1], dict);
-	if (path)
 		update_paths(path, dict);
+	}
+	// printf("PWD after: %s\n", (char *)ft_dict_get_value(dict, "PWD"));
+	// printf("OLDPWD after: %s\n", (char *)ft_dict_get_value(dict, "OLDPWD"));
 }

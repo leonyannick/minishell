@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: lbaumann <lbaumann@student.42.fr>          +#+  +:+       +#+         #
+#    By: lbaumann <lbaumann@student.42berlin.de>    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/02/19 09:17:44 by lbaumann          #+#    #+#              #
-#    Updated: 2023/06/16 15:10:20 by lbaumann         ###   ########.fr        #
+#    Updated: 2023/06/20 16:46:39 by lbaumann         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -68,6 +68,8 @@ SRCS = \
 	builtins/unset.c \
 	builtins/pwd.c \
 	builtins/env.c \
+	builtins/cd.c \
+	builtins/exit.c \
 
 ifeq ($(UNAME), Linux)
 endif
