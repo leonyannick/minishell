@@ -6,7 +6,7 @@
 /*   By: aehrlich <aehrlich@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/10 14:58:03 by aehrlich          #+#    #+#             */
-/*   Updated: 2023/06/21 17:06:01 by aehrlich         ###   ########.fr       */
+/*   Updated: 2023/06/21 17:19:32 by aehrlich         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,10 +61,32 @@ static int	children(int *pids, t_data *data)
 	return (0);
 }
 
+/*
+	If there is an unpiped built in, it has to be executed in the main process.
+	Therefore the stdout of the main process has to be redirected befor execution
+	and set back after execution, because minishell will continue execution
+	and needs to read and write to normal STDIO.
+*/
+int	execute_builtin_inplace(t_data *data, t_command *command)
+{
+		int	old_stdin;
+		int	old_stdout;
+		int	exec_ret;
+
+		old_stdin = dup(STDIN_FILENO);
+		old_stdout = dup(STDOUT_FILENO);
+		io_redirection(NULL, NULL, command);
+		exec_ret = exeute_builtin_cmd(data, command, 0);
+		dup2(old_stdin, STDIN_FILENO);
+		close(old_stdin);
+		dup2(old_stdout, STDOUT_FILENO);
+		close(old_stdout);
+		return (exec_ret);
+}
+
 /* 
-	creates a childprocess for every command, sets up the pipes
-	and redirections and executes the child commands processes
-	(BUILTIN and PATH) and waits for them to be finished.
+	If a singele builtin is executed it is done inplace (in the main process).
+	In a piped pipeline EVERY command is forked.
 	@argument - data:	data object containing envp and commands linked list
 	@return:			success status
  */
@@ -82,17 +104,7 @@ int	execute(t_data *data)
 	read_heredocs(data->commands);
 	cmd_count = ft_lstsize(data->commands);
 	if (cmd_count == 1 && command->type == BUILTIN)
-	{
-		int old_stdin = dup(STDIN_FILENO);
-		int old_stdout = dup(STDOUT_FILENO);
-		io_redirection(NULL, NULL, command);
-		i = exeute_builtin_cmd(data, command, 0);
-		dup2(old_stdin, STDIN_FILENO);
-		close(old_stdin);
-		dup2(old_stdout, STDOUT_FILENO);
-		close(old_stdout);
-		return (i);
-	}
+		return (execute_builtin_inplace(data, command));
 	pids = malloc(cmd_count * sizeof(int));
 	if (children(pids, data) == -1)
 		return (-1);

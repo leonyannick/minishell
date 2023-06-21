@@ -6,7 +6,7 @@
 /*   By: aehrlich <aehrlich@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/13 11:58:09 by aehrlich          #+#    #+#             */
-/*   Updated: 2023/06/21 17:05:16 by aehrlich         ###   ########.fr       */
+/*   Updated: 2023/06/21 17:21:29 by aehrlich         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -101,6 +101,12 @@ int	execute_path_cmd(t_data *data, t_command *command)
 	return (-1);
 }
 
+/*
+	A builtin can either be executed in the main process when standing alone or
+	as a child when it appears in a pipeline. In the main process the return value
+	should not break the readline loop, therefore different exit values are 
+	necessary. 
+*/
 int	exeute_builtin_cmd(t_data *data, t_command *command, int exit_type)
 {
 	if (!data)
