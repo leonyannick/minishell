@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   pipe_utils.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aehrlich <aehrlich@student.42.fr>          +#+  +:+       +#+        */
+/*   By: aehrlich <aehrlich@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/16 12:48:01 by aehrlich          #+#    #+#             */
-/*   Updated: 2023/06/20 12:09:49 by aehrlich         ###   ########.fr       */
+/*   Updated: 2023/06/21 09:41:08 by aehrlich         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@
 */
 void	close_pipe(int pipe[2])
 {
-	if (pipe[0] != -1)
+	if (pipe && pipe[0] != -1)
 	{
 		close(pipe[0]);
 		close(pipe[1]);

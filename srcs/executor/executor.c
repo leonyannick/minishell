@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   executor.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aehrlich <aehrlich@student.42.fr>          +#+  +:+       +#+        */
+/*   By: aehrlich <aehrlich@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/10 14:58:03 by aehrlich          #+#    #+#             */
-/*   Updated: 2023/06/20 12:11:57 by aehrlich         ###   ########.fr       */
+/*   Updated: 2023/06/21 10:02:32 by aehrlich         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,6 @@ static int	children(int *pids, t_data *data)
 	i = 0;
 	init_pipes(in_pipe, out_pipe);
 	cmd_head = data->commands;
-	read_heredocs(cmd_head);
 	while (cmd_head)
 	{
 		command = (t_command *)cmd_head->content;
@@ -47,7 +46,7 @@ static int	children(int *pids, t_data *data)
 			return (-1);
 		if (pids[i] == 0)
 		{
-			if (io_redirection(in_pipe, out_pipe, cmd_head) == -1)
+			if (io_redirection(in_pipe, out_pipe, cmd_head->content) == -1)
 				return (-1);
 			if (command->type == PATH)
 				return (execute_path_cmd(data, command), -1);
@@ -72,11 +71,16 @@ int	execute(t_data *data)
 	int	*pids;
 	int	i;
 	int	cmd_count;
+	t_command	*command;
 
 	i = 0;
 	if (!data->commands)
 		return (1);
+	command = (t_command *)data->commands->content;
+	read_heredocs(data->commands);
 	cmd_count = ft_lstsize(data->commands);
+	if (cmd_count == 1 && command->type == BUILTIN)
+		return (exeute_builtin_cmd(data, command));
 	pids = malloc(cmd_count * sizeof(int));
 	if (children(pids, data) == -1)
 		return (-1);

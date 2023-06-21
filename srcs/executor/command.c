@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   command.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aehrlich <aehrlich@student.42.fr>          +#+  +:+       +#+        */
+/*   By: aehrlich <aehrlich@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/13 11:58:09 by aehrlich          #+#    #+#             */
-/*   Updated: 2023/06/19 12:22:02 by aehrlich         ###   ########.fr       */
+/*   Updated: 2023/06/21 10:27:42 by aehrlich         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,21 +18,21 @@
 	@argument:	pointer to the array of strings, to make it NULL settable
 	@return:	none
  */
-static void	free_str_arr(char ***strs)
+static char	**free_str_arr(char **strs)
 {
 	int	i;
 
 	i = 0;
-	if (!*strs)
-		return ;
+	if (!strs || !*strs)
+		return (NULL);
 	while ((*strs)[i])
 	{
-		free((*strs)[i]);
-		(*strs)[i] = 0;
+		free(strs[i]);
+		strs[i] = 0;
 		i++;
 	}
-	free(*strs);
-	*strs = 0;
+	free(strs);
+	return (NULL);
 }
 
 /* 
@@ -72,13 +72,15 @@ int	execute_path_cmd(t_data *data, t_command *command)
 	char		*joined_path;
 	char		**start;
 
+	joined_path = NULL;
+	start = NULL;
 	if (access((char *)command->arguments->content, X_OK) == 0)
 		joined_path = ft_strdup((char *)command->arguments->content);
 	else
 	{
 		paths = get_paths(data);
 		if (!paths)
-			return (printf("NO PATHS\n"), -1);
+			return (-1);
 		start = paths;
 		while (*paths)
 		{
@@ -93,8 +95,17 @@ int	execute_path_cmd(t_data *data, t_command *command)
 		}
 	}
 	execve(joined_path, ft_lst_strarr(command->arguments), data->envp);
-	perror("execve");
-	free_str_arr(&start);
-	free(joined_path);
+	printf("%s: command not found\n", (char *)command->arguments->content);
+	start = free_str_arr(start);
+	joined_path = ft_free_set_null((void *)joined_path);
 	return (-1);
+}
+
+int	exeute_builtin_cmd(t_data *data, t_command *command)
+{
+	io_redirection(NULL, NULL, command);
+	printf("BUILTIN\n");
+	dup2(0, STDIN_FILENO);
+	dup2(1, STDOUT_FILENO);
+	return (0);
 }

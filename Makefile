@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: aehrlich <aehrlich@student.42.fr>          +#+  +:+       +#+         #
+#    By: aehrlich <aehrlich@student.42berlin.de>    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/02/19 09:17:44 by lbaumann          #+#    #+#              #
-#    Updated: 2023/06/20 12:18:38 by aehrlich         ###   ########.fr        #
+#    Updated: 2023/06/21 10:31:04 by aehrlich         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 

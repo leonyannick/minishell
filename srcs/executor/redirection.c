@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   redirection.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aehrlich <aehrlich@student.42.fr>          +#+  +:+       +#+        */
+/*   By: aehrlich <aehrlich@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/13 11:29:38 by aehrlich          #+#    #+#             */
-/*   Updated: 2023/06/20 12:39:57 by aehrlich         ###   ########.fr       */
+/*   Updated: 2023/06/21 10:16:03 by aehrlich         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,20 +89,17 @@ static int	redirect_output(t_command *cmd)
 	return (0);
 }
 
-int	io_redirection(int in_pipe[2], int out_pipe[2], t_list *command)
+int	io_redirection(int in_pipe[2], int out_pipe[2], t_command *command)
 {
-	t_command	*c_cmd;
-
-	c_cmd = (t_command *)command->content;
-	if (c_cmd->has_in_pipe)
+	if (command->has_in_pipe && in_pipe)
 		dup2(in_pipe[0], STDIN_FILENO);
-	if (c_cmd->has_out_pipe)
+	if (command->has_out_pipe && out_pipe)
 		dup2(out_pipe[1], STDOUT_FILENO);
-	if (c_cmd->in_redir_type == I_RED || c_cmd->in_redir_type == I_RED_HD)
-		if (redirect_input(c_cmd) == -1)
+	if (command->in_redir_type == I_RED || command->in_redir_type == I_RED_HD)
+		if (redirect_input(command) == -1)
 			return (-1);
-	if (c_cmd->out_redir_type == O_RED || c_cmd->out_redir_type == O_RED_APP)
-		if (redirect_output(c_cmd) == -1)
+	if (command->out_redir_type == O_RED || command->out_redir_type == O_RED_APP)
+		if (redirect_output(command) == -1)
 			return (-1);
 	close_pipe(in_pipe);
 	close_pipe(out_pipe);
