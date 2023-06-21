@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   executor.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aehrlich <aehrlich@student.42berlin.de>    +#+  +:+       +#+        */
+/*   By: aehrlich <aehrlich@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/10 14:58:03 by aehrlich          #+#    #+#             */
-/*   Updated: 2023/06/21 10:02:32 by aehrlich         ###   ########.fr       */
+/*   Updated: 2023/06/21 17:06:01 by aehrlich         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,7 +49,9 @@ static int	children(int *pids, t_data *data)
 			if (io_redirection(in_pipe, out_pipe, cmd_head->content) == -1)
 				return (-1);
 			if (command->type == PATH)
-				return (execute_path_cmd(data, command), -1);
+				return (execute_path_cmd(data, command));
+			if (command->type == BUILTIN)
+				return (exeute_builtin_cmd(data, command, -1));
 		}
 		close_pipe(in_pipe);
 		cmd_head = cmd_head->next;
@@ -75,12 +77,22 @@ int	execute(t_data *data)
 
 	i = 0;
 	if (!data->commands)
-		return (1);
+		return (-1);
 	command = (t_command *)data->commands->content;
 	read_heredocs(data->commands);
 	cmd_count = ft_lstsize(data->commands);
 	if (cmd_count == 1 && command->type == BUILTIN)
-		return (exeute_builtin_cmd(data, command));
+	{
+		int old_stdin = dup(STDIN_FILENO);
+		int old_stdout = dup(STDOUT_FILENO);
+		io_redirection(NULL, NULL, command);
+		i = exeute_builtin_cmd(data, command, 0);
+		dup2(old_stdin, STDIN_FILENO);
+		close(old_stdin);
+		dup2(old_stdout, STDOUT_FILENO);
+		close(old_stdout);
+		return (i);
+	}
 	pids = malloc(cmd_count * sizeof(int));
 	if (children(pids, data) == -1)
 		return (-1);

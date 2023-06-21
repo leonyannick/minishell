@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   executor_utils.h                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aehrlich <aehrlich@student.42berlin.de>    +#+  +:+       +#+        */
+/*   By: aehrlich <aehrlich@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/10 14:24:32 by aehrlich          #+#    #+#             */
-/*   Updated: 2023/06/21 09:41:19 by aehrlich         ###   ########.fr       */
+/*   Updated: 2023/06/21 17:05:05 by aehrlich         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,6 +29,5 @@ void	close_pipe(int pipe[2]);
 void	init_pipes(int *in_pipe, int *out_pipe);
 int		read_heredocs(t_list *cmd_head);
 void	command_del(void *arg);
-int		exeute_builtin_cmd(t_data *data, t_command *command);
-
+int		exeute_builtin_cmd(t_data *data, t_command *command, int exit_type);
 #endif

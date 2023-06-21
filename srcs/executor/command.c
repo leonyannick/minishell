@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   command.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aehrlich <aehrlich@student.42berlin.de>    +#+  +:+       +#+        */
+/*   By: aehrlich <aehrlich@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/13 11:58:09 by aehrlich          #+#    #+#             */
-/*   Updated: 2023/06/21 10:27:42 by aehrlich         ###   ########.fr       */
+/*   Updated: 2023/06/21 17:05:16 by aehrlich         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ static char	**free_str_arr(char **strs)
 	i = 0;
 	if (!strs || !*strs)
 		return (NULL);
-	while ((*strs)[i])
+	while (strs[i])
 	{
 		free(strs[i]);
 		strs[i] = 0;
@@ -95,17 +95,16 @@ int	execute_path_cmd(t_data *data, t_command *command)
 		}
 	}
 	execve(joined_path, ft_lst_strarr(command->arguments), data->envp);
-	printf("%s: command not found\n", (char *)command->arguments->content);
-	start = free_str_arr(start);
+	perror("execve");
 	joined_path = ft_free_set_null((void *)joined_path);
+	start = free_str_arr(start);
 	return (-1);
 }
 
-int	exeute_builtin_cmd(t_data *data, t_command *command)
+int	exeute_builtin_cmd(t_data *data, t_command *command, int exit_type)
 {
-	io_redirection(NULL, NULL, command);
+	if (!data)
+		return (-1);
 	printf("BUILTIN\n");
-	dup2(0, STDIN_FILENO);
-	dup2(1, STDOUT_FILENO);
-	return (0);
+	return (exit_type);
 }

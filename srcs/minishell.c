@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aehrlich <aehrlich@student.42berlin.de>    +#+  +:+       +#+        */
+/*   By: aehrlich <aehrlich@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/09 11:47:38 by aehrlich          #+#    #+#             */
-/*   Updated: 2023/06/21 10:26:44 by aehrlich         ###   ########.fr       */
+/*   Updated: 2023/06/21 16:49:25 by aehrlich         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,6 @@ int	main(int argc, char **argv, char **envp)
 		data.tokens = scan_tokens(line, &data);
 		data.commands = parse(data.tokens);
 		exec_return = execute(&data);
-		printf("Executed\n");
 		ft_lstclear(&data.tokens, token_del);
 		delete_heredocs(&data);
 		ft_lstclear(&data.commands, command_del);
