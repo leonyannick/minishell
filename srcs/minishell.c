@@ -3,19 +3,36 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aehrlich <aehrlich@student.42.fr>          +#+  +:+       +#+        */
+/*   By: lbaumann <lbaumann@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/09 11:47:38 by aehrlich          #+#    #+#             */
-/*   Updated: 2023/06/09 12:12:14 by aehrlich         ###   ########.fr       */
+/*   Updated: 2023/06/21 13:41:04 by lbaumann         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/minishell.h"
 
+char	*rl_gets(char *line_read)
+{
+	line_read = ft_free_set_null(line_read);
+	line_read = readline("ushelless:> ");
+
+	if (line_read && *line_read)
+		add_history(line_read);
+
+	return (line_read);
+}
+
+void	rl_cleanup(char *line_read)
+{
+	line_read = ft_free_set_null(line_read);
+	rl_clear_history();
+}
+
 int	main(int argc, char **argv, char **envp)
 {
 	t_data	data;
-	char	*line;
+	static char	*line_read;
 
 	argc = 0;
 	argv = NULL;
@@ -24,18 +41,13 @@ int	main(int argc, char **argv, char **envp)
 	int i = 0;
 	while(1)
 	{
-		line = readline("ushelless:> ");
-		if (!line)
+		line_read = rl_gets(line_read);
+		if (!line_read)
 			continue ;
+		printf("%s\n", line_read);
 		
-		data.tokens = scan_tokens(line, &data);
-		//ft_lstiter(data.tokens, print_token);
-		data.commands = parse(data.tokens);
-		print_cmd_list(data.commands);
-		ft_lstclear(&data.tokens, token_del);
-		i++;
 	}
-	free(line);
+	rl_cleanup(line_read);
 }
 	// int i = 11;
 	
