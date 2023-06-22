@@ -6,7 +6,7 @@
 /*   By: aehrlich <aehrlich@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/20 12:17:09 by aehrlich          #+#    #+#             */
-/*   Updated: 2023/06/20 13:07:46 by aehrlich         ###   ########.fr       */
+/*   Updated: 2023/06/22 16:56:09 by aehrlich         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ static char	*creat_unique_hd_filename(void)
 
 	idx_string = ft_itoa(hd_idx++);
 	filename = ft_strjoin("/tmp/.heredoc_", idx_string);
-	free(idx_string);
+	idx_string = ft_free_set_null(idx_string);
 	return (filename);
 }
 

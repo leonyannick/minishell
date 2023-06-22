@@ -6,7 +6,7 @@
 /*   By: aehrlich <aehrlich@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/13 11:58:09 by aehrlich          #+#    #+#             */
-/*   Updated: 2023/06/21 17:21:29 by aehrlich         ###   ########.fr       */
+/*   Updated: 2023/06/22 16:39:41 by aehrlich         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,11 +27,10 @@ static char	**free_str_arr(char **strs)
 		return (NULL);
 	while (strs[i])
 	{
-		free(strs[i]);
-		strs[i] = 0;
+		strs[i] = ft_free_set_null(strs[i]);
 		i++;
 	}
-	free(strs);
+	ft_free_set_null(strs);
 	return (NULL);
 }
 

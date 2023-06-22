@@ -6,7 +6,7 @@
 /*   By: aehrlich <aehrlich@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/10 14:58:03 by aehrlich          #+#    #+#             */
-/*   Updated: 2023/06/21 17:19:32 by aehrlich         ###   ########.fr       */
+/*   Updated: 2023/06/22 16:36:24 by aehrlich         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -110,6 +110,6 @@ int	execute(t_data *data)
 		return (-1);
 	while (i < cmd_count)
 		waitpid(pids[i++], NULL, 0);
-	free(pids);
+	pids = ft_free_set_null(pids);
 	return (0);
 }
