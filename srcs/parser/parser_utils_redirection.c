@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parser_utils_redirection.c                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aehrlich <aehrlich@student.42.fr>          +#+  +:+       +#+        */
+/*   By: aehrlich <aehrlich@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/20 12:17:09 by aehrlich          #+#    #+#             */
-/*   Updated: 2023/06/22 16:56:09 by aehrlich         ###   ########.fr       */
+/*   Updated: 2023/06/23 10:30:58 by aehrlich         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,6 +90,7 @@ void	ft_set_output_redirection(t_list **token_head, t_list *cmd_head)
 	temp_token = (t_token *)(*token_head)->content;
 	new_file->fd = -1;
 	new_file->path = ft_strdup(temp_token->str);
+	new_file->herdoc_lim = NULL;
 	temp_node = ft_lstnew((void *)new_file);
 	ft_lstadd_back(&(temp_cmd->outred_file), temp_node);
 }

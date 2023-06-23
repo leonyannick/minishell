@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   heredoc.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aehrlich <aehrlich@student.42.fr>          +#+  +:+       +#+        */
+/*   By: aehrlich <aehrlich@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/16 15:12:17 by aehrlich          #+#    #+#             */
-/*   Updated: 2023/06/22 16:35:01 by aehrlich         ###   ########.fr       */
+/*   Updated: 2023/06/23 09:39:56 by aehrlich         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,8 @@ static int ft_read_heredoc(int fd, char *lim)
 
 	write(STDOUT_FILENO, "> ", 2);
 	read = get_next_line(STDIN_FILENO);
-	while (ft_strncmp(read, lim, ft_strlen(ft_strtrim(read, "\n"))) != 0)
+	lim = ft_strjoin(lim, "\n");
+	while (ft_strncmp(read, lim, ft_strlen(lim)) != 0)
 	{
 		write(STDOUT_FILENO, "> ", 2);
 		write(fd, read, ft_strlen(read));

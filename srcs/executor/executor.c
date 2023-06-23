@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   executor.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aehrlich <aehrlich@student.42.fr>          +#+  +:+       +#+        */
+/*   By: aehrlich <aehrlich@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/10 14:58:03 by aehrlich          #+#    #+#             */
-/*   Updated: 2023/06/22 16:36:24 by aehrlich         ###   ########.fr       */
+/*   Updated: 2023/06/23 09:59:41 by aehrlich         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -99,7 +99,7 @@ int	execute(t_data *data)
 
 	i = 0;
 	if (!data->commands)
-		return (-1);
+		return (0);
 	command = (t_command *)data->commands->content;
 	read_heredocs(data->commands);
 	cmd_count = ft_lstsize(data->commands);

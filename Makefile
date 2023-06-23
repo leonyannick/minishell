@@ -3,16 +3,16 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: aehrlich <aehrlich@student.42.fr>          +#+  +:+       +#+         #
+#    By: aehrlich <aehrlich@student.42berlin.de>    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/02/19 09:17:44 by lbaumann          #+#    #+#              #
-#    Updated: 2023/06/21 12:06:23 by aehrlich         ###   ########.fr        #
+#    Updated: 2023/06/23 09:32:15 by aehrlich         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME = minishell
 
-CC = cc
+CC = gcc
 CFLAGS = #-Wall -Werror -Wextra
 MAKEFLAGS   += --no-print-directory
 

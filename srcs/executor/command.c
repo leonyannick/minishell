@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   command.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aehrlich <aehrlich@student.42.fr>          +#+  +:+       +#+        */
+/*   By: aehrlich <aehrlich@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/13 11:58:09 by aehrlich          #+#    #+#             */
-/*   Updated: 2023/06/22 16:39:41 by aehrlich         ###   ########.fr       */
+/*   Updated: 2023/06/23 10:15:41 by aehrlich         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,7 +89,7 @@ int	execute_path_cmd(t_data *data, t_command *command)
 					(char *)command->arguments->content);
 			if (access(joined_path, X_OK) == 0)
 				break ;
-			free(joined_path);
+			*joined_path = '\0';
 			paths++;
 		}
 	}
