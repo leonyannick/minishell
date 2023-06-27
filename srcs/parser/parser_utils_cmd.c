@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parser_utils_cmd.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aehrlich <aehrlich@student.42.fr>          +#+  +:+       +#+        */
+/*   By: aehrlich <aehrlich@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/08 10:52:25 by aehrlich          #+#    #+#             */
-/*   Updated: 2023/06/16 16:01:25 by aehrlich         ###   ########.fr       */
+/*   Updated: 2023/06/27 10:39:41 by aehrlich         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,7 +72,7 @@ t_list	*ft_create_cmd_list(t_list *token_head)
 
 	cmd_list = NULL;
 	if (!token_head)
-		return (printf("Tokenhead NULL\n"), NULL);
+		return (NULL);
 	i = ft_cmd_count(token_head);
 	while (i--)
 	{

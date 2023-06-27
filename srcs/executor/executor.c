@@ -6,11 +6,21 @@
 /*   By: aehrlich <aehrlich@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/10 14:58:03 by aehrlich          #+#    #+#             */
-/*   Updated: 2023/06/23 09:59:41 by aehrlich         ###   ########.fr       */
+/*   Updated: 2023/06/27 10:53:58 by aehrlich         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "executor_utils.h"
+
+static int execute_children(int *in_pipe, int *out_pipe,
+	t_command *command, t_data *data)
+{
+	if (io_redirection(in_pipe, out_pipe, command) == -1)
+		return (-1);
+	if (command->type == PATH)
+		return (execute_path_cmd(data, command));
+	return (exeute_builtin_cmd(data, command, -1));
+}
 
 /* 
 	Like bash, every heredoc of every pipe is read at the beginning before forking.
@@ -37,22 +47,12 @@ static int	children(int *pids, t_data *data)
 	while (cmd_head)
 	{
 		command = (t_command *)cmd_head->content;
-		if (command->has_in_pipe)
-			ft_memcpy(in_pipe, out_pipe, 2 * sizeof(int));
-		if (command->has_out_pipe)
-			pipe(out_pipe);
+		set_pipes(command, in_pipe, out_pipe);
 		pids[i] = fork();
 		if (pids[i] == -1)
 			return (-1);
 		if (pids[i] == 0)
-		{
-			if (io_redirection(in_pipe, out_pipe, cmd_head->content) == -1)
-				return (-1);
-			if (command->type == PATH)
-				return (execute_path_cmd(data, command));
-			if (command->type == BUILTIN)
-				return (exeute_builtin_cmd(data, command, -1));
-		}
+			return (execute_children(in_pipe, out_pipe, command, data));
 		close_pipe(in_pipe);
 		cmd_head = cmd_head->next;
 		i++;
@@ -69,19 +69,19 @@ static int	children(int *pids, t_data *data)
 */
 int	execute_builtin_inplace(t_data *data, t_command *command)
 {
-		int	old_stdin;
-		int	old_stdout;
-		int	exec_ret;
+	int	old_stdin;
+	int	old_stdout;
+	int	exec_ret;
 
-		old_stdin = dup(STDIN_FILENO);
-		old_stdout = dup(STDOUT_FILENO);
-		io_redirection(NULL, NULL, command);
-		exec_ret = exeute_builtin_cmd(data, command, 0);
-		dup2(old_stdin, STDIN_FILENO);
-		close(old_stdin);
-		dup2(old_stdout, STDOUT_FILENO);
-		close(old_stdout);
-		return (exec_ret);
+	old_stdin = dup(STDIN_FILENO);
+	old_stdout = dup(STDOUT_FILENO);
+	io_redirection(NULL, NULL, command);
+	exec_ret = exeute_builtin_cmd(data, command, 0);
+	dup2(old_stdin, STDIN_FILENO);
+	close(old_stdin);
+	dup2(old_stdout, STDOUT_FILENO);
+	close(old_stdout);
+	return (exec_ret);
 }
 
 /* 

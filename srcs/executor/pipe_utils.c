@@ -6,11 +6,19 @@
 /*   By: aehrlich <aehrlich@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/16 12:48:01 by aehrlich          #+#    #+#             */
-/*   Updated: 2023/06/21 09:41:08 by aehrlich         ###   ########.fr       */
+/*   Updated: 2023/06/27 10:43:10 by aehrlich         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "executor_utils.h"
+
+void	set_pipes(t_command *command,int *in_pipe, int *out_pipe)
+{
+	if (command->has_in_pipe)
+		ft_memcpy(in_pipe, out_pipe, 2 * sizeof(int));
+	if (command->has_out_pipe)
+		pipe(out_pipe);
+}
 
 /*
 	pipes are initialized with -1. If they had been populated

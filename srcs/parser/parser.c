@@ -3,15 +3,21 @@
 /*                                                        :::      ::::::::   */
 /*   parser.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aehrlich <aehrlich@student.42.fr>          +#+  +:+       +#+        */
+/*   By: aehrlich <aehrlich@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/22 14:16:45 by aehrlich          #+#    #+#             */
-/*   Updated: 2023/06/20 11:54:04 by aehrlich         ###   ########.fr       */
+/*   Updated: 2023/06/27 10:36:19 by aehrlich         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/minishell.h"
 #include "parser_utils.h"
+
+bool	print_syntax_err(char *token_str)
+{
+	printf("ushelless: syntax error near unexpected token '%s'\n", token_str);
+	return (false);
+}
 
 /*
 	checks the minishell BNF grammar:
@@ -30,26 +36,25 @@
  */
 static bool	ft_valid_grammar(t_list *token)
 {
-	t_token	*temp_token;
 	t_list	*last;
 
 	last = NULL;
 	while (token)
 	{
-		temp_token = (t_token *)token->content;
-		if (temp_token->type == PIPE)
+		if (((t_token *)token->content)->type == PIPE)
 		{
 			if (!last || !token->next
 				|| ((t_token *)last->content)->type == PIPE
 				|| ((t_token *)token->next->content)->type == PIPE)
-				return (printf("ushelless: syntax error near unexpected token '|'\n"), false);
+				return (print_syntax_err("|"));
 		}
-		else if (ft_is_redirection(temp_token->type))
+		else if (ft_is_redirection(((t_token *)token->content)->type))
 		{
 			if (!token->next)
-				return (printf("ushelless: syntax error near unexpected token 'newline'\n"), false);
+				return (print_syntax_err("newline"));
 			if (((t_token *)token->next->content)->type != WORD)
-				return (printf("ushelless: syntax error near unexpected token '%s'\n", ((t_token *)(token->next->content))->str), false);
+				return (print_syntax_err(
+					((t_token *)(token->next->content))->str));
 		}
 		last = token;
 		token = token->next;

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parser_utils.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aehrlich <aehrlich@student.42.fr>          +#+  +:+       +#+        */
+/*   By: aehrlich <aehrlich@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/08 12:31:46 by aehrlich          #+#    #+#             */
-/*   Updated: 2023/06/20 12:18:01 by aehrlich         ###   ########.fr       */
+/*   Updated: 2023/06/27 10:37:41 by aehrlich         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,8 +27,7 @@ bool	ft_is_redirection(e_token_types type)
 	an outpipe. Going to the next command and sets this to have an inpipe.
 	@argument - cmd_head: pointer to head of commandlist, to update head
 	@argument - is_first_word: after a pipe the next word should be 
-	interpreted as first
-								word to determine if the word should be a command name
+	interpreted as first word to determine if the word should be a command name
 	@return						none
  */
 void	ft_set_pipe(t_list **cmd_head, bool *is_first_word)

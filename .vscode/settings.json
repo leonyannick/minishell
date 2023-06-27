@@ -3,6 +3,7 @@
 		"minishell.h": "c",
 		"executor_utils.h": "c",
 		"stdio.h": "c",
-		"parser_utils.h": "c"
+		"parser_utils.h": "c",
+		"history.h": "c"
 	}
 }

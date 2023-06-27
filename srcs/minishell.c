@@ -6,7 +6,7 @@
 /*   By: aehrlich <aehrlich@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/09 11:47:38 by aehrlich          #+#    #+#             */
-/*   Updated: 2023/06/23 10:16:42 by aehrlich         ###   ########.fr       */
+/*   Updated: 2023/06/27 10:06:39 by aehrlich         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,6 +27,7 @@ int	main(int argc, char **argv, char **envp)
 		line = readline("ushelless:> ");
 		if (!line)
 			continue ;
+		add_history(line);
 		if (ft_strcmp(line, "exit") == 0) //free stuff
 			exit(0);
 		data.tokens = scan_tokens(line, &data);
@@ -39,4 +40,5 @@ int	main(int argc, char **argv, char **envp)
 			break ;
 	}
 	free(line);
+	clear_history(); //wo liegt die rl_clear_history() ???
 }

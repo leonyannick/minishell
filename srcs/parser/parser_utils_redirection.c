@@ -6,7 +6,7 @@
 /*   By: aehrlich <aehrlich@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/20 12:17:09 by aehrlich          #+#    #+#             */
-/*   Updated: 2023/06/23 10:30:58 by aehrlich         ###   ########.fr       */
+/*   Updated: 2023/06/27 10:34:22 by aehrlich         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,6 @@ void	ft_set_input_redirection(t_list **token_head, t_list *cmd_head)
 {
 	t_command	*temp_cmd;
 	t_token		*temp_token;
-	t_list		*temp_node;
 	t_file		*new_file;
 
 	new_file = malloc(sizeof(t_file));
@@ -59,8 +58,7 @@ void	ft_set_input_redirection(t_list **token_head, t_list *cmd_head)
 		new_file->path = creat_unique_hd_filename();
 		new_file->herdoc_lim = ft_strdup(temp_token->str);
 	}
-	temp_node = ft_lstnew((void *)new_file);
-	ft_lstadd_back(&(temp_cmd->inred_file), temp_node);
+	ft_lstadd_back(&(temp_cmd->inred_file), ft_lstnew((void *)new_file));
 }
 
 /* 
