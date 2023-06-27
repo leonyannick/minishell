@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parser.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aehrlich <aehrlich@student.42berlin.de>    +#+  +:+       +#+        */
+/*   By: aehrlich <aehrlich@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/22 14:16:45 by aehrlich          #+#    #+#             */
-/*   Updated: 2023/06/27 10:36:19 by aehrlich         ###   ########.fr       */
+/*   Updated: 2023/06/27 17:08:50 by aehrlich         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,7 +54,7 @@ static bool	ft_valid_grammar(t_list *token)
 				return (print_syntax_err("newline"));
 			if (((t_token *)token->next->content)->type != WORD)
 				return (print_syntax_err(
-					((t_token *)(token->next->content))->str));
+						((t_token *)(token->next->content))->str));
 		}
 		last = token;
 		token = token->next;

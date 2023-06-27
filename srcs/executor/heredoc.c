@@ -3,18 +3,18 @@
 /*                                                        :::      ::::::::   */
 /*   heredoc.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aehrlich <aehrlich@student.42berlin.de>    +#+  +:+       +#+        */
+/*   By: aehrlich <aehrlich@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/16 15:12:17 by aehrlich          #+#    #+#             */
-/*   Updated: 2023/06/23 09:39:56 by aehrlich         ###   ########.fr       */
+/*   Updated: 2023/06/27 17:56:56 by aehrlich         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "executor_utils.h"
 
-static int ft_read_heredoc(int fd, char *lim)
+static int	ft_read_heredoc(int fd, char *lim)
 {
-	char *read;
+	char	*read;
 
 	write(STDOUT_FILENO, "> ", 2);
 	read = get_next_line(STDIN_FILENO);
@@ -27,15 +27,16 @@ static int ft_read_heredoc(int fd, char *lim)
 		read = get_next_line(STDIN_FILENO);
 	}
 	read = ft_free_set_null(read);
+	lim = ft_free_set_null(lim);
 	close(fd);
 	return (0);
 }
 
-int read_heredocs(t_list *cmd_head)
+int	read_heredocs(t_list *cmd_head)
 {
-	t_file *in_file;
-	t_list *file_head;
-	t_command *cmd;
+	t_file		*in_file;
+	t_list		*file_head;
+	t_command	*cmd;
 
 	while (cmd_head)
 	{
@@ -56,11 +57,11 @@ int read_heredocs(t_list *cmd_head)
 	return (0);
 }
 
-int delete_heredocs(t_data *data)
+int	delete_heredocs(t_data *data)
 {
-	t_list *file_head;
-	t_list *command_head;
-	t_file *tmp_file;
+	t_list	*file_head;
+	t_list	*command_head;
+	t_file	*tmp_file;
 
 	command_head = data->commands;
 	while (command_head)

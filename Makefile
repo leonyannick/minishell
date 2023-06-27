@@ -3,17 +3,17 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: aehrlich <aehrlich@student.42berlin.de>    +#+  +:+       +#+         #
+#    By: aehrlich <aehrlich@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/02/19 09:17:44 by lbaumann          #+#    #+#              #
-#    Updated: 2023/06/23 09:32:15 by aehrlich         ###   ########.fr        #
+#    Updated: 2023/06/27 18:09:27 by aehrlich         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME = minishell
 
-CC = gcc
-CFLAGS = #-Wall -Werror -Wextra
+CC = cc
+CFLAGS = -Wall -Werror -Wextra
 MAKEFLAGS   += --no-print-directory
 
 UNAME := $(shell uname)
@@ -60,14 +60,14 @@ SRCS = \
 	error/error.c \
 	data_init.c \
 	parser/parser_utils_cmd.c \
-	parser/parser_print.c \
 	parser/parser.c \
 	parser/parser_utils.c \
 	parser/parser_utils_redirection.c \
 	executor/executor_utils.c \
 	executor/executor.c \
 	executor/redirection.c \
-	executor/command.c \
+	executor/path_command.c \
+	executor/builtin_command.c \
 	executor/pipe_utils.c \
 	executor/heredoc.c \
 	executor/command_free.c

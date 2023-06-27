@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aehrlich <aehrlich@student.42berlin.de>    +#+  +:+       +#+        */
+/*   By: aehrlich <aehrlich@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/09 11:47:38 by aehrlich          #+#    #+#             */
-/*   Updated: 2023/06/27 10:06:39 by aehrlich         ###   ########.fr       */
+/*   Updated: 2023/06/27 17:19:17 by aehrlich         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,8 @@ int	main(int argc, char **argv, char **envp)
 	char	*line;
 	int		exec_return;
 
-	argc = 0;
+	if (argc > 1)
+		return (0);
 	argv = NULL;
 	init_data(&data, envp);
 	
@@ -28,7 +29,7 @@ int	main(int argc, char **argv, char **envp)
 		if (!line)
 			continue ;
 		add_history(line);
-		if (ft_strcmp(line, "exit") == 0) //free stuff
+		if (ft_strcmp(line, "exit") == 0) //free stuff??
 			exit(0);
 		data.tokens = scan_tokens(line, &data);
 		data.commands = parse(data.tokens);
@@ -40,5 +41,5 @@ int	main(int argc, char **argv, char **envp)
 			break ;
 	}
 	free(line);
-	clear_history(); //wo liegt die rl_clear_history() ???
+	rl_clear_history();
 }

@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   executor.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aehrlich <aehrlich@student.42berlin.de>    +#+  +:+       +#+        */
+/*   By: aehrlich <aehrlich@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/10 14:58:03 by aehrlich          #+#    #+#             */
-/*   Updated: 2023/06/27 10:53:58 by aehrlich         ###   ########.fr       */
+/*   Updated: 2023/06/27 18:23:24 by aehrlich         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "executor_utils.h"
 
-static int execute_children(int *in_pipe, int *out_pipe,
+static int	execute_children(int *in_pipe, int *out_pipe,
 	t_command *command, t_data *data)
 {
 	if (io_redirection(in_pipe, out_pipe, command) == -1)
@@ -51,11 +51,11 @@ static int	children(int *pids, t_data *data)
 		pids[i] = fork();
 		if (pids[i] == -1)
 			return (-1);
-		if (pids[i] == 0)
-			return (execute_children(in_pipe, out_pipe, command, data));
+		if (pids[i++] == 0)
+			return (free(pids),
+				execute_children(in_pipe, out_pipe, command, data));
 		close_pipe(in_pipe);
 		cmd_head = cmd_head->next;
-		i++;
 	}
 	close_pipe(out_pipe);
 	return (0);
@@ -92,9 +92,9 @@ int	execute_builtin_inplace(t_data *data, t_command *command)
  */
 int	execute(t_data *data)
 {
-	int	*pids;
-	int	i;
-	int	cmd_count;
+	int			*pids;
+	int			i;
+	int			cmd_count;
 	t_command	*command;
 
 	i = 0;
