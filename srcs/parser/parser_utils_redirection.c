@@ -3,15 +3,21 @@
 /*                                                        :::      ::::::::   */
 /*   parser_utils_redirection.c                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aehrlich <aehrlich@student.42berlin.de>    +#+  +:+       +#+        */
+/*   By: aehrlich <aehrlich@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/20 12:17:09 by aehrlich          #+#    #+#             */
-/*   Updated: 2023/06/27 10:34:22 by aehrlich         ###   ########.fr       */
+/*   Updated: 2023/06/28 13:00:49 by aehrlich         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "parser_utils.h"
 
+/*
+	a pipeline can contain multiple herdeocs, for everyone
+	a new file must be created in the /temp folder. The static var is used
+	to create a unique index.
+	@return:	return a string representing a unique filename
+*/
 static char	*creat_unique_hd_filename(void)
 {
 	static int	hd_idx = 0;

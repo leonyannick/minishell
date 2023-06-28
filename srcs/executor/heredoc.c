@@ -6,12 +6,16 @@
 /*   By: aehrlich <aehrlich@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/16 15:12:17 by aehrlich          #+#    #+#             */
-/*   Updated: 2023/06/27 17:56:56 by aehrlich         ###   ########.fr       */
+/*   Updated: 2023/06/28 13:15:59 by aehrlich         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "executor_utils.h"
 
+/*
+	reads the STDIO into the opened unique .herdoc_IDX
+	in /tmp until a the limiter is entered.
+*/
 static int	ft_read_heredoc(int fd, char *lim)
 {
 	char	*read;
@@ -32,6 +36,11 @@ static int	ft_read_heredoc(int fd, char *lim)
 	return (0);
 }
 
+/*
+	herdocs can appear also in pipes. Therefor, like bash, is
+	reads all heredocs at the beginning even if a cmd is not valid.
+	@return: 0 on success, -1 on failure
+*/
 int	read_heredocs(t_list *cmd_head)
 {
 	t_file		*in_file;
@@ -48,6 +57,8 @@ int	read_heredocs(t_list *cmd_head)
 			if (in_file->open_mode == I_RED_HD)
 			{
 				in_file->fd = open(in_file->path, O_CREAT | O_RDWR, 0777);
+				if (!in_file->fd)
+					return (-1);
 				ft_read_heredoc(in_file->fd, in_file->herdoc_lim);
 			}
 			file_head = file_head->next;

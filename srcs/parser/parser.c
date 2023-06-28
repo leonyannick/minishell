@@ -6,14 +6,14 @@
 /*   By: aehrlich <aehrlich@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/22 14:16:45 by aehrlich          #+#    #+#             */
-/*   Updated: 2023/06/27 17:08:50 by aehrlich         ###   ########.fr       */
+/*   Updated: 2023/06/28 13:01:41 by aehrlich         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/minishell.h"
 #include "parser_utils.h"
 
-bool	print_syntax_err(char *token_str)
+static bool	print_syntax_err(char *token_str)
 {
 	printf("ushelless: syntax error near unexpected token '%s'\n", token_str);
 	return (false);

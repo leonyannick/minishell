@@ -6,7 +6,7 @@
 /*   By: aehrlich <aehrlich@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/13 11:58:09 by aehrlich          #+#    #+#             */
-/*   Updated: 2023/06/28 12:36:06 by aehrlich         ###   ########.fr       */
+/*   Updated: 2023/06/28 13:16:13 by aehrlich         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,7 @@ static char	**free_str_arr(char **strs)
 	@argument - data:	data object containing the envp
 	@return:			arry of strings with the available paths
  */
-static char	**get_paths()
+static char	**get_paths(void)
 {
 	char	**paths;
 	char	*path_string;
@@ -53,6 +53,12 @@ static char	**get_paths()
 	return (paths);
 }
 
+/*
+	checks for every accessible path if there exists an
+	executable using the environ variable. 
+	@return:	on success a joined path with the executable
+				on failure NULL
+*/
 static char	*build_path(t_command *command)
 {
 	char	**paths;

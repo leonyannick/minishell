@@ -6,7 +6,7 @@
 /*   By: aehrlich <aehrlich@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/13 11:29:38 by aehrlich          #+#    #+#             */
-/*   Updated: 2023/06/27 17:10:25 by aehrlich         ###   ########.fr       */
+/*   Updated: 2023/06/28 13:06:24 by aehrlich         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,6 +89,11 @@ static int	redirect_output(t_command *cmd)
 	return (0);
 }
 
+/*
+	set up pipes or io redirection to a command struct.
+	Close the pipes in the pipes after redirection. 
+	@return: -1 on failure, 0 on success
+*/
 int	io_redirection(int in_pipe[2], int out_pipe[2], t_command *command)
 {
 	if (command->has_in_pipe && in_pipe)

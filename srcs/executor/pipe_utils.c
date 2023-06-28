@@ -6,12 +6,19 @@
 /*   By: aehrlich <aehrlich@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/16 12:48:01 by aehrlich          #+#    #+#             */
-/*   Updated: 2023/06/27 17:11:47 by aehrlich         ###   ########.fr       */
+/*   Updated: 2023/06/28 13:08:44 by aehrlich         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "executor_utils.h"
 
+/*
+	pipes are now on the stack and does not to be freed. After a fork
+	the current process gets the pipe of the former process.
+	The currents in pipe is the formers out pipe and has therefore
+	to be copied in the currents inpipe. if the current has an outpipe
+	it gets populated in the known way.
+*/
 void	set_pipes(t_command *command, int *in_pipe, int *out_pipe)
 {
 	if (command->has_in_pipe)
