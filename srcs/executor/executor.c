@@ -6,7 +6,7 @@
 /*   By: aehrlich <aehrlich@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/10 14:58:03 by aehrlich          #+#    #+#             */
-/*   Updated: 2023/06/28 10:09:51 by aehrlich         ###   ########.fr       */
+/*   Updated: 2023/06/28 12:14:29 by aehrlich         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,10 +16,10 @@ static int	execute_children(int *in_pipe, int *out_pipe,
 	t_command *command, t_data *data)
 {
 	if (io_redirection(in_pipe, out_pipe, command) == -1)
-		return (-1);
+		return (EXIT_BREAK);
 	if (command->type == PATH)
 		return (execute_path_cmd(data, command));
-	return (exeute_builtin_cmd(command, -1));
+	return (exeute_builtin_cmd(command, EXIT_BREAK));
 }
 
 /* 
@@ -76,7 +76,7 @@ static int	execute_builtin_inplace(t_command *command)
 	old_stdin = dup(STDIN_FILENO);
 	old_stdout = dup(STDOUT_FILENO);
 	io_redirection(NULL, NULL, command);
-	exec_ret = exeute_builtin_cmd(command, 0);
+	exec_ret = exeute_builtin_cmd(command, EXIT_CONTINUE);
 	dup2(old_stdin, STDIN_FILENO);
 	close(old_stdin);
 	dup2(old_stdout, STDOUT_FILENO);
@@ -106,8 +106,8 @@ int	execute(t_data *data)
 	if (cmd_count == 1 && command->type == BUILTIN)
 		return (execute_builtin_inplace(command));
 	pids = malloc(cmd_count * sizeof(int));
-	if (children(pids, data) == -1)
-		return (-1);
+	if (children(pids, data) == EXIT_BREAK)
+		return (EXIT_BREAK);
 	while (i < cmd_count)
 		waitpid(pids[i++], NULL, 0);
 	pids = ft_free_set_null(pids);

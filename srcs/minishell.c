@@ -6,7 +6,7 @@
 /*   By: aehrlich <aehrlich@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/09 11:47:38 by aehrlich          #+#    #+#             */
-/*   Updated: 2023/06/28 11:00:58 by aehrlich         ###   ########.fr       */
+/*   Updated: 2023/06/28 12:09:59 by aehrlich         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,7 @@ int	main(int argc, char **argv, char **envp)
 		ft_lstclear(&data.tokens, token_del);
 		delete_heredocs(&data);
 		ft_lstclear(&data.commands, command_del);
-		if (exec_return == -1)
+		if (exec_return == EXIT_BREAK)
 			break ;
 	}
 	free(line);

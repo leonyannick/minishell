@@ -6,7 +6,7 @@
 /*   By: aehrlich <aehrlich@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/05 10:33:26 by lbaumann          #+#    #+#             */
-/*   Updated: 2023/06/21 16:45:55 by aehrlich         ###   ########.fr       */
+/*   Updated: 2023/06/28 12:10:51 by aehrlich         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,5 +73,12 @@ typedef struct command
 	t_list			*inred_file;
 	t_list			*outred_file;
 }					t_command;
+
+//executor
+typedef enum exit_type
+{
+	EXIT_BREAK = -1,
+	EXIT_CONTINUE = 0
+}t_exit_type;
 
 #endif
