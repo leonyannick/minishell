@@ -6,7 +6,7 @@
 /*   By: aehrlich <aehrlich@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/09 11:47:38 by aehrlich          #+#    #+#             */
-/*   Updated: 2023/06/27 17:19:17 by aehrlich         ###   ########.fr       */
+/*   Updated: 2023/06/28 11:00:58 by aehrlich         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,15 +22,12 @@ int	main(int argc, char **argv, char **envp)
 		return (0);
 	argv = NULL;
 	init_data(&data, envp);
-	
 	while(1)
 	{
 		line = readline("ushelless:> ");
 		if (!line)
 			continue ;
 		add_history(line);
-		if (ft_strcmp(line, "exit") == 0) //free stuff??
-			exit(0);
 		data.tokens = scan_tokens(line, &data);
 		data.commands = parse(data.tokens);
 		exec_return = execute(&data);

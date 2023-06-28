@@ -6,7 +6,7 @@
 /*   By: aehrlich <aehrlich@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/02 12:23:20 by lbaumann          #+#    #+#             */
-/*   Updated: 2023/06/09 12:20:15 by aehrlich         ###   ########.fr       */
+/*   Updated: 2023/06/28 09:46:04 by aehrlich         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,7 @@ t_list	*scan_tokens(char *line, t_data *data)
 		else if (is_whitespace(line[i]))
 			token_str = whitespace_token(line, &i, &type);
 		else if (line[i] == '|')
-			token_str = pipe_token(line, &i, &type);
+			token_str = pipe_token(&i, &type);
 		else
 			token_str = word_token(line, &i, &type);
 		tokens = save_token(&tokens, token_str, type);

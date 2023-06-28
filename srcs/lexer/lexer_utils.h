@@ -6,7 +6,7 @@
 /*   By: aehrlich <aehrlich@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/05 09:59:02 by lbaumann          #+#    #+#             */
-/*   Updated: 2023/06/09 12:17:19 by aehrlich         ###   ########.fr       */
+/*   Updated: 2023/06/28 09:45:43 by aehrlich         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ char	*redirection_token(char *line, size_t *i, e_token_types *type);
 char	*parameter_token(char *line, size_t *i, e_token_types *type, char **envp);
 char	*quote_token(char *line, size_t *i, e_token_types *type, char **envp);
 char	*whitespace_token(char *line, size_t *i, e_token_types *type);
-char	*pipe_token(char *line, size_t *i, e_token_types *type);
+char	*pipe_token(size_t *i, e_token_types *type);
 
 //lexer_utils_token_2
 char	*word_token(char *line, size_t *i, e_token_types *type);

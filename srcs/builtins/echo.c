@@ -6,7 +6,7 @@
 /*   By: lbaumann <lbaumann@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/07 12:55:20 by lbaumann          #+#    #+#             */
-/*   Updated: 2023/06/07 15:06:05 by lbaumann         ###   ########.fr       */
+/*   Updated: 2023/06/16 12:29:37 by lbaumann         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@
  * afterwards
  * only '-' is also returned as false
 */
-static bool	check_n_flag(char *arg)
+static bool	check_n_flag(const char *arg)
 {
 	if (!arg || (*arg++) != '-' || !(*arg))
 		return (false);
@@ -32,12 +32,12 @@ static bool	check_n_flag(char *arg)
 
 /**
  * the most unimportant string checking i have done in my life
- * if the second str in argv contains the n flag no new line is printed in the
+ * if the second str in arr contains the n flag no new line is printed in the
  * end
  * preluding -n flag strings are skipped (once a str that is no n flag is
  * reached, further n flags are treated as normal strings and printed out)
 */
-void	builtin_echo(char	**argv)
+void	builtin_echo(const char **argv)
 {
 	bool	n_flag;
 	size_t	i;

@@ -6,7 +6,7 @@
 /*   By: aehrlich <aehrlich@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/10 14:24:32 by aehrlich          #+#    #+#             */
-/*   Updated: 2023/06/27 17:09:29 by aehrlich         ###   ########.fr       */
+/*   Updated: 2023/06/28 10:56:12 by aehrlich         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,7 @@
 # include <stdbool.h>
 # include "../../libft/includes/libft.h"
 # include "../../includes/types.h"
+# include "../../includes/builtins.h"
 
 char	**ft_lst_strarr(t_list *list);
 int		io_redirection(int in_pipe[2], int out_pipe[2], t_command *command);
@@ -30,5 +31,6 @@ void	init_pipes(int *in_pipe, int *out_pipe);
 void	set_pipes(t_command *command, int *in_pipe, int *out_pipe);
 int		read_heredocs(t_list *cmd_head);
 void	command_del(void *arg);
-int		exeute_builtin_cmd(t_data *data, t_command *command, int exit_type);
+int		exeute_builtin_cmd(t_command *command, int exit_type);
+int		ft_fd_printf(int fd, const char *format, ...);
 #endif

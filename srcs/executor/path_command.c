@@ -6,7 +6,7 @@
 /*   By: aehrlich <aehrlich@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/13 11:58:09 by aehrlich          #+#    #+#             */
-/*   Updated: 2023/06/27 18:21:04 by aehrlich         ###   ########.fr       */
+/*   Updated: 2023/06/28 10:53:49 by aehrlich         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -102,8 +102,8 @@ int	execute_path_cmd(t_data *data, t_command *command)
 		joined_path = build_path(command, data);
 	if (!joined_path)
 	{
-		fprintf(stderr, "%s: command not found\n",
-			(char *)command->arguments->content); //write own fprintf
+		ft_fd_printf(STDERR_FILENO, "%s: command not found\n",
+			(char *)command->arguments->content);
 		return (-1);
 	}
 	arg_list = ft_lst_strarr(command->arguments);

@@ -6,7 +6,7 @@
 #    By: aehrlich <aehrlich@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/02/19 09:17:44 by lbaumann          #+#    #+#              #
-#    Updated: 2023/06/27 18:09:27 by aehrlich         ###   ########.fr        #
+#    Updated: 2023/06/28 10:45:31 by aehrlich         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -70,7 +70,15 @@ SRCS = \
 	executor/builtin_command.c \
 	executor/pipe_utils.c \
 	executor/heredoc.c \
-	executor/command_free.c
+	executor/command_free.c \
+	executor/ft_fd_printf.c \
+	builtins/export.c \
+	builtins/echo.c \
+	builtins/unset.c \
+	builtins/pwd.c \
+	builtins/env.c \
+	builtins/cd.c \
+	builtins/exit.c \
 
 ifeq ($(UNAME), Linux)
 endif
