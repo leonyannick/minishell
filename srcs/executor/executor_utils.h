@@ -6,7 +6,7 @@
 /*   By: aehrlich <aehrlich@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/10 14:24:32 by aehrlich          #+#    #+#             */
-/*   Updated: 2023/06/28 10:56:12 by aehrlich         ###   ########.fr       */
+/*   Updated: 2023/06/28 12:22:28 by aehrlich         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,7 @@
 # include <dirent.h>
 # include <fcntl.h>
 # include <stdbool.h>
+# include <stdlib.h>
 # include "../../libft/includes/libft.h"
 # include "../../includes/types.h"
 # include "../../includes/builtins.h"

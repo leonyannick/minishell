@@ -6,7 +6,7 @@
 /*   By: aehrlich <aehrlich@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/13 11:58:09 by aehrlich          #+#    #+#             */
-/*   Updated: 2023/06/28 10:53:49 by aehrlich         ###   ########.fr       */
+/*   Updated: 2023/06/28 12:36:06 by aehrlich         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,33 +40,27 @@ static char	**free_str_arr(char **strs)
 	@argument - data:	data object containing the envp
 	@return:			arry of strings with the available paths
  */
-static char	**get_paths(t_data *data)
+static char	**get_paths()
 {
-	int		i;
 	char	**paths;
+	char	*path_string;
 
-	i = 0;
 	paths = NULL;
-	while (data->envp[i])
-	{
-		if (ft_strncmp(data->envp[i], "PATH=", 5) == 0)
-		{
-			paths = ft_split((data->envp[i] + ft_strlen("PATH")), ':');
-			break ;
-		}
-		i++;
-	}
+	path_string = getenv("PATH");
+	if (!path_string)
+		return (NULL);
+	paths = ft_split(path_string, ':');
 	return (paths);
 }
 
-static char	*build_path(t_command *command, t_data *data)
+static char	*build_path(t_command *command)
 {
 	char	**paths;
 	char	*joined_path;
 	char	**start;
 
 	start = NULL;
-	paths = get_paths(data);
+	paths = get_paths();
 	if (!paths)
 		return (NULL);
 	start = paths;
@@ -99,15 +93,15 @@ int	execute_path_cmd(t_data *data, t_command *command)
 	if (access((char *)command->arguments->content, X_OK) == 0)
 		joined_path = ft_strdup((char *)command->arguments->content);
 	else
-		joined_path = build_path(command, data);
+		joined_path = build_path(command);
 	if (!joined_path)
 	{
 		ft_fd_printf(STDERR_FILENO, "%s: command not found\n",
 			(char *)command->arguments->content);
-		return (-1);
+		return (EXIT_BREAK);
 	}
 	arg_list = ft_lst_strarr(command->arguments);
 	execve(joined_path, arg_list, data->envp);
 	arg_list = free_str_arr(arg_list);
-	return (-1);
+	return (EXIT_BREAK);
 }
