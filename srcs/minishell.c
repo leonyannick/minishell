@@ -6,7 +6,7 @@
 /*   By: aehrlich <aehrlich@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/09 11:47:38 by aehrlich          #+#    #+#             */
-/*   Updated: 2023/06/28 12:09:59 by aehrlich         ###   ########.fr       */
+/*   Updated: 2023/06/30 12:31:58 by aehrlich         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ int	main(int argc, char **argv, char **envp)
 	t_data	data;
 	char	*line;
 	int		exec_return;
-
+	
 	if (argc > 1)
 		return (0);
 	argv = NULL;
@@ -26,6 +26,11 @@ int	main(int argc, char **argv, char **envp)
 	{
 		line = readline("ushelless:> ");
 		if (!line)
+		{
+			printf("exit\n");
+			exit(0);
+		}
+		else if (*line == '\0')
 			continue ;
 		add_history(line);
 		data.tokens = scan_tokens(line, &data);

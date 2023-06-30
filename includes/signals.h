@@ -1,21 +1,19 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   data_init.c                                        :+:      :+:    :+:   */
+/*   signals.h                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: aehrlich <aehrlich@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/05/26 12:07:34 by lbaumann          #+#    #+#             */
-/*   Updated: 2023/06/30 13:07:26 by aehrlich         ###   ########.fr       */
+/*   Created: 2023/06/30 12:32:52 by aehrlich          #+#    #+#             */
+/*   Updated: 2023/06/30 13:07:08 by aehrlich         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../includes/minishell.h"
+#ifndef SIGNALS_H
+# define SIGNALS_H
 
-void	init_data(t_data *data, char **envp)
-{
-	ft_memset(data, 0, sizeof(t_data));
-	data->envp = envp;
-	init_signals(data);
-	
-}
+void	handle_signals(int signal);
+void	init_signals(t_data *data);
+
+#endif

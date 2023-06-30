@@ -6,7 +6,7 @@
 #    By: aehrlich <aehrlich@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/02/19 09:17:44 by lbaumann          #+#    #+#              #
-#    Updated: 2023/06/28 10:45:31 by aehrlich         ###   ########.fr        #
+#    Updated: 2023/06/30 12:34:26 by aehrlich         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -79,6 +79,7 @@ SRCS = \
 	builtins/env.c \
 	builtins/cd.c \
 	builtins/exit.c \
+	signals/signals.c 
 
 ifeq ($(UNAME), Linux)
 endif

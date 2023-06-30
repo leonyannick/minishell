@@ -6,7 +6,7 @@
 /*   By: aehrlich <aehrlich@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/05 10:33:26 by lbaumann          #+#    #+#             */
-/*   Updated: 2023/06/28 12:10:51 by aehrlich         ###   ########.fr       */
+/*   Updated: 2023/06/30 12:30:21 by aehrlich         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,7 @@
 
 # include "../libft/includes/libft.h"
 # include <stdbool.h>
+# include <signal.h>
 
 //minishell
 typedef struct data
@@ -22,6 +23,7 @@ typedef struct data
 	char	**envp;
 	t_list	*tokens;
 	t_list	*commands;
+	struct	sigaction sa;
 }	t_data;
 
 //lexer

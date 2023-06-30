@@ -6,7 +6,7 @@
 /*   By: aehrlich <aehrlich@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/19 11:42:54 by lbaumann          #+#    #+#             */
-/*   Updated: 2023/06/28 09:40:03 by aehrlich         ###   ########.fr       */
+/*   Updated: 2023/06/30 12:33:46 by aehrlich         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,11 +18,13 @@
 # include "types.h"
 # include "parser.h"
 # include "executor.h"
+# include "signals.h"
 # include <stdlib.h> //malloc
 # include <stdio.h> //printf, readline#include <readline/readline.h>
 # include <readline/history.h>
 # include <readline/readline.h>
 # include <stdbool.h> //true, false
+# include <signal.h>
 
 //color macro for printing status messages in color
 # define GR	"\033[32;1m"
