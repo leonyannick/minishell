@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   signals.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aehrlich <aehrlich@student.42.fr>          +#+  +:+       +#+        */
+/*   By: aehrlich <aehrlich@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/30 12:02:17 by aehrlich          #+#    #+#             */
-/*   Updated: 2023/06/30 13:07:47 by aehrlich         ###   ########.fr       */
+/*   Updated: 2023/07/04 19:19:09 by aehrlich         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,11 @@
 #include <readline/readline.h>
 #include "../includes/types.h"
 
+/*
+	gets executed on a SIGINT signal event. clears the buffer of readline
+	writes a newline and redisplays the prompt of the
+	shell.
+*/
 void	handle_signals(int signal)
 {
 	if (signal == SIGINT)
@@ -26,6 +31,10 @@ void	handle_signals(int signal)
 	}
 }
 
+/*
+	overides the action of the signal SIGINT 'ctrl-D' with the custom handle_signal
+	behaviour and ignores the SIGQUIT 'ctrl-\'.
+*/
 void	init_signals(t_data *data)
 {
 	data->sa.sa_handler = handle_signals;
