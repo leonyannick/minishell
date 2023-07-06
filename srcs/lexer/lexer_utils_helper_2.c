@@ -6,21 +6,36 @@
 /*   By: lbaumann <lbaumann@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/05 10:09:27 by lbaumann          #+#    #+#             */
-/*   Updated: 2023/07/06 12:19:46 by lbaumann         ###   ########.fr       */
+/*   Updated: 2023/07/06 13:14:09 by lbaumann         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "lexer_utils.h"
 
+/**
+ * if end of line is reached or double quote -> expand returns an allocated <$>
+ * line is parsed until end of quote or metacharacter is found
+ * the var_name substring is allocated from the parsed line and the env_dict
+ * is searched for an entry with that key
+ * var_name is freed after the dictionary has been searched
+ * the var_value is returned from the expand function
+*/
+
 char	*expand(char *line, size_t *i, t_list *env_dict)
 {
-	env_dict = NULL;
+	size_t	token_begin;
+	char	*var_name;
+	char	*var_value;
+
+	token_begin = *i;
 	if (!line[*i] || line[*i] == '"')
-		return (ft_strdup(""));
+		return (ft_strdup("$"));
 	while (!is_metacharacter(line[*i]) && !is_quote(line[*i]) && line[*i])
 		(*i)++;
-	//expand(*i - token_begin)
-	return (ft_strdup("REPLAC EMENT"));
+	var_name = ft_substr(line, token_begin, *i - token_begin);
+	var_value = ft_dict_get_value(env_dict, var_name);
+	free(var_name);
+	return (var_value);
 }
 
 char	*char_to_str(char c)
