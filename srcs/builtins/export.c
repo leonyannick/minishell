@@ -6,7 +6,7 @@
 /*   By: lbaumann <lbaumann@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/14 17:51:49 by lbaumann          #+#    #+#             */
-/*   Updated: 2023/06/16 11:48:59 by lbaumann         ###   ########.fr       */
+/*   Updated: 2023/07/06 12:03:37 by lbaumann         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,7 @@ static char	**split_key_val(const char *arg, char **key_val)
  * the key needs to be freed after ft_dict_add_node, because it is newly
  * allocated there
 */
-void	builtin_export(const char **argv, t_list *dict)
+void	builtin_export(const char **argv, t_list *env_dict)
 {
 	size_t	i;
 	char *key_val[2];
@@ -49,7 +49,7 @@ void	builtin_export(const char **argv, t_list *dict)
 	{
 		if (split_key_val(argv[i], key_val))
 		{
-			ft_dict_add_node(&dict, key_val[0], key_val[1]);
+			ft_dict_add_node(&env_dict, key_val[0], key_val[1]);
 			key_val[0] = ft_free_set_null(key_val[0]);
 		}
 		i++;

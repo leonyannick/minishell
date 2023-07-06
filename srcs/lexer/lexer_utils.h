@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   lexer_utils.h                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aehrlich <aehrlich@student.42.fr>          +#+  +:+       +#+        */
+/*   By: lbaumann <lbaumann@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/05 09:59:02 by lbaumann          #+#    #+#             */
-/*   Updated: 2023/06/28 09:45:43 by aehrlich         ###   ########.fr       */
+/*   Updated: 2023/07/06 12:21:15 by lbaumann         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,8 +23,8 @@
 
 //lexer_utils_token_1
 char	*redirection_token(char *line, size_t *i, e_token_types *type);
-char	*parameter_token(char *line, size_t *i, e_token_types *type, char **envp);
-char	*quote_token(char *line, size_t *i, e_token_types *type, char **envp);
+char	*parameter_token(char *line, size_t *i, e_token_types *type, t_list *env_dict);
+char	*quote_token(char *line, size_t *i, e_token_types *type, t_list *env_dict);
 char	*whitespace_token(char *line, size_t *i, e_token_types *type);
 char	*pipe_token(size_t *i, e_token_types *type);
 
@@ -42,7 +42,7 @@ bool	is_operator(char c);
 void	skip_whitespace(char *str, size_t *i);
 
 //lexer_utils_helper_2
-char	*expand(char *line, size_t *i, char **envp);
+char	*expand(char *line, size_t *i, t_list *env_dict);
 char	*char_to_str(char c);
 char	*append_str(char *str, char *appendix);
 

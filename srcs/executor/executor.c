@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   executor.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aehrlich <aehrlich@student.42.fr>          +#+  +:+       +#+        */
+/*   By: lbaumann <lbaumann@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/10 14:58:03 by aehrlich          #+#    #+#             */
-/*   Updated: 2023/06/28 12:14:29 by aehrlich         ###   ########.fr       */
+/*   Updated: 2023/07/06 12:17:49 by lbaumann         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ static int	execute_children(int *in_pipe, int *out_pipe,
 		return (EXIT_BREAK);
 	if (command->type == PATH)
 		return (execute_path_cmd(data, command));
-	return (exeute_builtin_cmd(command, EXIT_BREAK));
+	return (execute_builtin_cmd(data, command, EXIT_BREAK));
 }
 
 /* 
@@ -67,7 +67,7 @@ static int	children(int *pids, t_data *data)
 	and set back after execution, because minishell will continue execution
 	and needs to read and write to normal STDIO.
 */
-static int	execute_builtin_inplace(t_command *command)
+static int	execute_builtin_inplace(t_data *data, t_command *command)
 {
 	int	old_stdin;
 	int	old_stdout;
@@ -76,7 +76,7 @@ static int	execute_builtin_inplace(t_command *command)
 	old_stdin = dup(STDIN_FILENO);
 	old_stdout = dup(STDOUT_FILENO);
 	io_redirection(NULL, NULL, command);
-	exec_ret = exeute_builtin_cmd(command, EXIT_CONTINUE);
+	exec_ret = execute_builtin_cmd(data, command, EXIT_CONTINUE);
 	dup2(old_stdin, STDIN_FILENO);
 	close(old_stdin);
 	dup2(old_stdout, STDOUT_FILENO);
@@ -104,7 +104,7 @@ int	execute(t_data *data)
 	read_heredocs(data->commands);
 	cmd_count = ft_lstsize(data->commands);
 	if (cmd_count == 1 && command->type == BUILTIN)
-		return (execute_builtin_inplace(command));
+		return (execute_builtin_inplace(data, command));
 	pids = malloc(cmd_count * sizeof(int));
 	if (children(pids, data) == EXIT_BREAK)
 		return (EXIT_BREAK);

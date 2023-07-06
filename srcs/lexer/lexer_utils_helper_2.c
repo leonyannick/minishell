@@ -3,18 +3,18 @@
 /*                                                        :::      ::::::::   */
 /*   lexer_utils_helper_2.c                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lbaumann <lbaumann@student.42berlin.de>    +#+  +:+       +#+        */
+/*   By: lbaumann <lbaumann@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/05 10:09:27 by lbaumann          #+#    #+#             */
-/*   Updated: 2023/06/05 10:09:57 by lbaumann         ###   ########.fr       */
+/*   Updated: 2023/07/06 12:19:46 by lbaumann         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "lexer_utils.h"
 
-char	*expand(char *line, size_t *i, char **envp)
+char	*expand(char *line, size_t *i, t_list *env_dict)
 {
-	envp = NULL;
+	env_dict = NULL;
 	if (!line[*i] || line[*i] == '"')
 		return (ft_strdup(""));
 	while (!is_metacharacter(line[*i]) && !is_quote(line[*i]) && line[*i])

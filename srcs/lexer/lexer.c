@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   lexer.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aehrlich <aehrlich@student.42.fr>          +#+  +:+       +#+        */
+/*   By: lbaumann <lbaumann@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/02 12:23:20 by lbaumann          #+#    #+#             */
-/*   Updated: 2023/06/28 09:46:04 by aehrlich         ###   ########.fr       */
+/*   Updated: 2023/07/06 12:20:06 by lbaumann         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,9 +33,9 @@ t_list	*scan_tokens(char *line, t_data *data)
 		if (line[i] == '<' || line[i] == '>')
 			token_str = redirection_token(line, &i, &type);
 		else if (line[i] == '$')
-			token_str = parameter_token(line, &i, &type, data->envp);
+			token_str = parameter_token(line, &i, &type, data->env_dict);
 		else if (line[i] == '\'' || line[i] == '\"')
-			token_str = quote_token(line, &i, &type, data->envp);
+			token_str = quote_token(line, &i, &type, data->env_dict);
 		else if (is_whitespace(line[i]))
 			token_str = whitespace_token(line, &i, &type);
 		else if (line[i] == '|')

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   path_command.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aehrlich <aehrlich@student.42.fr>          +#+  +:+       +#+        */
+/*   By: lbaumann <lbaumann@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/13 11:58:09 by aehrlich          #+#    #+#             */
-/*   Updated: 2023/06/28 13:16:13 by aehrlich         ###   ########.fr       */
+/*   Updated: 2023/07/06 12:12:14 by lbaumann         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -95,6 +95,7 @@ int	execute_path_cmd(t_data *data, t_command *command)
 {
 	char	**arg_list;
 	char	*joined_path;
+	char	**envp;
 
 	if (access((char *)command->arguments->content, X_OK) == 0)
 		joined_path = ft_strdup((char *)command->arguments->content);
@@ -107,7 +108,10 @@ int	execute_path_cmd(t_data *data, t_command *command)
 		return (EXIT_BREAK);
 	}
 	arg_list = ft_lst_strarr(command->arguments);
-	execve(joined_path, arg_list, data->envp);
+	envp = ft_dict_to_strarr(data->env_dict);
+	if (!envp)
+		return (EXIT_BREAK);
+	execve(joined_path, arg_list, envp);
 	arg_list = free_str_arr(arg_list);
 	return (EXIT_BREAK);
 }
