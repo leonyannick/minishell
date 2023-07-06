@@ -6,7 +6,7 @@
 /*   By: lbaumann <lbaumann@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/16 15:13:03 by lbaumann          #+#    #+#             */
-/*   Updated: 2023/07/06 12:03:02 by lbaumann         ###   ########.fr       */
+/*   Updated: 2023/07/06 17:38:09 by lbaumann         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,13 +63,12 @@ char	*process_path(const char *arg, t_list *env_dict)
 void	builtin_cd(const char **argv, t_list *env_dict)
 {
 	char	*path;
+	int		argc;
 
-	path = NULL;
-	// printf("PWD: %s\n", (char *)ft_dict_get_value(dict, "PWD"));
-	// printf("OLDPWD: %s\n", (char *)ft_dict_get_value(dict, "OLDPWD"));
-	if (argv[2] != NULL)
+	argc = ft_argc_from_argv(argv);
+	if (argc > 2)
 		printf("cd: too many arguments\n");
-	else if (!argv[1] || !ft_strcmp(argv[1], "~") || !ft_strcmp(argv[1], "--"))
+	else if (argc == 1 || !ft_strcmp(argv[1], "~") || !ft_strcmp(argv[1], "--"))
 	{
 		path = ft_strdup(ft_dict_get_value(env_dict, "HOME"));
 		update_paths(path, env_dict);
@@ -85,6 +84,4 @@ void	builtin_cd(const char **argv, t_list *env_dict)
 		path = process_path(argv[1], env_dict);
 		update_paths(path, env_dict);
 	}
-	// printf("PWD after: %s\n", (char *)ft_dict_get_value(dict, "PWD"));
-	// printf("OLDPWD after: %s\n", (char *)ft_dict_get_value(dict, "OLDPWD"));
 }
