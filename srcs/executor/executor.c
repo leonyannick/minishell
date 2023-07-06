@@ -6,7 +6,7 @@
 /*   By: lbaumann <lbaumann@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/10 14:58:03 by aehrlich          #+#    #+#             */
-/*   Updated: 2023/07/06 12:17:49 by lbaumann         ###   ########.fr       */
+/*   Updated: 2023/07/06 16:33:30 by lbaumann         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -96,6 +96,8 @@ int	execute(t_data *data)
 	int			i;
 	int			cmd_count;
 	t_command	*command;
+	int			wstatus;
+	int			child_exit;
 
 	i = 0;
 	if (!data->commands)
@@ -109,7 +111,24 @@ int	execute(t_data *data)
 	if (children(pids, data) == EXIT_BREAK)
 		return (EXIT_BREAK);
 	while (i < cmd_count)
-		waitpid(pids[i++], NULL, 0);
+	{
+		waitpid(pids[i++], &wstatus, 0);
+		if (WIFEXITED(wstatus))
+		{
+			child_exit = WEXITSTATUS(wstatus);
+			ft_putstr_fd("child exit:", STDERR_FILENO);
+			ft_putnbr_fd((long)child_exit, STDERR_FILENO);
+			ft_putstr_fd("\n", STDERR_FILENO);
+		}
+		else if(WIFSIGNALED(wstatus))
+		{
+			ft_putstr_fd("child exit signal:", STDERR_FILENO);
+			ft_putnbr_fd((long)WTERMSIG(wstatus), STDERR_FILENO);
+			ft_putstr_fd("\n", STDERR_FILENO);
+		}
+		else
+			ft_putstr_fd("child crahsed", STDERR_FILENO);
+	}
 	pids = ft_free_set_null(pids);
 	return (0);
 }
