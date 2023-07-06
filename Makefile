@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: aehrlich <aehrlich@student.42berlin.de>    +#+  +:+       +#+         #
+#    By: lbaumann <lbaumann@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/02/19 09:17:44 by lbaumann          #+#    #+#              #
-#    Updated: 2023/07/04 19:19:13 by aehrlich         ###   ########.fr        #
+#    Updated: 2023/07/06 18:01:33 by lbaumann         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -71,7 +71,6 @@ SRCS = \
 	executor/pipe_utils.c \
 	executor/heredoc.c \
 	executor/command_free.c \
-	executor/ft_fd_printf.c \
 	builtins/export.c \
 	builtins/echo.c \
 	builtins/unset.c \
