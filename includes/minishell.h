@@ -6,7 +6,7 @@
 /*   By: aehrlich <aehrlich@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/19 11:42:54 by lbaumann          #+#    #+#             */
-/*   Updated: 2023/06/30 12:33:46 by aehrlich         ###   ########.fr       */
+/*   Updated: 2023/07/06 17:32:01 by aehrlich         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,6 +33,8 @@
 # define BL	"\033[34;1m"
 # define YE "\033[33;1m"
 # define RC "\033[0m"
+
+
 
 void	init_data(t_data *data, char **envp);
 void	print_token(void *arg);

@@ -3,14 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   executor.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lbaumann <lbaumann@student.42.fr>          +#+  +:+       +#+        */
+/*   By: aehrlich <aehrlich@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/10 14:58:03 by aehrlich          #+#    #+#             */
-/*   Updated: 2023/07/06 16:33:30 by lbaumann         ###   ########.fr       */
+/*   Updated: 2023/07/06 17:40:13 by aehrlich         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "executor_utils.h"
+
+int	exit_status;
 
 static int	execute_children(int *in_pipe, int *out_pipe,
 	t_command *command, t_data *data)
@@ -97,7 +99,6 @@ int	execute(t_data *data)
 	int			cmd_count;
 	t_command	*command;
 	int			wstatus;
-	int			child_exit;
 
 	i = 0;
 	if (!data->commands)
@@ -114,20 +115,9 @@ int	execute(t_data *data)
 	{
 		waitpid(pids[i++], &wstatus, 0);
 		if (WIFEXITED(wstatus))
-		{
-			child_exit = WEXITSTATUS(wstatus);
-			ft_putstr_fd("child exit:", STDERR_FILENO);
-			ft_putnbr_fd((long)child_exit, STDERR_FILENO);
-			ft_putstr_fd("\n", STDERR_FILENO);
-		}
+			exit_status = WEXITSTATUS(wstatus);
 		else if(WIFSIGNALED(wstatus))
-		{
-			ft_putstr_fd("child exit signal:", STDERR_FILENO);
-			ft_putnbr_fd((long)WTERMSIG(wstatus), STDERR_FILENO);
-			ft_putstr_fd("\n", STDERR_FILENO);
-		}
-		else
-			ft_putstr_fd("child crahsed", STDERR_FILENO);
+			exit_status = 128 + WTERMSIG(wstatus);
 	}
 	pids = ft_free_set_null(pids);
 	return (0);
