@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   error.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aehrlich <aehrlich@student.42.fr>          +#+  +:+       +#+        */
+/*   By: lbaumann <lbaumann@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/25 10:33:09 by lbaumann          #+#    #+#             */
-/*   Updated: 2023/06/13 16:52:26 by aehrlich         ###   ########.fr       */
+/*   Updated: 2023/07/07 10:48:51 by lbaumann         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@
 # include "../libft/includes/libft.h"
 
 void	error_fatal(char *error_msg, void *mem);
-void	error_soft(char *error_msg, void *mem);
+void	error_continue(char *error_origin);
 
 #endif
 

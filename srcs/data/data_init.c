@@ -1,25 +1,21 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   builtin_utils.h                                    :+:      :+:    :+:   */
+/*   data_init.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: lbaumann <lbaumann@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/06/07 12:56:13 by lbaumann          #+#    #+#             */
-/*   Updated: 2023/07/07 10:19:06 by lbaumann         ###   ########.fr       */
+/*   Created: 2023/05/26 12:07:34 by lbaumann          #+#    #+#             */
+/*   Updated: 2023/07/07 11:01:38 by lbaumann         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef BUILTIN_UTILS_H
-# define BUILTIN_UTILS_H
+#include "../includes/data_init.h"
 
-# include <stdbool.h>
-# include <stdio.h>
-# include <stdlib.h>//getenv
-# include <limits.h>
-# include <sys/errno.h>
-# include "../../libft/includes/libft.h"
-# include "../../includes/error.h"
-# include "../../includes/builtins.h"
-
-#endif
+void	init_data(t_data *data, char **envp)
+{
+	ft_memset(data, 0, sizeof(t_data));
+	data->env_dict = ft_dict_from_strarr(envp);
+	init_signals(data);
+	g_exit_code = EXIT_SUCCESS;
+}

@@ -6,7 +6,7 @@
 /*   By: lbaumann <lbaumann@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/25 10:32:54 by lbaumann          #+#    #+#             */
-/*   Updated: 2023/05/25 10:42:57 by lbaumann         ###   ########.fr       */
+/*   Updated: 2023/07/07 10:48:19 by lbaumann         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,10 +27,12 @@ void	error_fatal(char *error_msg, void *mem)
 
 /**
  * call this function to report an error on the standard output 
- * -> minishell is not terminated
+ * and set the exit_code to errno
+ * -> minishell is not terminated (while loop is continued)
 */
-void	error_soft(char *error_msg, void *mem)
+void	error_continue(char *error_origin)
 {
-	mem = NULL; //memory management has to be implemented
-	perror(error_msg);
+	
+	ft_fd_printf(STDERR_FILENO, "ushelless: ");
+	perror(error_origin);
 }

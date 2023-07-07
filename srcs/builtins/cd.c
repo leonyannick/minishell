@@ -6,7 +6,7 @@
 /*   By: lbaumann <lbaumann@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/16 15:13:03 by lbaumann          #+#    #+#             */
-/*   Updated: 2023/07/06 17:38:09 by lbaumann         ###   ########.fr       */
+/*   Updated: 2023/07/07 10:18:07 by lbaumann         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,7 +48,8 @@ char	*process_path(const char *arg, t_list *env_dict)
 	char	*temp;
 	char	*curpath;
 
-	if (!ft_strncmp(arg, ".", 1) || !ft_strncmp(arg, "..", 2) || !ft_strncmp(arg, "/", 1))
+	if (!ft_strncmp(arg, ".", 1) || !ft_strncmp(arg, "..", 2)
+		|| !ft_strncmp(arg, "/", 1))
 		curpath = ft_strdup(arg);
 	else
 	{

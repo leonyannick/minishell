@@ -1,20 +1,22 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   data_init.c                                        :+:      :+:    :+:   */
+/*   data_init.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: lbaumann <lbaumann@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/05/26 12:07:34 by lbaumann          #+#    #+#             */
-/*   Updated: 2023/07/06 12:04:43 by lbaumann         ###   ########.fr       */
+/*   Created: 2023/07/07 10:59:05 by lbaumann          #+#    #+#             */
+/*   Updated: 2023/07/07 11:04:29 by lbaumann         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../includes/minishell.h"
+#ifndef DATA_INIT_H
+# define DATA_INIT_H
 
-void	init_data(t_data *data, char **envp)
-{
-	ft_memset(data, 0, sizeof(t_data));
-	data->env_dict = ft_dict_from_strarr(envp);
-	init_signals(data);
-}
+# include "signals.h"
+# include "../libft/includes/libft.h"
+# include "types.h"
+
+extern int	g_exit_code;
+
+# endif

@@ -6,7 +6,7 @@
 /*   By: lbaumann <lbaumann@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/14 17:51:49 by lbaumann          #+#    #+#             */
-/*   Updated: 2023/07/06 12:03:37 by lbaumann         ###   ########.fr       */
+/*   Updated: 2023/07/07 10:18:44 by lbaumann         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,10 +42,10 @@ static char	**split_key_val(const char *arg, char **key_val)
 void	builtin_export(const char **argv, t_list *env_dict)
 {
 	size_t	i;
-	char *key_val[2];
-	
+	char	*key_val[2];
+
 	i = 1;
-	while(argv[i])
+	while (argv[i])
 	{
 		if (split_key_val(argv[i], key_val))
 		{
