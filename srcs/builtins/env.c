@@ -6,7 +6,7 @@
 /*   By: lbaumann <lbaumann@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/16 15:04:00 by lbaumann          #+#    #+#             */
-/*   Updated: 2023/07/06 12:03:22 by lbaumann         ###   ########.fr       */
+/*   Updated: 2023/07/07 12:31:03 by lbaumann         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,12 @@ static void	print_env_entry(void *arg)
 		(char *)(((t_dict *)arg)->value));
 }
 
-void	builtin_env(t_list *env_dict)
+/**
+ * iterates env_dict and prints out the key-value pairs in the format:
+ * <key>=<value>
+*/
+int	builtin_env(t_list *env_dict)
 {
 	ft_lstiter(env_dict, print_env_entry);
+	return (EXIT_SUCCESS);
 }

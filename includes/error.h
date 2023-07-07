@@ -6,7 +6,7 @@
 /*   By: lbaumann <lbaumann@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/25 10:33:09 by lbaumann          #+#    #+#             */
-/*   Updated: 2023/07/07 10:48:51 by lbaumann         ###   ########.fr       */
+/*   Updated: 2023/07/07 14:11:21 by lbaumann         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,8 +19,10 @@
 # include <errno.h>
 # include "../libft/includes/libft.h"
 
+extern int	g_exit_code;
+
 void	error_fatal(char *error_msg, void *mem);
-void	error_continue(char *error_origin);
+int		error_continue(const char *err_origin, const char *err_object, const char *cstm_err_descr, int cstm_exit_code);
 
 #endif
 
