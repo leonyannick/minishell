@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   lexer_utils_helper_1.c                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lbaumann <lbaumann@student.42berlin.de>    +#+  +:+       +#+        */
+/*   By: lbaumann <lbaumann@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/05 10:08:24 by lbaumann          #+#    #+#             */
-/*   Updated: 2023/06/05 10:08:55 by lbaumann         ###   ########.fr       */
+/*   Updated: 2023/07/07 16:20:05 by lbaumann         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,4 +50,3 @@ void	skip_whitespace(char *str, size_t *i)
 	while (is_whitespace(str[*i]) && str[*i])
 		(*i)++;
 }
-

@@ -6,7 +6,7 @@
 /*   By: lbaumann <lbaumann@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/05 10:03:20 by lbaumann          #+#    #+#             */
-/*   Updated: 2023/07/06 12:19:24 by lbaumann         ###   ########.fr       */
+/*   Updated: 2023/07/07 16:19:07 by lbaumann         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,16 +41,19 @@ char	*redirection_token(char *line, size_t *i, e_token_types *type)
 }
 
 /**
- * increase token_begin by one to omit the $, the info is saved as the token_type anyways
+ * increase token_begin by one to omit the $, the info is saved as the
+ * token_type anyways
 */
-char	*parameter_token(char *line, size_t *i, e_token_types *type, t_list *env_dict)
+char	*parameter_token(char *line, size_t *i, e_token_types *type,
+			t_list *env_dict)
 {
 	(*i)++;
 	*type = PARAMETER;
 	return (expand(line, i, env_dict));
 }
 
-char	*quote_token(char *line, size_t *i, e_token_types *type, t_list *env_dict)
+char	*quote_token(char *line, size_t *i, e_token_types *type,
+			t_list *env_dict)
 {
 	char	*token_str;
 	char	*expansion;

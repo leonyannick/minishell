@@ -6,7 +6,7 @@
 /*   By: lbaumann <lbaumann@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/02 12:23:20 by lbaumann          #+#    #+#             */
-/*   Updated: 2023/07/06 12:20:06 by lbaumann         ###   ########.fr       */
+/*   Updated: 2023/07/07 16:17:38 by lbaumann         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,14 +44,7 @@ t_list	*scan_tokens(char *line, t_data *data)
 			token_str = word_token(line, &i, &type);
 		tokens = save_token(&tokens, token_str, type);
 	}
-	// ft_lstiter(tokens, print_token);
-	tokens = modify_list(&tokens, word_splitting);
-	// ft_lstiter(tokens, print_token);
-	tokens = modify_list(&tokens, merge_words);
-	// ft_lstiter(tokens, print_token);
-	tokens = modify_list(&tokens, remove_whitespace);
-	// ft_lstiter(tokens, print_token);
-	return (tokens);
+	return (tokens_postprocess(tokens));
 }
 
 /**
