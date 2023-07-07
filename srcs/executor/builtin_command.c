@@ -6,7 +6,7 @@
 /*   By: lbaumann <lbaumann@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/27 18:08:41 by aehrlich          #+#    #+#             */
-/*   Updated: 2023/07/06 12:14:50 by lbaumann         ###   ########.fr       */
+/*   Updated: 2023/07/07 16:56:56 by lbaumann         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,7 @@ int	execute_builtin_cmd(t_data *data, t_command *command, int exit_type)
 	if (ft_strcmp((const char *)arg_arr[0], "env") == 0)
 		builtin_env(data->env_dict);
 	if (ft_strcmp((const char *)arg_arr[0], "exit") == 0)
-		builtin_exit((const char **)arg_arr);
+		builtin_exit((const char **)arg_arr, data);
 	if (ft_strcmp((const char *)arg_arr[0], "export") == 0)
 		builtin_export((const char **)arg_arr, data->env_dict);
 	if (ft_strcmp((const char *)arg_arr[0], "unset") == 0)

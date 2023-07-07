@@ -6,7 +6,7 @@
 /*   By: lbaumann <lbaumann@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/19 11:42:54 by lbaumann          #+#    #+#             */
-/*   Updated: 2023/07/07 16:07:30 by lbaumann         ###   ########.fr       */
+/*   Updated: 2023/07/07 16:51:06 by lbaumann         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,6 +34,7 @@
 # define YE "\033[33;1m"
 # define RC "\033[0m"
 
+void	exit_gracefully(t_data *data);
 void	init_data(t_data *data, char **envp);
 
 #endif
