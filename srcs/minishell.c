@@ -6,7 +6,7 @@
 /*   By: lbaumann <lbaumann@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/09 11:47:38 by aehrlich          #+#    #+#             */
-/*   Updated: 2023/07/10 11:19:37 by lbaumann         ###   ########.fr       */
+/*   Updated: 2023/07/10 15:06:39 by lbaumann         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,5 +46,4 @@ int	main(int argc, char **argv, char **envp)
 	argv = NULL;
 	init_data(&data, envp);
 	main_loop(line, &data);
-	exit_gracefully(&data);
 }
