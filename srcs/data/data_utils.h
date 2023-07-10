@@ -1,21 +1,24 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   data_init.c                                        :+:      :+:    :+:   */
+/*   data_utils.h                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: lbaumann <lbaumann@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/05/26 12:07:34 by lbaumann          #+#    #+#             */
-/*   Updated: 2023/07/07 17:18:37 by lbaumann         ###   ########.fr       */
+/*   Created: 2023/07/10 11:21:37 by lbaumann          #+#    #+#             */
+/*   Updated: 2023/07/10 11:29:36 by lbaumann         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../includes/data_init.h"
+#ifndef DATA_UTILS_H
+# define DATA_UTILS_H
 
-void	init_data(t_data *data, char **envp)
-{
-	ft_memset(data, 0, sizeof(t_data));
-	data->env_dict = ft_dict_from_strarr(envp);
-	init_signals(data);
-	g_exit_code = EXIT_SUCCESS;
-}
+# include "../../includes/signals.h"
+# include "../../libft/includes/libft.h"
+# include "../../includes/types.h"
+# include "../../includes/lexer.h"
+# include "../executor/executor_utils.h"
+
+extern int g_exit_code;
+
+#endif

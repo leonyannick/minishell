@@ -6,7 +6,7 @@
 /*   By: lbaumann <lbaumann@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/05 10:05:14 by lbaumann          #+#    #+#             */
-/*   Updated: 2023/07/07 16:18:30 by lbaumann         ###   ########.fr       */
+/*   Updated: 2023/07/10 11:10:26 by lbaumann         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,8 @@ char	*word_token(char *line, size_t *i, e_token_types *type)
 }
 
 /**
+ * assigns the token attributes (str and type)
+ * 
  * if token_str is null pointer, allocate an empty str to prevent
  * segfaults with library functions
 */
@@ -33,10 +35,12 @@ t_token	*assign_token_attr(char *token_str, e_token_types type)
 
 	token = malloc(sizeof(t_token));
 	if (!token)
-		exit(1);
+		return (NULL);
 	if (!token_str)
 		token_str = ft_strdup("");
 	token->str = token_str;
+	if (!token_str)
+		return (NULL);
 	token->type = type;
 	return (token);
 }
@@ -47,6 +51,8 @@ t_list	*save_token(t_list **tokens, char *token_str, e_token_types type)
 	t_token	*token_data;
 
 	token_data = assign_token_attr(token_str, type);
+	if (!token_data)
+		return (NULL);
 	new_token = ft_lstnew(token_data);
 	ft_lstadd_back(tokens, new_token);
 	return (*tokens);
