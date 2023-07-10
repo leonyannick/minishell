@@ -6,7 +6,7 @@
 /*   By: lbaumann <lbaumann@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/16 15:13:03 by lbaumann          #+#    #+#             */
-/*   Updated: 2023/07/07 14:17:01 by lbaumann         ###   ########.fr       */
+/*   Updated: 2023/07/10 15:52:48 by lbaumann         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,7 +88,7 @@ int	builtin_cd(const char **argv, t_list *env_dict)
 	argc = ft_argc_from_argv(argv);
 	if (argc > 2)
 		return (error_continue("cd", NULL, "too many arguments", EXIT_FAILURE));
-	if (!ft_strcmp(argv[1], "-"))
+	if (argc != 1 && !ft_strcmp(argv[1], "-"))
 	{
 		path = ft_strdup(ft_dict_get_value(env_dict, "OLDPWD"));
 		if (!path)
@@ -103,7 +103,7 @@ int	builtin_cd(const char **argv, t_list *env_dict)
 	else
 		path = process_path(argv[1], env_dict);
 	ret = update_paths(path, argv[1], env_dict);
-	if (!ft_strcmp(argv[1], "-") && !ret)
+	if (argc != 1 && !ft_strcmp(argv[1], "-") && !ret)
 		builtin_pwd();
 	return (ret);
 }

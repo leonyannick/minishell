@@ -6,7 +6,7 @@
 /*   By: lbaumann <lbaumann@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/05 10:09:27 by lbaumann          #+#    #+#             */
-/*   Updated: 2023/07/07 11:23:39 by lbaumann         ###   ########.fr       */
+/*   Updated: 2023/07/10 16:15:12 by lbaumann         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,9 +18,9 @@
  * the var_name substring is allocated from the parsed line and the env_dict
  * is searched for an entry with that key
  * var_name is freed after the dictionary has been searched
- * the var_value is returned from the expand function
+ * strdup of var_value is returned from the expand function (because it will
+ * be freed by lexer later)
 */
-
 char	*expand(char *line, size_t *i, t_list *env_dict)
 {
 	size_t	token_begin;
@@ -40,7 +40,7 @@ char	*expand(char *line, size_t *i, t_list *env_dict)
 	var_name = ft_substr(line, token_begin, *i - token_begin);
 	var_value = ft_dict_get_value(env_dict, var_name);
 	free(var_name);
-	return (var_value);
+	return (ft_strdup(var_value));
 }
 
 char	*char_to_str(char c)
