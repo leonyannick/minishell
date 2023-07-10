@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aehrlich <aehrlich@student.42.fr>          +#+  +:+       +#+        */
+/*   By: lbaumann <lbaumann@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/09 11:47:38 by aehrlich          #+#    #+#             */
-/*   Updated: 2023/07/10 17:04:02 by aehrlich         ###   ########.fr       */
+/*   Updated: 2023/07/10 18:00:53 by lbaumann         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,10 @@ static void	main_loop(char *line, t_data *data)
 		data->tokens = scan_tokens(line, data);
 		data->commands = parse(data->tokens);
 		if (data->commands)
+		{
+			change_handler(data);
 			g_exit_code = execute(data);
+		}
 		ft_lstclear(&data->tokens, token_del);
 		ft_lstclear(&data->commands, command_del);
 	}

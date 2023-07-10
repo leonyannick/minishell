@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   signals.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aehrlich <aehrlich@student.42.fr>          +#+  +:+       +#+        */
+/*   By: lbaumann <lbaumann@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/30 12:02:17 by aehrlich          #+#    #+#             */
-/*   Updated: 2023/07/10 17:21:40 by aehrlich         ###   ########.fr       */
+/*   Updated: 2023/07/10 17:58:37 by lbaumann         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,12 +30,24 @@ void	handle_signals(int signal)
 		rl_on_new_line();
 		rl_replace_line("", 0);
 		printf("\n");
-		if (g_exit_code != 130)
-			rl_redisplay();
+		rl_redisplay();
 		g_exit_code = 130;
 	}
 }
 
+void	ignore_sigint(int signal)
+{
+	if (signal == SIGINT)
+		return ;
+}
+
+void	change_handler(t_data *data)
+{
+	if (data->sa.sa_handler == handle_signals)
+		data->sa.sa_handler = ignore_sigint;
+	else
+		data->sa.sa_handler = handle_signals;
+}
 /*
 	overides the action of the signal SIGINT 'ctrl-D' with the custom handle_signal
 	behaviour and ignores the SIGQUIT 'ctrl-\'.
