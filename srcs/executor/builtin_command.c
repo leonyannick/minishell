@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   builtin_command.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lbaumann <lbaumann@student.42.fr>          +#+  +:+       +#+        */
+/*   By: aehrlich <aehrlich@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/27 18:08:41 by aehrlich          #+#    #+#             */
-/*   Updated: 2023/07/06 12:14:50 by lbaumann         ###   ########.fr       */
+/*   Updated: 2023/07/10 11:05:12 by aehrlich         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,25 +18,26 @@
 	should not break the readline loop, therefore different exit values are 
 	necessary. 
 */
-int	execute_builtin_cmd(t_data *data, t_command *command, int exit_type)
+int	execute_builtin_cmd(t_data *data, t_command *command)
 {
 	char	**arg_arr;
+	int		exit_code;
 
 	arg_arr = ft_lst_strarr(command->arguments);
 	if (ft_strcmp((const char *)arg_arr[0], "echo") == 0)
-		builtin_echo((const char **)arg_arr);
+		exit_code = builtin_echo((const char **)arg_arr);
 	if (ft_strcmp((const char *)arg_arr[0], "cd") == 0)
-		builtin_cd((const char **)arg_arr, data->env_dict);
+		exit_code = builtin_cd((const char **)arg_arr, data->env_dict);
 	if (ft_strcmp((const char *)arg_arr[0], "pwd") == 0)
-		builtin_pwd();
+		exit_code = builtin_pwd();
 	if (ft_strcmp((const char *)arg_arr[0], "env") == 0)
-		builtin_env(data->env_dict);
+		exit_code = builtin_env(data->env_dict);
 	if (ft_strcmp((const char *)arg_arr[0], "exit") == 0)
-		builtin_exit((const char **)arg_arr);
+		exit_code = builtin_exit((const char **)arg_arr, data);
 	if (ft_strcmp((const char *)arg_arr[0], "export") == 0)
-		builtin_export((const char **)arg_arr, data->env_dict);
+		exit_code = builtin_export((const char **)arg_arr, data->env_dict);
 	if (ft_strcmp((const char *)arg_arr[0], "unset") == 0)
-		builtin_unset((const char **)arg_arr, data->env_dict);
+		exit_code = builtin_unset((const char **)arg_arr, data->env_dict);
 	arg_arr = ft_free_split_arr(arg_arr);
-	return (exit_type);
+	return (exit_code);
 }

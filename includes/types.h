@@ -6,7 +6,7 @@
 /*   By: lbaumann <lbaumann@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/05 10:33:26 by lbaumann          #+#    #+#             */
-/*   Updated: 2023/07/07 16:08:30 by lbaumann         ###   ########.fr       */
+/*   Updated: 2023/07/07 16:46:33 by lbaumann         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,7 @@
 //minishell
 typedef struct data
 {
+	char				*line;
 	t_list				*env_dict;
 	t_list				*tokens;
 	t_list				*commands;

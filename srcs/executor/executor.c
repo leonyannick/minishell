@@ -6,22 +6,21 @@
 /*   By: aehrlich <aehrlich@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/10 14:58:03 by aehrlich          #+#    #+#             */
-/*   Updated: 2023/07/06 17:40:13 by aehrlich         ###   ########.fr       */
+/*   Updated: 2023/07/10 11:27:31 by aehrlich         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "executor_utils.h"
 
-int	exit_status;
-
-static int	execute_children(int *in_pipe, int *out_pipe,
+static void	execute_children(int *in_pipe, int *out_pipe,
 	t_command *command, t_data *data)
 {
 	if (io_redirection(in_pipe, out_pipe, command) == -1)
-		return (EXIT_BREAK);
+		exit(EXIT_FAILURE);
 	if (command->type == PATH)
-		return (execute_path_cmd(data, command));
-	return (execute_builtin_cmd(data, command, EXIT_BREAK));
+		exit(execute_path_cmd(data, command));
+	else
+		exit(execute_builtin_cmd(data, command));
 }
 
 /* 
@@ -35,7 +34,7 @@ static int	execute_children(int *in_pipe, int *out_pipe,
 	@data:				main data object
 	@return:			sucess status
  */
-static int	children(int *pids, t_data *data)
+static void	children(int *pids, t_data *data)
 {
 	int			i;
 	int			in_pipe[2];
@@ -52,15 +51,16 @@ static int	children(int *pids, t_data *data)
 		set_pipes(command, in_pipe, out_pipe);
 		pids[i] = fork();
 		if (pids[i] == -1)
-			return (-1);
+			return ; //exit_children??
 		if (pids[i++] == 0)
-			return (free(pids),
-				execute_children(in_pipe, out_pipe, command, data));
+		{
+			free(pids),
+			execute_children(in_pipe, out_pipe, command, data);
+		}
 		close_pipe(in_pipe);
 		cmd_head = cmd_head->next;
 	}
 	close_pipe(out_pipe);
-	return (0);
 }
 
 /*
@@ -73,17 +73,17 @@ static int	execute_builtin_inplace(t_data *data, t_command *command)
 {
 	int	old_stdin;
 	int	old_stdout;
-	int	exec_ret;
+	int	exit_code;
 
 	old_stdin = dup(STDIN_FILENO);
 	old_stdout = dup(STDOUT_FILENO);
 	io_redirection(NULL, NULL, command);
-	exec_ret = execute_builtin_cmd(data, command, EXIT_CONTINUE);
+	exit_code = execute_builtin_cmd(data, command);
 	dup2(old_stdin, STDIN_FILENO);
 	close(old_stdin);
 	dup2(old_stdout, STDOUT_FILENO);
 	close(old_stdout);
-	return (exec_ret);
+	return (exit_code);
 }
 
 /* 
@@ -99,6 +99,7 @@ int	execute(t_data *data)
 	int			cmd_count;
 	t_command	*command;
 	int			wstatus;
+	int			exit_code;
 
 	i = 0;
 	if (!data->commands)
@@ -109,16 +110,15 @@ int	execute(t_data *data)
 	if (cmd_count == 1 && command->type == BUILTIN)
 		return (execute_builtin_inplace(data, command));
 	pids = malloc(cmd_count * sizeof(int));
-	if (children(pids, data) == EXIT_BREAK)
-		return (EXIT_BREAK);
+	children(pids, data);
 	while (i < cmd_count)
 	{
 		waitpid(pids[i++], &wstatus, 0);
 		if (WIFEXITED(wstatus))
-			exit_status = WEXITSTATUS(wstatus);
+			exit_code = WEXITSTATUS(wstatus);
 		else if(WIFSIGNALED(wstatus))
-			exit_status = 128 + WTERMSIG(wstatus);
+			exit_code = 128 + WTERMSIG(wstatus);
 	}
 	pids = ft_free_set_null(pids);
-	return (0);
+	return (exit_code);
 }

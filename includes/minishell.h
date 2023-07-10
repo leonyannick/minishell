@@ -6,7 +6,7 @@
 /*   By: aehrlich <aehrlich@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/19 11:42:54 by lbaumann          #+#    #+#             */
-/*   Updated: 2023/07/10 10:49:53 by aehrlich         ###   ########.fr       */
+/*   Updated: 2023/07/10 11:26:50 by aehrlich         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,8 +34,7 @@
 # define YE "\033[33;1m"
 # define RC "\033[0m"
 
-
-
+void	exit_gracefully(t_data *data);
 void	init_data(t_data *data, char **envp);
 
 #endif

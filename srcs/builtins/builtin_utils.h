@@ -6,7 +6,7 @@
 /*   By: lbaumann <lbaumann@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/07 12:56:13 by lbaumann          #+#    #+#             */
-/*   Updated: 2023/07/07 12:14:11 by lbaumann         ###   ########.fr       */
+/*   Updated: 2023/07/07 16:52:18 by lbaumann         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,7 @@
 # include "../../libft/includes/libft.h"
 # include "../../includes/error.h"
 # include "../../includes/builtins.h"
+# include "../../includes/minishell.h"
 
 extern int	g_exit_code;
 

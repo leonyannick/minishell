@@ -6,7 +6,7 @@
 /*   By: lbaumann <lbaumann@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/05 10:05:14 by lbaumann          #+#    #+#             */
-/*   Updated: 2023/07/06 19:07:31 by lbaumann         ###   ########.fr       */
+/*   Updated: 2023/07/07 16:18:30 by lbaumann         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,7 +43,7 @@ t_token	*assign_token_attr(char *token_str, e_token_types type)
 
 t_list	*save_token(t_list **tokens, char *token_str, e_token_types type)
 {
-	t_list *new_token;
+	t_list	*new_token;
 	t_token	*token_data;
 
 	token_data = assign_token_attr(token_str, type);
@@ -52,9 +52,10 @@ t_list	*save_token(t_list **tokens, char *token_str, e_token_types type)
 	return (*tokens);
 }
 
-void	insert_token_before(t_list **tokens, t_list *token_prepended, char *token_str, e_token_types type)
+void	insert_token_before(t_list **tokens, t_list *token_prepended,
+		char *token_str, e_token_types type)
 {
-	t_list *new_token;
+	t_list	*new_token;
 	t_token	*token_data;
 
 	token_data = assign_token_attr(token_str, type);

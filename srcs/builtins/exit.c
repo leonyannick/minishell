@@ -6,7 +6,7 @@
 /*   By: lbaumann <lbaumann@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/20 16:39:50 by lbaumann          #+#    #+#             */
-/*   Updated: 2023/07/07 14:09:40 by lbaumann         ###   ########.fr       */
+/*   Updated: 2023/07/10 10:58:30 by lbaumann         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,13 +20,14 @@
  * exit is printed out even if the shell is not exited
  * numeric argument exit code: 2
  * exit without args exit code: 0
+ * g_exit_code is updated before exit
+ * never reaches last return statement
 */
-void	builtin_exit(const char **argv)
+int	builtin_exit(const char **argv, t_data *data)
 {
 	unsigned char	ret;
 	int				argc;
 
-	printf("exit\n");
 	argc = ft_argc_from_argv(argv);
 	ret = EXIT_SUCCESS;
 	if (argc != 1 && !ft_is_str_nbr(argv[1]))
@@ -35,8 +36,10 @@ void	builtin_exit(const char **argv)
 	}
 	else if (argc > 2)
 	{
-		error_continue("exit", NULL, "too many arguments", EXIT_FAILURE);
-		return ;
+		printf("exit\n");
+		return (error_continue("exit", NULL, "too many arguments", EXIT_FAILURE));
 	}
-	exit(ret);
+	g_exit_code = ret;
+	exit_gracefully(data);
+	return (ret);
 }
