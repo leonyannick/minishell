@@ -6,7 +6,7 @@
 /*   By: lbaumann <lbaumann@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/20 16:39:50 by lbaumann          #+#    #+#             */
-/*   Updated: 2023/07/10 10:58:30 by lbaumann         ###   ########.fr       */
+/*   Updated: 2023/07/10 11:54:46 by lbaumann         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,6 +39,8 @@ int	builtin_exit(const char **argv, t_data *data)
 		printf("exit\n");
 		return (error_continue("exit", NULL, "too many arguments", EXIT_FAILURE));
 	}
+	else
+		ret = (unsigned char)ft_atoi(argv[1]);
 	g_exit_code = ret;
 	exit_gracefully(data);
 	return (ret);
