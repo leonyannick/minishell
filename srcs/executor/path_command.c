@@ -6,7 +6,7 @@
 /*   By: lbaumann <lbaumann@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/13 11:58:09 by aehrlich          #+#    #+#             */
-/*   Updated: 2023/07/06 12:12:14 by lbaumann         ###   ########.fr       */
+/*   Updated: 2023/07/10 14:31:16 by lbaumann         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,13 +40,13 @@ static char	**free_str_arr(char **strs)
 	@argument - data:	data object containing the envp
 	@return:			arry of strings with the available paths
  */
-static char	**get_paths(void)
+static char	**get_paths(t_data *data)
 {
 	char	**paths;
 	char	*path_string;
 
 	paths = NULL;
-	path_string = getenv("PATH");
+	path_string = ft_dict_get_value(data->env_dict, "PATH");
 	if (!path_string)
 		return (NULL);
 	paths = ft_split(path_string, ':');
@@ -59,14 +59,14 @@ static char	**get_paths(void)
 	@return:	on success a joined path with the executable
 				on failure NULL
 */
-static char	*build_path(t_command *command)
+static char	*build_path(t_command *command, t_data *data)
 {
 	char	**paths;
 	char	*joined_path;
 	char	**start;
 
 	start = NULL;
-	paths = get_paths();
+	paths = get_paths(data);
 	if (!paths)
 		return (NULL);
 	start = paths;
@@ -100,7 +100,7 @@ int	execute_path_cmd(t_data *data, t_command *command)
 	if (access((char *)command->arguments->content, X_OK) == 0)
 		joined_path = ft_strdup((char *)command->arguments->content);
 	else
-		joined_path = build_path(command);
+		joined_path = build_path(command, data);
 	if (!joined_path)
 	{
 		ft_fd_printf(STDERR_FILENO, "%s: command not found\n",
