@@ -6,13 +6,15 @@
 /*   By: lbaumann <lbaumann@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/14 17:51:49 by lbaumann          #+#    #+#             */
-/*   Updated: 2023/07/06 12:03:37 by lbaumann         ###   ########.fr       */
+/*   Updated: 2023/07/07 13:01:38 by lbaumann         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "builtin_utils.h"
 
 /**
+ * splits arg at the first '=' into key and value
+ * 
  * return NULL if no '=' is found in arg str
  * key = key_val[0]
  * value = key_val[1]
@@ -33,19 +35,22 @@ static char	**split_key_val(const char *arg, char **key_val)
 }
 
 /**
+ * goes through argv and splits every arg into key and value
+ * (given there is a '=') and adds them to the env_dict
+ * 
  * key_val[0] = key
  * key_val[1] = val
  * both are allocated in split_key_val
  * the key needs to be freed after ft_dict_add_node, because it is newly
  * allocated there
 */
-void	builtin_export(const char **argv, t_list *env_dict)
+int	builtin_export(const char **argv, t_list *env_dict)
 {
 	size_t	i;
-	char *key_val[2];
-	
+	char	*key_val[2];
+
 	i = 1;
-	while(argv[i])
+	while (argv[i])
 	{
 		if (split_key_val(argv[i], key_val))
 		{
@@ -54,6 +59,7 @@ void	builtin_export(const char **argv, t_list *env_dict)
 		}
 		i++;
 	}
+	return (EXIT_SUCCESS);
 }
 
 /* TEST DUMP

@@ -6,7 +6,7 @@
 /*   By: lbaumann <lbaumann@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/10 14:24:32 by aehrlich          #+#    #+#             */
-/*   Updated: 2023/07/06 12:13:45 by lbaumann         ###   ########.fr       */
+/*   Updated: 2023/07/06 17:56:32 by lbaumann         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,5 +33,4 @@ void	set_pipes(t_command *command, int *in_pipe, int *out_pipe);
 int		read_heredocs(t_list *cmd_head);
 void	command_del(void *arg);
 int		execute_builtin_cmd(t_data *data, t_command *command, int exit_type);
-int		ft_fd_printf(int fd, const char *format, ...);
 #endif

@@ -6,7 +6,7 @@
 /*   By: lbaumann <lbaumann@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/05 10:09:27 by lbaumann          #+#    #+#             */
-/*   Updated: 2023/07/06 13:14:09 by lbaumann         ###   ########.fr       */
+/*   Updated: 2023/07/07 11:23:39 by lbaumann         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,6 +30,11 @@ char	*expand(char *line, size_t *i, t_list *env_dict)
 	token_begin = *i;
 	if (!line[*i] || line[*i] == '"')
 		return (ft_strdup("$"));
+	if (line[*i] == '?')
+	{
+		(*i)++;
+		return (ft_itoa(g_exit_code));
+	}
 	while (!is_metacharacter(line[*i]) && !is_quote(line[*i]) && line[*i])
 		(*i)++;
 	var_name = ft_substr(line, token_begin, *i - token_begin);

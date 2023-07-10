@@ -6,7 +6,7 @@
 /*   By: aehrlich <aehrlich@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/19 11:42:54 by lbaumann          #+#    #+#             */
-/*   Updated: 2023/07/06 17:32:01 by aehrlich         ###   ########.fr       */
+/*   Updated: 2023/07/10 10:49:53 by aehrlich         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,11 +19,11 @@
 # include "parser.h"
 # include "executor.h"
 # include "signals.h"
-# include <stdlib.h> //malloc
-# include <stdio.h> //printf, readline#include <readline/readline.h>
+# include <stdlib.h>//malloc
+# include <stdio.h>//printf, readline#include <readline/readline.h>
 # include <readline/history.h>
 # include <readline/readline.h>
-# include <stdbool.h> //true, false
+# include <stdbool.h>//true, false
 # include <signal.h>
 
 //color macro for printing status messages in color
@@ -37,6 +37,5 @@
 
 
 void	init_data(t_data *data, char **envp);
-void	print_token(void *arg);
 
 #endif

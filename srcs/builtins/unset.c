@@ -6,22 +6,27 @@
 /*   By: lbaumann <lbaumann@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/16 12:22:05 by lbaumann          #+#    #+#             */
-/*   Updated: 2023/07/06 12:03:52 by lbaumann         ###   ########.fr       */
+/*   Updated: 2023/07/07 13:02:22 by lbaumann         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "builtin_utils.h"
 
-void	builtin_unset(const char **argv, t_list *env_dict)
+/**
+ * takes arguments from argv as a key and checks if a key-value pair exists in
+ * env_dict. given it exists, it removes it from the dictionary
+*/
+int	builtin_unset(const char **argv, t_list *env_dict)
 {
 	size_t	i;
-	
+
 	i = 1;
-	while(argv[i])
+	while (argv[i])
 	{
 		ft_dict_rm_node(&env_dict, (char *)argv[i]);
 		i++;
 	}
+	return (EXIT_SUCCESS);
 }
 /* TEST DUMP
 t_list *dict;

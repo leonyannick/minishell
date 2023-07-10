@@ -1,26 +1,21 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   builtin_utils.h                                    :+:      :+:    :+:   */
+/*   data_init.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: lbaumann <lbaumann@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/06/07 12:56:13 by lbaumann          #+#    #+#             */
-/*   Updated: 2023/07/07 12:14:11 by lbaumann         ###   ########.fr       */
+/*   Created: 2023/07/07 10:59:05 by lbaumann          #+#    #+#             */
+/*   Updated: 2023/07/07 16:08:08 by lbaumann         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef BUILTIN_UTILS_H
-# define BUILTIN_UTILS_H
+#ifndef DATA_INIT_H
+# define DATA_INIT_H
 
-# include <stdbool.h>
-# include <stdio.h>
-# include <stdlib.h>//getenv
-# include <limits.h>
-# include <sys/errno.h>
-# include "../../libft/includes/libft.h"
-# include "../../includes/error.h"
-# include "../../includes/builtins.h"
+# include "signals.h"
+# include "../libft/includes/libft.h"
+# include "types.h"
 
 extern int	g_exit_code;
 

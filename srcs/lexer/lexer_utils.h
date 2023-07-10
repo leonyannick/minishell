@@ -6,7 +6,7 @@
 /*   By: lbaumann <lbaumann@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/05 09:59:02 by lbaumann          #+#    #+#             */
-/*   Updated: 2023/07/06 12:21:15 by lbaumann         ###   ########.fr       */
+/*   Updated: 2023/07/07 11:23:59 by lbaumann         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,8 @@
 #include "../../libft/includes/libft.h"
 #include "../../includes/types.h"
 #include "../../includes/lexer.h"
+
+extern int	g_exit_code;
 
 //lexer_utils_token_1
 char	*redirection_token(char *line, size_t *i, e_token_types *type);

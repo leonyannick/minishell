@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   lexer_utils_token_2.c                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aehrlich <aehrlich@student.42.fr>          +#+  +:+       +#+        */
+/*   By: lbaumann <lbaumann@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/05 10:05:14 by lbaumann          #+#    #+#             */
-/*   Updated: 2023/06/09 12:21:04 by aehrlich         ###   ########.fr       */
+/*   Updated: 2023/07/06 19:07:31 by lbaumann         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,10 @@ char	*word_token(char *line, size_t *i, e_token_types *type)
 	return (ft_substr(line, token_begin, *i - token_begin));
 }
 
+/**
+ * if token_str is null pointer, allocate an empty str to prevent
+ * segfaults with library functions
+*/
 t_token	*assign_token_attr(char *token_str, e_token_types type)
 {
 	t_token	*token;
@@ -30,6 +34,8 @@ t_token	*assign_token_attr(char *token_str, e_token_types type)
 	token = malloc(sizeof(t_token));
 	if (!token)
 		exit(1);
+	if (!token_str)
+		token_str = ft_strdup("");
 	token->str = token_str;
 	token->type = type;
 	return (token);

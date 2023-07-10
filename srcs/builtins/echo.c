@@ -6,7 +6,7 @@
 /*   By: lbaumann <lbaumann@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/07 12:55:20 by lbaumann          #+#    #+#             */
-/*   Updated: 2023/06/16 12:29:37 by lbaumann         ###   ########.fr       */
+/*   Updated: 2023/07/07 13:02:12 by lbaumann         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,7 @@ static bool	check_n_flag(const char *arg)
  * preluding -n flag strings are skipped (once a str that is no n flag is
  * reached, further n flags are treated as normal strings and printed out)
 */
-void	builtin_echo(const char **argv)
+int	builtin_echo(const char **argv)
 {
 	bool	n_flag;
 	size_t	i;
@@ -58,6 +58,7 @@ void	builtin_echo(const char **argv)
 	}
 	if (!n_flag)
 		printf("\n");
+	return (EXIT_SUCCESS);
 }
 
 // int	main(void)
