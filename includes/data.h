@@ -1,22 +1,21 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   data_init.h                                        :+:      :+:    :+:   */
+/*   data.h                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: lbaumann <lbaumann@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/07 10:59:05 by lbaumann          #+#    #+#             */
-/*   Updated: 2023/07/07 16:08:08 by lbaumann         ###   ########.fr       */
+/*   Updated: 2023/07/10 11:30:41 by lbaumann         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef DATA_INIT_H
-# define DATA_INIT_H
+#ifndef DATA_H
+# define DATA_H
 
-# include "signals.h"
-# include "../libft/includes/libft.h"
-# include "types.h"
-
-extern int	g_exit_code;
+void	free_data(t_data *data);
+void	exit_child(t_data *data, int exit_code);
+void	exit_gracefully(t_data *data);
+void	init_data(t_data *data, char **envp);
 
 #endif

@@ -6,7 +6,7 @@
 /*   By: aehrlich <aehrlich@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/10 14:58:03 by aehrlich          #+#    #+#             */
-/*   Updated: 2023/07/10 11:27:31 by aehrlich         ###   ########.fr       */
+/*   Updated: 2023/07/10 11:39:50 by aehrlich         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,11 +16,11 @@ static void	execute_children(int *in_pipe, int *out_pipe,
 	t_command *command, t_data *data)
 {
 	if (io_redirection(in_pipe, out_pipe, command) == -1)
-		exit(EXIT_FAILURE);
+		exit_child(data, EXIT_FAILURE);
 	if (command->type == PATH)
-		exit(execute_path_cmd(data, command));
+		exit_child(data, execute_path_cmd(data, command));
 	else
-		exit(execute_builtin_cmd(data, command));
+		exit_child(data, execute_builtin_cmd(data, command));
 }
 
 /* 
@@ -51,7 +51,7 @@ static void	children(int *pids, t_data *data)
 		set_pipes(command, in_pipe, out_pipe);
 		pids[i] = fork();
 		if (pids[i] == -1)
-			return ; //exit_children??
+			exit_child(data, EXIT_FAILURE);
 		if (pids[i++] == 0)
 		{
 			free(pids),

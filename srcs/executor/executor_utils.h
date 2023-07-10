@@ -6,7 +6,7 @@
 /*   By: aehrlich <aehrlich@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/10 14:24:32 by aehrlich          #+#    #+#             */
-/*   Updated: 2023/07/10 11:09:58 by aehrlich         ###   ########.fr       */
+/*   Updated: 2023/07/10 11:34:42 by aehrlich         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,7 @@
 # include "../../libft/includes/libft.h"
 # include "../../includes/types.h"
 # include "../../includes/builtins.h"
+# include "../../includes/data.h"
 
 char	**ft_lst_strarr(t_list *list);
 int		io_redirection(int in_pipe[2], int out_pipe[2], t_command *command);

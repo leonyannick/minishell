@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: lbaumann <lbaumann@student.42.fr>          +#+  +:+       +#+         #
+#    By: aehrlich <aehrlich@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/02/19 09:17:44 by lbaumann          #+#    #+#              #
-#    Updated: 2023/07/07 10:58:43 by lbaumann         ###   ########.fr        #
+#    Updated: 2023/07/10 11:36:34 by aehrlich         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -59,6 +59,7 @@ SRCS = \
 	lexer/lexer_utils_token_2.c \
 	error/error.c \
 	data/data_init.c \
+	data/exit.c \
 	parser/parser_utils_cmd.c \
 	parser/parser.c \
 	parser/parser_utils.c \

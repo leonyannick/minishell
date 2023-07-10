@@ -6,28 +6,13 @@
 /*   By: lbaumann <lbaumann@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/09 11:47:38 by aehrlich          #+#    #+#             */
-/*   Updated: 2023/07/07 16:59:02 by lbaumann         ###   ########.fr       */
+/*   Updated: 2023/07/10 11:19:37 by lbaumann         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/minishell.h"
 
 int	g_exit_code;
-
-void	exit_gracefully(t_data *data)
-{
-	printf("exit\n");
-	if (data->line)
-		data->line = ft_free_set_null(data->line);
-	if (data->env_dict)
-		ft_lstclear(&data->env_dict, ft_dict_node_del);
-	if (data->tokens)
-		ft_lstclear(&data->tokens, token_del);
-	if (data->commands)
-		ft_lstclear(&data->commands, command_del);
-	rl_clear_history();
-	exit(g_exit_code);
-}
 
 static void	main_loop(char *line, t_data *data)
 {
