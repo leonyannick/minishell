@@ -6,7 +6,7 @@
 /*   By: aehrlich <aehrlich@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/22 14:16:45 by aehrlich          #+#    #+#             */
-/*   Updated: 2023/06/28 13:01:41 by aehrlich         ###   ########.fr       */
+/*   Updated: 2023/07/10 12:12:20 by aehrlich         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -103,10 +103,13 @@ t_list	*parse(t_list *token_head)
 	t_list		*cmd_head;
 
 	if (!ft_valid_grammar(token_head) || !token_head)
+	{
+		g_exit_code = 2;
 		return (NULL);
+	}
 	cmds = ft_create_cmd_list(token_head);
 	if (!cmds)
-		return (printf("Error creating cmd list\n"), NULL);
+		return (NULL);
 	cmd_head = cmds;
 	ft_traverse_tokenlist(token_head, &cmds);
 	return (cmd_head);

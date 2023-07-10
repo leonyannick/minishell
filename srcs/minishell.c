@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lbaumann <lbaumann@student.42.fr>          +#+  +:+       +#+        */
+/*   By: aehrlich <aehrlich@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/09 11:47:38 by aehrlich          #+#    #+#             */
-/*   Updated: 2023/07/10 11:19:37 by lbaumann         ###   ########.fr       */
+/*   Updated: 2023/07/10 12:16:08 by aehrlich         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,12 +26,10 @@ static void	main_loop(char *line, t_data *data)
 		add_history(line);
 		data->tokens = scan_tokens(line, data);
 		data->commands = parse(data->tokens);
-		g_exit_code = execute(data);
+		if (data->commands)
+			g_exit_code = execute(data);
 		ft_lstclear(&data->tokens, token_del);
-		delete_heredocs(data);
 		ft_lstclear(&data->commands, command_del);
-		if (g_exit_code == EXIT_BREAK)
-			break ;
 	}
 }
 

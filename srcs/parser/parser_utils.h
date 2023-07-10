@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parser_utils.h                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aehrlich <aehrlich@student.42berlin.de>    +#+  +:+       +#+        */
+/*   By: aehrlich <aehrlich@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/08 10:56:18 by aehrlich          #+#    #+#             */
-/*   Updated: 2023/06/27 10:37:19 by aehrlich         ###   ########.fr       */
+/*   Updated: 2023/07/10 12:12:42 by aehrlich         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,8 @@
 
 # include "../includes/lexer.h"
 # include "../libft/includes/libft.h"
+
+extern int g_exit_code;
 
 t_list		*ft_create_cmd_list(t_list *token_head);
 t_cmd_type	ft_get_cmd_type(char *str);
