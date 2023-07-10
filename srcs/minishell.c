@@ -6,7 +6,7 @@
 /*   By: aehrlich <aehrlich@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/09 11:47:38 by aehrlich          #+#    #+#             */
-/*   Updated: 2023/07/10 12:16:08 by aehrlich         ###   ########.fr       */
+/*   Updated: 2023/07/10 17:04:02 by aehrlich         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,10 @@ static void	main_loop(char *line, t_data *data)
 {
 	while(1)
 	{
-		line = readline("ushelless:> ");
+		if (g_exit_code == EXIT_CODE_SIGINT)
+			line = readline("");
+		else
+			line = readline("ushelless:>");
 		if (!line)
 			exit_gracefully(data);
 		else if (*line == '\0')

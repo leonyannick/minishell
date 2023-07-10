@@ -6,7 +6,7 @@
 /*   By: aehrlich <aehrlich@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/16 15:12:17 by aehrlich          #+#    #+#             */
-/*   Updated: 2023/07/10 11:55:34 by aehrlich         ###   ########.fr       */
+/*   Updated: 2023/07/10 16:18:08 by aehrlich         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,18 +20,20 @@ static int	ft_read_heredoc(int fd, char *lim)
 {
 	char	*read;
 
-	write(STDOUT_FILENO, "> ", 2);
-	read = get_next_line(STDIN_FILENO);
-	lim = ft_strjoin(lim, "\n");
-	while (ft_strncmp(read, lim, ft_strlen(lim)) != 0)
+	read = readline("> ");
+	if (!read)
+		ft_fd_printf(STDERR_FILENO, 
+			"warning: heredoc delimited by EOF (wanted '%s')\n", lim);
+	while (read && ft_strncmp(read, lim, ft_strlen(lim)) != 0)
 	{
-		write(STDOUT_FILENO, "> ", 2);
 		write(fd, read, ft_strlen(read));
-		read = ft_free_set_null(read);
-		read = get_next_line(STDIN_FILENO);
+		write(fd, "\n", 1);
+		read = readline("> ");
+		if (!read)
+			ft_fd_printf(STDERR_FILENO,
+				"warning: heredoc delimited by EOF (wanted '%s')\n", lim);
 	}
 	read = ft_free_set_null(read);
-	lim = ft_free_set_null(lim);
 	close(fd);
 	return (0);
 }
