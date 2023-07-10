@@ -6,7 +6,7 @@
 /*   By: aehrlich <aehrlich@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/16 15:12:17 by aehrlich          #+#    #+#             */
-/*   Updated: 2023/06/28 13:15:59 by aehrlich         ###   ########.fr       */
+/*   Updated: 2023/07/10 11:55:34 by aehrlich         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,28 +64,6 @@ int	read_heredocs(t_list *cmd_head)
 			file_head = file_head->next;
 		}
 		cmd_head = cmd_head->next;
-	}
-	return (0);
-}
-
-int	delete_heredocs(t_data *data)
-{
-	t_list	*file_head;
-	t_list	*command_head;
-	t_file	*tmp_file;
-
-	command_head = data->commands;
-	while (command_head)
-	{
-		file_head = ((t_command *)command_head->content)->inred_file;
-		while (file_head)
-		{
-			tmp_file = (t_file *)file_head->content;
-			if (tmp_file->open_mode == I_RED_HD)
-				unlink(tmp_file->path);
-			file_head = file_head->next;
-		}
-		command_head = command_head->next;
 	}
 	return (0);
 }

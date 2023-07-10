@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   command_free.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aehrlich <aehrlich@student.42berlin.de>    +#+  +:+       +#+        */
+/*   By: aehrlich <aehrlich@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/14 11:33:20 by aehrlich          #+#    #+#             */
-/*   Updated: 2023/06/23 10:29:35 by aehrlich         ###   ########.fr       */
+/*   Updated: 2023/07/10 11:55:08 by aehrlich         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,8 @@ static void	file_del(void *arg)
 	t_file	*file;
 
 	file = (t_file *)arg;
+	if (file->open_mode == I_RED_HD)
+		unlink(file->path);
 	file->path = ft_free_set_null(file->path);
 	file->herdoc_lim = ft_free_set_null(file->herdoc_lim);
 	file = ft_free_set_null(file);

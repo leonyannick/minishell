@@ -6,7 +6,7 @@
 /*   By: aehrlich <aehrlich@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/10 14:58:03 by aehrlich          #+#    #+#             */
-/*   Updated: 2023/07/10 11:39:50 by aehrlich         ###   ########.fr       */
+/*   Updated: 2023/07/10 12:15:52 by aehrlich         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ static void	execute_children(int *in_pipe, int *out_pipe,
 	if (io_redirection(in_pipe, out_pipe, command) == -1)
 		exit_child(data, EXIT_FAILURE);
 	if (command->type == PATH)
-		exit_child(data, execute_path_cmd(data, command));
+		execute_path_cmd(data, command);
 	else
 		exit_child(data, execute_builtin_cmd(data, command));
 }
@@ -102,8 +102,6 @@ int	execute(t_data *data)
 	int			exit_code;
 
 	i = 0;
-	if (!data->commands)
-		return (0);
 	command = (t_command *)data->commands->content;
 	read_heredocs(data->commands);
 	cmd_count = ft_lstsize(data->commands);

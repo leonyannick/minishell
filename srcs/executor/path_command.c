@@ -6,7 +6,7 @@
 /*   By: lbaumann <lbaumann@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/13 11:58:09 by aehrlich          #+#    #+#             */
-/*   Updated: 2023/07/10 14:31:16 by lbaumann         ###   ########.fr       */
+/*   Updated: 2023/07/10 15:18:25 by lbaumann         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -91,7 +91,7 @@ static char	*build_path(t_command *command, t_data *data)
 	@argument - data:		data object containing the envp for the PATHS
 	@argument - command:	command to execute
  */
-int	execute_path_cmd(t_data *data, t_command *command)
+void	execute_path_cmd(t_data *data, t_command *command)
 {
 	char	**arg_list;
 	char	*joined_path;
@@ -105,13 +105,13 @@ int	execute_path_cmd(t_data *data, t_command *command)
 	{
 		ft_fd_printf(STDERR_FILENO, "%s: command not found\n",
 			(char *)command->arguments->content);
-		return (EXIT_BREAK);
+		exit_child(data, EXIT_FAILURE);
 	}
 	arg_list = ft_lst_strarr(command->arguments);
 	envp = ft_dict_to_strarr(data->env_dict);
 	if (!envp)
-		return (EXIT_BREAK);
+		exit_child(data, EXIT_FAILURE);
 	execve(joined_path, arg_list, envp);
 	arg_list = free_str_arr(arg_list);
-	return (EXIT_BREAK);
+	exit_child(data, EXIT_FAILURE);
 }
