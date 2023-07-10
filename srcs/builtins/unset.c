@@ -6,7 +6,7 @@
 /*   By: lbaumann <lbaumann@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/16 12:22:05 by lbaumann          #+#    #+#             */
-/*   Updated: 2023/07/07 13:02:22 by lbaumann         ###   ########.fr       */
+/*   Updated: 2023/07/10 14:11:35 by lbaumann         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,14 +16,14 @@
  * takes arguments from argv as a key and checks if a key-value pair exists in
  * env_dict. given it exists, it removes it from the dictionary
 */
-int	builtin_unset(const char **argv, t_list *env_dict)
+int	builtin_unset(const char **argv, t_data *data)
 {
 	size_t	i;
 
 	i = 1;
 	while (argv[i])
 	{
-		ft_dict_rm_node(&env_dict, (char *)argv[i]);
+		ft_dict_rm_node(&(data->env_dict), (char *)argv[i]);
 		i++;
 	}
 	return (EXIT_SUCCESS);

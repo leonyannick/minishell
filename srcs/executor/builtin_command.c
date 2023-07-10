@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   builtin_command.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aehrlich <aehrlich@student.42.fr>          +#+  +:+       +#+        */
+/*   By: lbaumann <lbaumann@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/27 18:08:41 by aehrlich          #+#    #+#             */
-/*   Updated: 2023/07/10 11:05:12 by aehrlich         ###   ########.fr       */
+/*   Updated: 2023/07/10 14:12:40 by lbaumann         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,7 @@ int	execute_builtin_cmd(t_data *data, t_command *command)
 	if (ft_strcmp((const char *)arg_arr[0], "export") == 0)
 		exit_code = builtin_export((const char **)arg_arr, data->env_dict);
 	if (ft_strcmp((const char *)arg_arr[0], "unset") == 0)
-		exit_code = builtin_unset((const char **)arg_arr, data->env_dict);
+		exit_code = builtin_unset((const char **)arg_arr, data);
 	arg_arr = ft_free_split_arr(arg_arr);
 	return (exit_code);
 }
