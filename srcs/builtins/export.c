@@ -6,7 +6,7 @@
 /*   By: lbaumann <lbaumann@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/14 17:51:49 by lbaumann          #+#    #+#             */
-/*   Updated: 2023/07/07 13:01:38 by lbaumann         ###   ########.fr       */
+/*   Updated: 2023/07/12 13:28:19 by lbaumann         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,6 +35,17 @@ static char	**split_key_val(const char *arg, char **key_val)
 }
 
 /**
+ * print export entry
+ * environment variable "_" is not printed
+*/
+static void	print_export_entry(void *arg)
+{
+	if (ft_strcmp(((t_dict *)arg)->key, "_"))
+		printf("declare -x %s=\"%s\"\n", ((t_dict *)arg)->key,
+			(char *)(((t_dict *)arg)->value));
+}
+
+/**
  * goes through argv and splits every arg into key and value
  * (given there is a '=') and adds them to the env_dict
  * 
@@ -47,8 +58,12 @@ static char	**split_key_val(const char *arg, char **key_val)
 int	builtin_export(const char **argv, t_list *env_dict)
 {
 	size_t	i;
+	int		argc;
 	char	*key_val[2];
 
+	argc = ft_argc_from_argv(argv);
+	if (argc == 1)
+		ft_lstiter(env_dict, print_export_entry);
 	i = 1;
 	while (argv[i])
 	{
