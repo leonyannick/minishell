@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   signals.h                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lbaumann <lbaumann@student.42.fr>          +#+  +:+       +#+        */
+/*   By: aehrlich <aehrlich@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/30 12:32:52 by aehrlich          #+#    #+#             */
-/*   Updated: 2023/07/10 17:57:01 by lbaumann         ###   ########.fr       */
+/*   Updated: 2023/07/12 17:14:23 by aehrlich         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,8 @@
 # include "types.h"
 
 void	handle_signals(int signal);
-void	init_signals(t_data *data);
-void	change_handler(t_data *data);
+void	init_signals(t_data *data, void (*handle)(int));
+void	ignore_sigint(int signal);
+void	handle_signals_2(int signal);
 
 #endif

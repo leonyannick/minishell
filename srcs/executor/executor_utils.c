@@ -6,7 +6,7 @@
 /*   By: aehrlich <aehrlich@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/10 14:27:55 by aehrlich          #+#    #+#             */
-/*   Updated: 2023/06/13 17:08:04 by aehrlich         ###   ########.fr       */
+/*   Updated: 2023/07/12 12:25:08 by aehrlich         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,4 +39,30 @@ char	**ft_lst_strarr(t_list *list)
 	}
 	*str_arr = NULL;
 	return (ret_arr);
+}
+
+/*
+	checks if the end of a passed arg is "minishell", if the passed string
+	is shorter, false is returned. If the last part of the string is
+	"minishell", true is returned.
+*/
+bool	is_minishell_called(t_data *data, t_command *cmd)
+{
+	int		len;
+	int		offset;
+	char	*path;
+
+	if (!cmd->arguments)
+		return (false);
+	path = (char *)cmd->arguments->content;
+	len = ft_strlen(path);
+	offset = ft_strlen(path) - ft_strlen("minishell");
+	if (offset < 0)
+		return (false);
+	if (ft_strcmp("minishell", path + offset) == 0)
+	{
+		data->is_child_minishell = true;
+		return (true);
+	}
+	return (false);
 }

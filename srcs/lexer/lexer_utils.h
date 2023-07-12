@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   lexer_utils.h                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lbaumann <lbaumann@student.42.fr>          +#+  +:+       +#+        */
+/*   By: aehrlich <aehrlich@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/05 09:59:02 by lbaumann          #+#    #+#             */
-/*   Updated: 2023/07/07 16:19:53 by lbaumann         ###   ########.fr       */
+/*   Updated: 2023/07/11 11:36:29 by aehrlich         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,20 +25,20 @@
 extern int	g_exit_code;
 
 //lexer_utils_token_1
-char	*redirection_token(char *line, size_t *i, e_token_types *type);
-char	*parameter_token(char *line, size_t *i, e_token_types *type,
+char	*redirection_token(char *line, size_t *i, t_token_types *type);
+char	*parameter_token(char *line, size_t *i, t_token_types *type,
 			t_list *env_dict);
-char	*quote_token(char *line, size_t *i, e_token_types *type,
+char	*quote_token(char *line, size_t *i, t_token_types *type,
 			t_list *env_dict);
-char	*whitespace_token(char *line, size_t *i, e_token_types *type);
-char	*pipe_token(size_t *i, e_token_types *type);
+char	*whitespace_token(char *line, size_t *i, t_token_types *type);
+char	*pipe_token(size_t *i, t_token_types *type);
 
 //lexer_utils_token_2
-char	*word_token(char *line, size_t *i, e_token_types *type);
-t_token	*assign_token_attr(char *token_str, e_token_types type);
-t_list	*save_token(t_list **tokens, char *token_str, e_token_types type);
+char	*word_token(char *line, size_t *i, t_token_types *type);
+t_token	*assign_token_attr(char *token_str, t_token_types type);
+t_list	*save_token(t_list **tokens, char *token_str, t_token_types type);
 void	insert_token_before(t_list **tokens, t_list *token_prepended,
-			char *token_str, e_token_types type);
+			char *token_str, t_token_types type);
 
 //lexer_utils_helper_1
 bool	is_whitespace(char c);

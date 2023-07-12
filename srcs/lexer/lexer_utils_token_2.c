@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   lexer_utils_token_2.c                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lbaumann <lbaumann@student.42.fr>          +#+  +:+       +#+        */
+/*   By: aehrlich <aehrlich@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/05 10:05:14 by lbaumann          #+#    #+#             */
-/*   Updated: 2023/07/10 11:10:26 by lbaumann         ###   ########.fr       */
+/*   Updated: 2023/07/11 11:36:29 by aehrlich         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "lexer_utils.h"
 
-char	*word_token(char *line, size_t *i, e_token_types *type)
+char	*word_token(char *line, size_t *i, t_token_types *type)
 {
 	size_t	token_begin;
 
@@ -29,7 +29,7 @@ char	*word_token(char *line, size_t *i, e_token_types *type)
  * if token_str is null pointer, allocate an empty str to prevent
  * segfaults with library functions
 */
-t_token	*assign_token_attr(char *token_str, e_token_types type)
+t_token	*assign_token_attr(char *token_str, t_token_types type)
 {
 	t_token	*token;
 
@@ -45,7 +45,7 @@ t_token	*assign_token_attr(char *token_str, e_token_types type)
 	return (token);
 }
 
-t_list	*save_token(t_list **tokens, char *token_str, e_token_types type)
+t_list	*save_token(t_list **tokens, char *token_str, t_token_types type)
 {
 	t_list	*new_token;
 	t_token	*token_data;
@@ -59,7 +59,7 @@ t_list	*save_token(t_list **tokens, char *token_str, e_token_types type)
 }
 
 void	insert_token_before(t_list **tokens, t_list *token_prepended,
-		char *token_str, e_token_types type)
+		char *token_str, t_token_types type)
 {
 	t_list	*new_token;
 	t_token	*token_data;

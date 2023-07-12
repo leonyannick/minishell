@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lbaumann <lbaumann@student.42.fr>          +#+  +:+       +#+        */
+/*   By: aehrlich <aehrlich@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/09 11:47:38 by aehrlich          #+#    #+#             */
-/*   Updated: 2023/07/10 18:00:53 by lbaumann         ###   ########.fr       */
+/*   Updated: 2023/07/12 17:56:52 by aehrlich         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,14 +14,18 @@
 
 int	g_exit_code;
 
+/*
+	loops as long exit is typed or ctrl+D is pressed
+	(readline returns NULL), if ENTER is pressed, readline returns
+	'\0'. If the last Exit code was 130 (ctrl+C) and we are not
+	a forked child minishell, no prompt for readline should be 
+	printed, because it is redisplayed in the signal handler.
+*/
 static void	main_loop(char *line, t_data *data)
 {
-	while(1)
+	while (1)
 	{
-		if (g_exit_code == EXIT_CODE_SIGINT)
-			line = readline("");
-		else
-			line = readline("ushelless:>");
+		line = readline("ushelless:>");
 		if (!line)
 			exit_gracefully(data);
 		else if (*line == '\0')
@@ -30,10 +34,7 @@ static void	main_loop(char *line, t_data *data)
 		data->tokens = scan_tokens(line, data);
 		data->commands = parse(data->tokens);
 		if (data->commands)
-		{
-			change_handler(data);
 			g_exit_code = execute(data);
-		}
 		ft_lstclear(&data->tokens, token_del);
 		ft_lstclear(&data->commands, command_del);
 	}
@@ -43,7 +44,7 @@ int	main(int argc, char **argv, char **envp)
 {
 	t_data	data;
 	char	*line;
-	
+
 	if (argc > 1)
 		return (0);
 	line = NULL;

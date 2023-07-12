@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parser_utils.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aehrlich <aehrlich@student.42berlin.de>    +#+  +:+       +#+        */
+/*   By: aehrlich <aehrlich@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/08 12:31:46 by aehrlich          #+#    #+#             */
-/*   Updated: 2023/06/27 10:37:41 by aehrlich         ###   ########.fr       */
+/*   Updated: 2023/07/11 11:36:29 by aehrlich         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@
 /* 
 	returns boolean when passedtype is a redircetion
  */
-bool	ft_is_redirection(e_token_types type)
+bool	ft_is_redirection(t_token_types type)
 {
 	return (type == I_RED || type == O_RED
 		|| type == I_RED_HD || type == O_RED_APP);

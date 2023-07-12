@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exit.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lbaumann <lbaumann@student.42.fr>          +#+  +:+       +#+        */
+/*   By: aehrlich <aehrlich@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/20 16:39:50 by lbaumann          #+#    #+#             */
-/*   Updated: 2023/07/10 10:58:30 by lbaumann         ###   ########.fr       */
+/*   Updated: 2023/07/11 11:39:23 by aehrlich         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,9 @@ int	builtin_exit(const char **argv, t_data *data)
 	else if (argc > 2)
 	{
 		printf("exit\n");
-		return (error_continue("exit", NULL, "too many arguments", EXIT_FAILURE));
+		return (
+			error_continue("exit", NULL, "too many arguments", EXIT_FAILURE)
+		);
 	}
 	g_exit_code = ret;
 	exit_gracefully(data);

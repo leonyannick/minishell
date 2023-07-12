@@ -6,7 +6,7 @@
 /*   By: aehrlich <aehrlich@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/13 11:29:38 by aehrlich          #+#    #+#             */
-/*   Updated: 2023/06/28 13:06:24 by aehrlich         ###   ########.fr       */
+/*   Updated: 2023/07/11 11:36:29 by aehrlich         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@
 	@argument- redir_type:	type to determine the open flags
 	@return:				flags connected wit hbitwise or
  */
-static int	get_flags(e_token_types redir_type)
+static int	get_flags(t_token_types redir_type)
 {
 	if (redir_type == I_RED)
 		return (O_RDONLY);
