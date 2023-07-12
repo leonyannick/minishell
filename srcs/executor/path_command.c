@@ -6,7 +6,7 @@
 /*   By: lbaumann <lbaumann@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/13 11:58:09 by aehrlich          #+#    #+#             */
-/*   Updated: 2023/07/12 15:54:31 by lbaumann         ###   ########.fr       */
+/*   Updated: 2023/07/12 16:38:32 by lbaumann         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,10 +62,10 @@ static bool	is_dir(char *path)
 	struct stat		file_stat;
 	
 	if (stat((const char *)path, &file_stat))
-		perror("stat");
+		return (false);
 	if (S_ISDIR(file_stat.st_mode))
 	{
-		ft_fd_printf(STDERR_FILENO, "ushelless: %s Is a directory\n", path);
+		ft_fd_printf(STDERR_FILENO, "ushelless: %s: Is a directory\n", path);
 		return (true);
 	}
 	return (false);
@@ -120,7 +120,7 @@ void	execute_path_cmd(t_data *data, t_command *command)
 	path = (char *)command->arguments->content;
 	if (is_dir(path))
 		exit_child(data, 126);
-	if (access(path, X_OK))
+	if (!access(path, X_OK))
 		joined_path = ft_strdup((char *)command->arguments->content);
 	else
 		joined_path = build_path(command, data);
