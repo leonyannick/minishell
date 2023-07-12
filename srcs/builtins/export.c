@@ -6,7 +6,7 @@
 /*   By: lbaumann <lbaumann@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/14 17:51:49 by lbaumann          #+#    #+#             */
-/*   Updated: 2023/07/12 13:28:19 by lbaumann         ###   ########.fr       */
+/*   Updated: 2023/07/12 16:06:13 by lbaumann         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,13 @@ static char	**split_key_val(const char *arg, char **key_val)
 */
 static void	print_export_entry(void *arg)
 {
-	if (ft_strcmp(((t_dict *)arg)->key, "_"))
+	if (!ft_strcmp(((t_dict *)arg)->key, "_"))
+		return ;
+	if (!((t_dict *)arg)->value)
+		printf("declare -x %s\n", ((t_dict *)arg)->key);
+	else if (!ft_strcmp(((t_dict *)arg)->value, ""))
+		printf("declare -x %s=\"\"\n", ((t_dict *)arg)->key);
+	else
 		printf("declare -x %s=\"%s\"\n", ((t_dict *)arg)->key,
 			(char *)(((t_dict *)arg)->value));
 }
@@ -72,6 +78,8 @@ int	builtin_export(const char **argv, t_list *env_dict)
 			ft_dict_add_node(&env_dict, key_val[0], key_val[1]);
 			key_val[0] = ft_free_set_null(key_val[0]);
 		}
+		else
+			ft_dict_add_node(&env_dict, (char *)argv[i], NULL);
 		i++;
 	}
 	return (EXIT_SUCCESS);

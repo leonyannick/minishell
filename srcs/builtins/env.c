@@ -6,7 +6,7 @@
 /*   By: lbaumann <lbaumann@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/16 15:04:00 by lbaumann          #+#    #+#             */
-/*   Updated: 2023/07/07 12:31:03 by lbaumann         ###   ########.fr       */
+/*   Updated: 2023/07/12 16:03:04 by lbaumann         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,8 +14,9 @@
 
 static void	print_env_entry(void *arg)
 {
-	printf("%s=%s\n", ((t_dict *)arg)->key,
-		(char *)(((t_dict *)arg)->value));
+	if ((((t_dict *)arg)->value))
+		printf("%s=%s\n", ((t_dict *)arg)->key,
+			(char *)(((t_dict *)arg)->value));
 }
 
 /**
