@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   signals.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aehrlich <aehrlich@student.42.fr>          +#+  +:+       +#+        */
+/*   By: lbaumann <lbaumann@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/30 12:02:17 by aehrlich          #+#    #+#             */
-/*   Updated: 2023/07/12 17:44:37 by aehrlich         ###   ########.fr       */
+/*   Updated: 2023/07/13 12:29:55 by lbaumann         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,6 +36,12 @@ void	handle_signals(int signal)
 }
 
 void	ignore_sigint(int signal)
+{
+	if (signal == SIGINT)
+		printf("\n");
+}
+
+void	ignore_sigint_childshell(int signal)
 {
 	if (signal == SIGINT)
 		return ;

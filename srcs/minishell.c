@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aehrlich <aehrlich@student.42.fr>          +#+  +:+       +#+        */
+/*   By: lbaumann <lbaumann@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/09 11:47:38 by aehrlich          #+#    #+#             */
-/*   Updated: 2023/07/12 17:56:52 by aehrlich         ###   ########.fr       */
+/*   Updated: 2023/07/13 11:10:08 by lbaumann         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ static void	main_loop(char *line, t_data *data)
 {
 	while (1)
 	{
-		line = readline("ushelless:>");
+		line = readline("ushelless:> ");
 		if (!line)
 			exit_gracefully(data);
 		else if (*line == '\0')
@@ -45,10 +45,10 @@ int	main(int argc, char **argv, char **envp)
 	t_data	data;
 	char	*line;
 
-	if (argc > 1)
-		return (0);
 	line = NULL;
 	argv = NULL;
+	if (argc > 1)
+		return (0);
 	init_data(&data, envp);
 	main_loop(line, &data);
 	exit_gracefully(&data);

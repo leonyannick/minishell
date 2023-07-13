@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   executor.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aehrlich <aehrlich@student.42.fr>          +#+  +:+       +#+        */
+/*   By: lbaumann <lbaumann@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/10 14:58:03 by aehrlich          #+#    #+#             */
-/*   Updated: 2023/07/12 17:56:58 by aehrlich         ###   ########.fr       */
+/*   Updated: 2023/07/13 12:30:39 by lbaumann         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -137,6 +137,8 @@ int	execute(t_data *data)
 	pids = malloc(cmd_count * sizeof(int));
 	children(pids, data);
 	if (is_minishell_called(data, command))
+		init_signals(data, ignore_sigint_childshell);
+	else
 		init_signals(data, ignore_sigint);
 	exit_code = parent_wait(cmd_count, pids);
 	pids = ft_free_set_null(pids);
