@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   lexer_utils_postprocess.c                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lbaumann <lbaumann@student.42.fr>          +#+  +:+       +#+        */
+/*   By: aehrlich <aehrlich@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/05 10:10:21 by lbaumann          #+#    #+#             */
-/*   Updated: 2023/07/07 16:15:54 by lbaumann         ###   ########.fr       */
+/*   Updated: 2023/07/11 11:36:29 by aehrlich         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,7 @@ t_list	*word_splitting(t_list **tokens, t_list *node)
 {
 	char			*token_str;
 	t_list			*token_after_exp;
-	e_token_types	type;
+	t_token_types	type;
 	size_t			i;
 
 	if (((t_token *)node->content)->type == PARAMETER)

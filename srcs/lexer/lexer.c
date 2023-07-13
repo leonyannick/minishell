@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   lexer.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lbaumann <lbaumann@student.42.fr>          +#+  +:+       +#+        */
+/*   By: aehrlich <aehrlich@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/02 12:23:20 by lbaumann          #+#    #+#             */
-/*   Updated: 2023/07/10 11:02:38 by lbaumann         ###   ########.fr       */
+/*   Updated: 2023/07/11 11:36:29 by aehrlich         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@
 t_list	*scan_tokens(char *line, t_data *data)
 {
 	size_t			i;
-	e_token_types	type;
+	t_token_types	type;
 	t_list			*tokens;
 	char			*token_str;
 
@@ -50,7 +50,7 @@ t_list	*scan_tokens(char *line, t_data *data)
 /**
  * print e_token_type to standard output for debugging purposes
 */
-void	print_e_token_types(e_token_types type)
+void	print_t_token_types(t_token_types type)
 {
 	if (type == O_RED)
 		printf("O_RED\n");
@@ -85,7 +85,7 @@ void	print_e_token_types(e_token_types type)
 void	print_token(void *arg)
 {
 	printf("%s\t", ((t_token *)arg)->str);
-	print_e_token_types(((t_token *)arg)->type);
+	print_t_token_types(((t_token *)arg)->type);
 }
 
 /**

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   executor.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aehrlich <aehrlich@student.42.fr>          +#+  +:+       +#+        */
+/*   By: lbaumann <lbaumann@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/10 14:58:03 by aehrlich          #+#    #+#             */
-/*   Updated: 2023/07/10 12:15:52 by aehrlich         ###   ########.fr       */
+/*   Updated: 2023/07/13 12:30:39 by lbaumann         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,10 +17,11 @@ static void	execute_children(int *in_pipe, int *out_pipe,
 {
 	if (io_redirection(in_pipe, out_pipe, command) == -1)
 		exit_child(data, EXIT_FAILURE);
-	if (command->type == PATH)
+	if (command->type == PATH && command->arguments)
 		execute_path_cmd(data, command);
-	else
+	else if (command->type == BUILTIN && command->arguments)
 		exit_child(data, execute_builtin_cmd(data, command));
+	exit_child(data, EXIT_FAILURE);
 }
 
 /* 
@@ -33,7 +34,7 @@ static void	execute_children(int *in_pipe, int *out_pipe,
 	@argument - pids:	child process ids to wait for
 	@data:				main data object
 	@return:			sucess status
- */
+*/
 static void	children(int *pids, t_data *data)
 {
 	int			i;
@@ -43,8 +44,8 @@ static void	children(int *pids, t_data *data)
 	t_command	*command;
 
 	i = 0;
-	init_pipes(in_pipe, out_pipe);
 	cmd_head = data->commands;
+	init_pipes(in_pipe, out_pipe);
 	while (cmd_head)
 	{
 		command = (t_command *)cmd_head->content;
@@ -54,7 +55,7 @@ static void	children(int *pids, t_data *data)
 			exit_child(data, EXIT_FAILURE);
 		if (pids[i++] == 0)
 		{
-			free(pids),
+			free(pids);
 			execute_children(in_pipe, out_pipe, command, data);
 		}
 		close_pipe(in_pipe);
@@ -86,22 +87,48 @@ static int	execute_builtin_inplace(t_data *data, t_command *command)
 	return (exit_code);
 }
 
+/*
+	waits for all the forked children and evaluates the 
+	exitcodes of the executed child process and stores it in
+	the global exit code.
+	@param:	cmd_count:	amount of commands to wait for
+			pids:		process ids of childs to wait for
+*/
+static int	parent_wait(int cmd_count, int *pids)
+{
+	int	i;
+	int	wstatus;
+	int	exit_code;
+
+	i = 0;
+	exit_code = 0;
+	while (i < cmd_count)
+	{
+		waitpid(pids[i++], &wstatus, 0);
+		if (WIFEXITED(wstatus))
+			exit_code = WEXITSTATUS(wstatus);
+		else if (WIFSIGNALED(wstatus))
+			exit_code = 128 + WTERMSIG(wstatus);
+	}
+	return (exit_code);
+}
+
 /* 
 	If a singele builtin is executed it is done inplace (in the main process).
-	In a piped pipeline EVERY command is forked.
+	In a piped pipeline EVERY command is forked. If the minishell is called
+	inside the minishell, the signals send to the parent has to be ignored,
+	for the time of executing the child minishell. After finishing the child
+	(waiting for its execution), the parent is set to handle the signals again.
 	@argument - data:	data object containing envp and commands linked list
 	@return:			success status
  */
 int	execute(t_data *data)
 {
 	int			*pids;
-	int			i;
 	int			cmd_count;
 	t_command	*command;
-	int			wstatus;
 	int			exit_code;
 
-	i = 0;
 	command = (t_command *)data->commands->content;
 	read_heredocs(data->commands);
 	cmd_count = ft_lstsize(data->commands);
@@ -109,14 +136,12 @@ int	execute(t_data *data)
 		return (execute_builtin_inplace(data, command));
 	pids = malloc(cmd_count * sizeof(int));
 	children(pids, data);
-	while (i < cmd_count)
-	{
-		waitpid(pids[i++], &wstatus, 0);
-		if (WIFEXITED(wstatus))
-			exit_code = WEXITSTATUS(wstatus);
-		else if(WIFSIGNALED(wstatus))
-			exit_code = 128 + WTERMSIG(wstatus);
-	}
+	if (is_minishell_called(data, command))
+		init_signals(data, ignore_sigint_childshell);
+	else
+		init_signals(data, ignore_sigint);
+	exit_code = parent_wait(cmd_count, pids);
 	pids = ft_free_set_null(pids);
+	init_signals(data, handle_signals);
 	return (exit_code);
 }

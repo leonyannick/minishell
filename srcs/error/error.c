@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   error.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lbaumann <lbaumann@student.42.fr>          +#+  +:+       +#+        */
+/*   By: aehrlich <aehrlich@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/25 10:32:54 by lbaumann          #+#    #+#             */
-/*   Updated: 2023/07/07 14:09:33 by lbaumann         ###   ########.fr       */
+/*   Updated: 2023/07/11 12:44:08 by aehrlich         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,8 @@ void	error_fatal(char *error_msg, void *mem)
  * and set the exit_code to errno
  * -> minishell is not terminated (while loop is continued)
 */
-int	error_continue(const char *err_origin, const char *err_object, const char *cstm_err_descr, int cstm_exit_code)
+int	error_continue(const char *err_origin, const char *err_object,
+	const char *cstm_err_descr, int cstm_exit_code)
 {
 	ft_fd_printf(STDERR_FILENO, "ushelless: %s: ", err_origin);
 	if (err_object)

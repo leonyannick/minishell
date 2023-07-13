@@ -6,7 +6,7 @@
 /*   By: aehrlich <aehrlich@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/19 11:42:54 by lbaumann          #+#    #+#             */
-/*   Updated: 2023/07/10 11:26:50 by aehrlich         ###   ########.fr       */
+/*   Updated: 2023/07/10 17:01:58 by aehrlich         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,7 @@
 # include "parser.h"
 # include "executor.h"
 # include "signals.h"
+# include "data.h"
 # include <stdlib.h>//malloc
 # include <stdio.h>//printf, readline#include <readline/readline.h>
 # include <readline/history.h>
@@ -26,15 +27,6 @@
 # include <stdbool.h>//true, false
 # include <signal.h>
 
-//color macro for printing status messages in color
-# define GR	"\033[32;1m"
-# define RE	"\033[31;1m"
-# define PU	"\033[35;1m"
-# define BL	"\033[34;1m"
-# define YE "\033[33;1m"
-# define RC "\033[0m"
-
-void	exit_gracefully(t_data *data);
-void	init_data(t_data *data, char **envp);
+# define EXIT_CODE_SIGINT 130
 
 #endif

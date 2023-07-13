@@ -6,7 +6,7 @@
 /*   By: aehrlich <aehrlich@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/10 11:21:37 by lbaumann          #+#    #+#             */
-/*   Updated: 2023/07/10 11:37:29 by aehrlich         ###   ########.fr       */
+/*   Updated: 2023/07/11 12:45:44 by aehrlich         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,6 @@
 # include "../../includes/lexer.h"
 # include "../executor/executor_utils.h"
 
-extern int g_exit_code;
+extern int	g_exit_code;
 
 #endif

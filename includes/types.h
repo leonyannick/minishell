@@ -6,7 +6,7 @@
 /*   By: aehrlich <aehrlich@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/05 10:33:26 by lbaumann          #+#    #+#             */
-/*   Updated: 2023/07/10 11:56:27 by aehrlich         ###   ########.fr       */
+/*   Updated: 2023/07/12 12:23:50 by aehrlich         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,7 @@ typedef struct data
 	t_list				*tokens;
 	t_list				*commands;
 	struct sigaction	sa;
+	bool				is_child_minishell;
 }	t_data;
 
 //lexer
@@ -42,7 +43,7 @@ typedef enum token_types
 	PARAMETER,
 	WHITESPACE,
 	NONE
-}	e_token_types;
+}	t_token_types;
 
 typedef struct s_token
 {
@@ -62,7 +63,7 @@ typedef struct file
 	char			*path;
 	int				fd;
 	char			*herdoc_lim;
-	e_token_types	open_mode;
+	t_token_types	open_mode;
 }t_file;
 
 typedef struct command
@@ -71,8 +72,8 @@ typedef struct command
 	t_cmd_type		type;
 	bool			has_in_pipe;
 	bool			has_out_pipe;
-	e_token_types	in_redir_type;
-	e_token_types	out_redir_type;
+	t_token_types	in_redir_type;
+	t_token_types	out_redir_type;
 	t_list			*inred_file;
 	t_list			*outred_file;
 }					t_command;

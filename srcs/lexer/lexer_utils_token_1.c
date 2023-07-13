@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   lexer_utils_token_1.c                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lbaumann <lbaumann@student.42.fr>          +#+  +:+       +#+        */
+/*   By: aehrlich <aehrlich@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/05 10:03:20 by lbaumann          #+#    #+#             */
-/*   Updated: 2023/07/07 16:19:07 by lbaumann         ###   ########.fr       */
+/*   Updated: 2023/07/11 11:36:29 by aehrlich         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "lexer_utils.h"
 
-char	*redirection_token(char *line, size_t *i, e_token_types *type)
+char	*redirection_token(char *line, size_t *i, t_token_types *type)
 {
 	if (!ft_strncmp(&line[*i], "<<", 2))
 	{
@@ -44,7 +44,7 @@ char	*redirection_token(char *line, size_t *i, e_token_types *type)
  * increase token_begin by one to omit the $, the info is saved as the
  * token_type anyways
 */
-char	*parameter_token(char *line, size_t *i, e_token_types *type,
+char	*parameter_token(char *line, size_t *i, t_token_types *type,
 			t_list *env_dict)
 {
 	(*i)++;
@@ -52,7 +52,7 @@ char	*parameter_token(char *line, size_t *i, e_token_types *type,
 	return (expand(line, i, env_dict));
 }
 
-char	*quote_token(char *line, size_t *i, e_token_types *type,
+char	*quote_token(char *line, size_t *i, t_token_types *type,
 			t_list *env_dict)
 {
 	char	*token_str;
@@ -81,7 +81,7 @@ char	*quote_token(char *line, size_t *i, e_token_types *type,
 	return (token_str);
 }
 
-char	*whitespace_token(char *line, size_t *i, e_token_types *type)
+char	*whitespace_token(char *line, size_t *i, t_token_types *type)
 {
 	size_t	token_begin;
 
@@ -92,7 +92,7 @@ char	*whitespace_token(char *line, size_t *i, e_token_types *type)
 	return (ft_substr(line, token_begin, *i - token_begin));
 }
 
-char	*pipe_token(size_t *i, e_token_types *type)
+char	*pipe_token(size_t *i, t_token_types *type)
 {
 	*type = PIPE;
 	(*i)++;
