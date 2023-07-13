@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   lexer_utils.h                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aehrlich <aehrlich@student.42.fr>          +#+  +:+       +#+        */
+/*   By: lbaumann <lbaumann@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/05 09:59:02 by lbaumann          #+#    #+#             */
-/*   Updated: 2023/07/11 11:36:29 by aehrlich         ###   ########.fr       */
+/*   Updated: 2023/07/13 14:55:03 by lbaumann         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,7 @@ char	*word_token(char *line, size_t *i, t_token_types *type);
 t_token	*assign_token_attr(char *token_str, t_token_types type);
 t_list	*save_token(t_list **tokens, char *token_str, t_token_types type);
 void	insert_token_before(t_list **tokens, t_list *token_prepended,
-			char *token_str, t_token_types type);
+			char *token_str, t_token_types *type);
 
 //lexer_utils_helper_1
 bool	is_whitespace(char c);

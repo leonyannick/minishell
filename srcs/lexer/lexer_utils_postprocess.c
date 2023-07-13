@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   lexer_utils_postprocess.c                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aehrlich <aehrlich@student.42.fr>          +#+  +:+       +#+        */
+/*   By: lbaumann <lbaumann@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/05 10:10:21 by lbaumann          #+#    #+#             */
-/*   Updated: 2023/07/11 11:36:29 by aehrlich         ###   ########.fr       */
+/*   Updated: 2023/07/13 14:55:15 by lbaumann         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,10 +51,10 @@ t_list	*word_splitting(t_list **tokens, t_list *node)
 		{
 			if (is_whitespace(token_str[i]))
 				insert_token_before(tokens, token_after_exp,
-					whitespace_token(token_str, &i, &type), type);
+					whitespace_token(token_str, &i, &type), &type);
 			else
 				insert_token_before(tokens, token_after_exp,
-					word_token(token_str, &i, &type), type);
+					word_token(token_str, &i, &type), &type);
 		}
 		ft_lstremove(tokens, node, token_del);
 	}
