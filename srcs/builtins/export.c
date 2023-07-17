@@ -6,7 +6,7 @@
 /*   By: lbaumann <lbaumann@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/14 17:51:49 by lbaumann          #+#    #+#             */
-/*   Updated: 2023/07/17 14:05:24 by lbaumann         ###   ########.fr       */
+/*   Updated: 2023/07/17 16:47:12 by lbaumann         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,6 +31,8 @@ static char	**split_key_val(const char *arg, char **key_val)
 	len = ft_strlen(arg);
 	key_val[0] = ft_substr(arg, 0, equals - arg);
 	key_val[1] = ft_substr(equals + 1, 0, &arg[len] - equals);
+	if (key_val[1][0] == '~' && key_val[1][1] == 0)
+		key_val[1] = getenv("HOME");
 	return (key_val);
 }
 
@@ -50,6 +52,14 @@ static void	print_export_entry(void *arg)
 	else
 		printf("declare -x %s=\"%s\"\n", ((t_dict *)arg)->key,
 			(char *)(((t_dict *)arg)->value));
+}
+
+static bool	is_valid_identifier(const char *arg)
+{
+	if (ft_isalpha(arg[0]) || arg[0] == '_')
+		return (true);
+	else
+		return (false);
 }
 
 /**
@@ -74,7 +84,7 @@ int	builtin_export(const char **argv, t_list *env_dict)
 	i = 1;
 	while (argv[i])
 	{
-		if (!ft_isalpha(argv[i][0]))
+		if (!is_valid_identifier(argv[i]))
 			return (error_continue("export", argv[i], "not a valid identifier",
 				EXIT_FAILURE));
 		if (split_key_val(argv[i], key_val))

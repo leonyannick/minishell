@@ -6,7 +6,7 @@
 /*   By: lbaumann <lbaumann@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/16 15:13:03 by lbaumann          #+#    #+#             */
-/*   Updated: 2023/07/17 15:56:48 by lbaumann         ###   ########.fr       */
+/*   Updated: 2023/07/17 16:59:47 by lbaumann         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,6 +61,8 @@ static char	*process_path(const char *arg, t_list *env_dict)
 	char	*temp;
 	char	*curpath;
 
+	if (arg[0] == '~' && arg[1] == 0)
+		return (ft_strdup(getenv("HOME")));
 	if (!ft_strncmp(arg, ".", 1) || !ft_strncmp(arg, "..", 2)
 		|| !ft_strncmp(arg, "/", 1))
 		curpath = ft_strdup(arg);
@@ -99,7 +101,7 @@ int	builtin_cd(const char **argv, t_list *env_dict)
 		if (!path)
 			return (error_continue("cd", NULL, "OLDPWD not set", EXIT_FAILURE));
 	}
-	else if (argc == 1 || !ft_strcmp(argv[1], "~") || !ft_strcmp(argv[1], "--"))
+	else if (argc == 1 || !ft_strcmp(argv[1], "--"))
 	{
 		path = ft_strdup(ft_dict_get_value(env_dict, "HOME"));
 		if (!path)

@@ -6,7 +6,7 @@
 /*   By: lbaumann <lbaumann@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/07 12:55:20 by lbaumann          #+#    #+#             */
-/*   Updated: 2023/07/07 13:02:12 by lbaumann         ###   ########.fr       */
+/*   Updated: 2023/07/17 16:54:02 by lbaumann         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,6 +30,15 @@ static bool	check_n_flag(const char *arg)
 	return (true);
 }
 
+char	*replace_home(char *old_arg)
+{
+	char	*arg;
+
+	arg = ft_strjoin(&old_arg[1], getenv("HOME"));
+	free(old_arg);
+	return (arg);
+}
+
 /**
  * the most unimportant string checking i have done in my life
  * if the second str in arr contains the n flag no new line is printed in the
@@ -51,6 +60,8 @@ int	builtin_echo(const char **argv)
 		i++;
 	while (argv[i])
 	{
+		if (argv[i][0] == '~' && argv[i][1] == 0)
+			argv[i] = replace_home((char *)argv[i]);
 		printf("%s", argv[i]);
 		if (argv[i + 1])
 			printf(" ");
