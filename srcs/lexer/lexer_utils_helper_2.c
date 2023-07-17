@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   lexer_utils_helper_2.c                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lbaumann <lbaumann@student.42.fr>          +#+  +:+       +#+        */
+/*   By: lbaumann <lbaumann@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/05 10:09:27 by lbaumann          #+#    #+#             */
-/*   Updated: 2023/07/10 16:15:12 by lbaumann         ###   ########.fr       */
+/*   Updated: 2023/07/17 09:44:34 by lbaumann         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,6 +43,9 @@ char	*expand(char *line, size_t *i, t_list *env_dict)
 	return (ft_strdup(var_value));
 }
 
+/**
+ * return a NULL-terminated allocated string from char c
+*/
 char	*char_to_str(char c)
 {
 	char	*result;
@@ -54,6 +57,11 @@ char	*char_to_str(char c)
 	return (result);
 }
 
+/**
+ * append str with the appendix and return the new
+ * concatonated version. both the old str and the appendix
+ * are freed
+*/
 char	*append_str(char *str, char *appendix)
 {
 	char	*junction;

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   error.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aehrlich <aehrlich@student.42.fr>          +#+  +:+       +#+        */
+/*   By: lbaumann <lbaumann@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/25 10:32:54 by lbaumann          #+#    #+#             */
-/*   Updated: 2023/07/11 12:44:08 by aehrlich         ###   ########.fr       */
+/*   Updated: 2023/07/17 09:41:03 by lbaumann         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,8 +27,14 @@ void	error_fatal(char *error_msg, void *mem)
 
 /**
  * call this function to report an error on the standard output 
- * and set the exit_code to errno
+ * either errno is returned or if given, a custom error code
  * -> minishell is not terminated (while loop is continued)
+ * perror is used to print the err_description when the param
+ * cstm_err_descr is NULL
+ * 
+ * example: "usheless: cd: too many arguments"
+ * "cd": err_origin
+ * "too many arguments": cstm_err_description
 */
 int	error_continue(const char *err_origin, const char *err_object,
 	const char *cstm_err_descr, int cstm_exit_code)

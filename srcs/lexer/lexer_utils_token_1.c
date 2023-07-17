@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   lexer_utils_token_1.c                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aehrlich <aehrlich@student.42.fr>          +#+  +:+       +#+        */
+/*   By: lbaumann <lbaumann@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/05 10:03:20 by lbaumann          #+#    #+#             */
-/*   Updated: 2023/07/11 11:36:29 by aehrlich         ###   ########.fr       */
+/*   Updated: 2023/07/17 09:56:28 by lbaumann         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,6 +52,15 @@ char	*parameter_token(char *line, size_t *i, t_token_types *type,
 	return (expand(line, i, env_dict));
 }
 
+/**
+ * this function is called by scan_tokens either when a single or double
+ * qoute is detected in the line from readline
+ * -> token type is set to WORD
+ * -> qoutes are removed
+ * -> expansion happens in double quotes (no word splitting though)
+ * -> unclosed quotes are not handled in the sense, that just everything
+ * until the end of the line would be saved a single token
+*/
 char	*quote_token(char *line, size_t *i, t_token_types *type,
 			t_list *env_dict)
 {

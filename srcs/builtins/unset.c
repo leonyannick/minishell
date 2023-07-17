@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   unset.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lbaumann <lbaumann@student.42.fr>          +#+  +:+       +#+        */
+/*   By: lbaumann <lbaumann@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/16 12:22:05 by lbaumann          #+#    #+#             */
-/*   Updated: 2023/07/10 14:11:35 by lbaumann         ###   ########.fr       */
+/*   Updated: 2023/07/17 09:36:18 by lbaumann         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,9 @@ int	builtin_unset(const char **argv, t_data *data)
 	i = 1;
 	while (argv[i])
 	{
+		if (!ft_isalpha(argv[i][0]))
+			return (error_continue("unset", argv[i], "not a valid identifier",
+				EXIT_FAILURE));
 		ft_dict_rm_node(&(data->env_dict), (char *)argv[i]);
 		i++;
 	}

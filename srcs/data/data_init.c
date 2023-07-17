@@ -3,15 +3,22 @@
 /*                                                        :::      ::::::::   */
 /*   data_init.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aehrlich <aehrlich@student.42.fr>          +#+  +:+       +#+        */
+/*   By: lbaumann <lbaumann@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/26 12:07:34 by lbaumann          #+#    #+#             */
-/*   Updated: 2023/07/12 12:25:19 by aehrlich         ###   ########.fr       */
+/*   Updated: 2023/07/17 09:24:01 by lbaumann         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "data_utils.h"
 
+/**
+ * to avoid error memset all stack allocated memory of data struct to zero
+ * convert str arr envp to a dictionary (for easier usage in builtin functions)
+ * initialize the signals and signalhandlers
+ * set the exit code to 0 (EXIT_SUCCESS)
+ * set flag is_minishell to false
+*/
 void	init_data(t_data *data, char **envp)
 {
 	ft_memset(data, 0, sizeof(t_data));

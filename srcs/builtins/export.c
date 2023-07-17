@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   export.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lbaumann <lbaumann@student.42.fr>          +#+  +:+       +#+        */
+/*   By: lbaumann <lbaumann@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/14 17:51:49 by lbaumann          #+#    #+#             */
-/*   Updated: 2023/07/12 16:06:13 by lbaumann         ###   ########.fr       */
+/*   Updated: 2023/07/17 09:36:07 by lbaumann         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,6 +37,7 @@ static char	**split_key_val(const char *arg, char **key_val)
 /**
  * print export entry
  * environment variable "_" is not printed
+ * if value is NULL: <key>="" is printed
 */
 static void	print_export_entry(void *arg)
 {
@@ -73,6 +74,9 @@ int	builtin_export(const char **argv, t_list *env_dict)
 	i = 1;
 	while (argv[i])
 	{
+		if (!ft_isalpha(argv[i][0]))
+			return (error_continue("unset", argv[i], "not a valid identifier",
+				EXIT_FAILURE));
 		if (split_key_val(argv[i], key_val))
 		{
 			ft_dict_add_node(&env_dict, key_val[0], key_val[1]);

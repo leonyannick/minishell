@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lbaumann <lbaumann@student.42.fr>          +#+  +:+       +#+        */
+/*   By: lbaumann <lbaumann@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/09 11:47:38 by aehrlich          #+#    #+#             */
-/*   Updated: 2023/07/13 12:39:38 by lbaumann         ###   ########.fr       */
+/*   Updated: 2023/07/17 10:00:59 by lbaumann         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,6 +37,7 @@ static void	main_loop(char *line, t_data *data)
 			g_exit_code = execute(data);
 		ft_lstclear(&data->tokens, token_del);
 		ft_lstclear(&data->commands, command_del);
+		free(line);
 	}
 }
 
@@ -48,7 +49,7 @@ int	main(int argc, char **argv, char **envp)
 	line = NULL;
 	argv = NULL;
 	if (argc > 1)
-		return (0);
+		return (EXIT_SUCCESS);
 	init_data(&data, envp);
 	main_loop(line, &data);
 }

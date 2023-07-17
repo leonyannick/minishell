@@ -3,15 +3,20 @@
 /*                                                        :::      ::::::::   */
 /*   lexer_utils_postprocess.c                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lbaumann <lbaumann@student.42.fr>          +#+  +:+       +#+        */
+/*   By: lbaumann <lbaumann@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/05 10:10:21 by lbaumann          #+#    #+#             */
-/*   Updated: 2023/07/13 14:55:15 by lbaumann         ###   ########.fr       */
+/*   Updated: 2023/07/17 09:50:55 by lbaumann         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "lexer_utils.h"
 
+/**
+ * called from main lexer function (scan_tokens)
+ * goes through the token list and applies some post-procesing before
+ * handing it off to the parser
+*/
 t_list	*tokens_postprocess(t_list *tokens)
 {
 	tokens = modify_list(&tokens, word_splitting);
@@ -20,6 +25,9 @@ t_list	*tokens_postprocess(t_list *tokens)
 	return (tokens);
 }
 
+/**
+ * iterate the lexer linked list and apply function f to each node
+*/
 t_list	*modify_list(t_list **lst, t_list *(*f)(t_list **lst, t_list *node))
 {
 	t_list	*node;
@@ -35,6 +43,10 @@ t_list	*modify_list(t_list **lst, t_list *(*f)(t_list **lst, t_list *node))
 	return (*lst);
 }
 
+/**
+ * parameters that are expanded outside double quotes are split using
+ * whitespace as the delimiter into single tokens
+*/
 t_list	*word_splitting(t_list **tokens, t_list *node)
 {
 	char			*token_str;
@@ -61,6 +73,13 @@ t_list	*word_splitting(t_list **tokens, t_list *node)
 	return (*tokens);
 }
 
+/**
+ * example: ech"o"
+ * initially this would be recognized  as two tokens by the parser
+ * however they are merged to one token
+ * merging happens when the previous token of a WORD token is also
+ * a WORD token 
+*/
 t_list	*merge_words(t_list **tokens, t_list *node)
 {
 	t_list	*prev;
@@ -81,6 +100,12 @@ t_list	*merge_words(t_list **tokens, t_list *node)
 	return (*tokens);
 }
 
+/**
+ * remove all whitespace tokens before handing ob the token list
+ * to the parser
+ * whitespace tokens where used for word_splitting in parameter
+ * expansion
+*/
 t_list	*remove_whitespace(t_list **tokens, t_list *node)
 {
 	if (((t_token *)node->content)->type == WHITESPACE)

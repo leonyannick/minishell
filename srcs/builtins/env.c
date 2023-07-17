@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   env.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lbaumann <lbaumann@student.42.fr>          +#+  +:+       +#+        */
+/*   By: lbaumann <lbaumann@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/16 15:04:00 by lbaumann          #+#    #+#             */
-/*   Updated: 2023/07/12 16:03:04 by lbaumann         ###   ########.fr       */
+/*   Updated: 2023/07/17 09:25:11 by lbaumann         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,7 @@ static void	print_env_entry(void *arg)
 /**
  * iterates env_dict and prints out the key-value pairs in the format:
  * <key>=<value>
+ * if the value is null nothing is printed (different than export)
 */
 int	builtin_env(t_list *env_dict)
 {
