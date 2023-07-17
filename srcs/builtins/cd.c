@@ -6,7 +6,7 @@
 /*   By: lbaumann <lbaumann@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/16 15:13:03 by lbaumann          #+#    #+#             */
-/*   Updated: 2023/07/17 15:45:06 by lbaumann         ###   ########.fr       */
+/*   Updated: 2023/07/17 15:56:48 by lbaumann         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,6 +39,10 @@ static int	update_paths(char *new_path, const char *arg, t_list *env_dict)
 	pwd = ft_strdup(cwd);
 	ft_dict_modify_value(env_dict, "OLDPWD", oldpwd);
 	ft_dict_modify_value(env_dict, "PWD", pwd);
+	if (!ft_dict_get_value(env_dict, "OLDPWD"))
+		free(oldpwd);
+	if (!ft_dict_get_value(env_dict, "PWD"))
+		free(pwd);
 	new_path = ft_free_set_null(new_path);
 	return (0);
 }
