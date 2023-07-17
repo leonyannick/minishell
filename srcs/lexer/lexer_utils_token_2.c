@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   lexer_utils_token_2.c                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lbaumann <lbaumann@student.42berlin.de>    +#+  +:+       +#+        */
+/*   By: lbaumann <lbaumann@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/05 10:05:14 by lbaumann          #+#    #+#             */
-/*   Updated: 2023/07/17 09:59:34 by lbaumann         ###   ########.fr       */
+/*   Updated: 2023/07/17 16:07:51 by lbaumann         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,8 @@ char	*word_token(char *line, size_t *i, t_token_types *type)
 
 	token_begin = *i;
 	*type = WORD;
-	while (!is_metacharacter(line[*i]) && !is_quote(line[*i]) && line[*i])
+	while (!is_metacharacter(line[*i]) && !is_quote(line[*i]) && line[*i]
+			&& line[*i] != '$')
 		(*i)++;
 	return (ft_substr(line, token_begin, *i - token_begin));
 }
