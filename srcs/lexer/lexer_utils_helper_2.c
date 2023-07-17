@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   lexer_utils_helper_2.c                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lbaumann <lbaumann@student.42berlin.de>    +#+  +:+       +#+        */
+/*   By: lbaumann <lbaumann@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/05 10:09:27 by lbaumann          #+#    #+#             */
-/*   Updated: 2023/07/17 09:44:34 by lbaumann         ###   ########.fr       */
+/*   Updated: 2023/07/17 16:13:21 by lbaumann         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,8 @@ char	*expand(char *line, size_t *i, t_list *env_dict)
 		(*i)++;
 		return (ft_itoa(g_exit_code));
 	}
-	while (!is_metacharacter(line[*i]) && !is_quote(line[*i]) && line[*i])
+	while (!is_metacharacter(line[*i]) && !is_quote(line[*i]) &&
+			line[*i] != '$' && line[*i])
 		(*i)++;
 	var_name = ft_substr(line, token_begin, *i - token_begin);
 	var_value = ft_dict_get_value(env_dict, var_name);
