@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exit.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lbaumann <lbaumann@student.42berlin.de>    +#+  +:+       +#+        */
+/*   By: lbaumann <lbaumann@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/10 11:19:10 by lbaumann          #+#    #+#             */
-/*   Updated: 2023/07/17 09:21:40 by lbaumann         ###   ########.fr       */
+/*   Updated: 2023/07/17 17:26:21 by lbaumann         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,7 +49,7 @@ void	exit_child(t_data *data, int exit_code)
 */
 void	exit_gracefully(t_data *data)
 {
-	printf("exit\n");
+	ft_fd_printf(STDERR_FILENO, "exit\n");
 	free_data(data);
 	exit(g_exit_code);
 }
