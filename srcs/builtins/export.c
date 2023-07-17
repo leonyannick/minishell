@@ -6,7 +6,7 @@
 /*   By: lbaumann <lbaumann@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/14 17:51:49 by lbaumann          #+#    #+#             */
-/*   Updated: 2023/07/17 16:47:12 by lbaumann         ###   ########.fr       */
+/*   Updated: 2023/07/17 17:19:20 by lbaumann         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,6 +82,7 @@ int	builtin_export(const char **argv, t_list *env_dict)
 	if (argc == 1)
 		ft_lstiter(env_dict, print_export_entry);
 	i = 1;
+	ft_memset(key_val, 0, sizeof(char *) * 2);
 	while (argv[i])
 	{
 		if (!is_valid_identifier(argv[i]))
@@ -92,7 +93,7 @@ int	builtin_export(const char **argv, t_list *env_dict)
 			ft_dict_add_node(&env_dict, key_val[0], key_val[1]);
 			key_val[0] = ft_free_set_null(key_val[0]);
 		}
-		else
+		if (key_val[0])
 			ft_dict_add_node(&env_dict, (char *)argv[i], NULL);
 		i++;
 	}
