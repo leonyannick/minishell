@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   export.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lbaumann <lbaumann@student.42berlin.de>    +#+  +:+       +#+        */
+/*   By: lbaumann <lbaumann@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/14 17:51:49 by lbaumann          #+#    #+#             */
-/*   Updated: 2023/07/17 09:36:07 by lbaumann         ###   ########.fr       */
+/*   Updated: 2023/07/17 14:05:24 by lbaumann         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,7 +75,7 @@ int	builtin_export(const char **argv, t_list *env_dict)
 	while (argv[i])
 	{
 		if (!ft_isalpha(argv[i][0]))
-			return (error_continue("unset", argv[i], "not a valid identifier",
+			return (error_continue("export", argv[i], "not a valid identifier",
 				EXIT_FAILURE));
 		if (split_key_val(argv[i], key_val))
 		{
