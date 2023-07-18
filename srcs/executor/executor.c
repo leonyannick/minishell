@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   executor.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aehrlich <aehrlich@student.42.fr>          +#+  +:+       +#+        */
+/*   By: lbaumann <lbaumann@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/10 14:58:03 by aehrlich          #+#    #+#             */
-/*   Updated: 2023/07/18 10:12:59 by aehrlich         ###   ########.fr       */
+/*   Updated: 2023/07/18 16:21:17 by lbaumann         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,7 +78,8 @@ static int	execute_builtin_inplace(t_data *data, t_command *command)
 
 	old_stdin = dup(STDIN_FILENO);
 	old_stdout = dup(STDOUT_FILENO);
-	io_redirection(NULL, NULL, command);
+	if (io_redirection(NULL, NULL, command) == -1)
+		return (EXIT_FAILURE);
 	exit_code = execute_builtin_cmd(data, command);
 	dup2(old_stdin, STDIN_FILENO);
 	close(old_stdin);

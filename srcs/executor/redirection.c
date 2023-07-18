@@ -6,7 +6,7 @@
 /*   By: lbaumann <lbaumann@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/13 11:29:38 by aehrlich          #+#    #+#             */
-/*   Updated: 2023/07/18 16:02:44 by lbaumann         ###   ########.fr       */
+/*   Updated: 2023/07/18 16:27:21 by lbaumann         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,7 +48,7 @@ static int	redirect_input(t_command *cmd)
 		file = (t_file *)file_head->content;
 		file->fd = open(file->path, get_flags(cmd->in_redir_type), 0777);
 		if (file->open_mode == I_RED && file->fd == -1)
-			return (error_continue(NULL, file->path, NOFILE, -1));
+			return (error_continue(NULL, file->path, NULL, 0), -1);
 		if (file_head->next == NULL)
 		{
 			file->fd = open(file->path, O_RDONLY, 0777);
