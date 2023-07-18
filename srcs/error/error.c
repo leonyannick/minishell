@@ -3,13 +3,12 @@
 /*                                                        :::      ::::::::   */
 /*   error.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aehrlich <aehrlich@student.42.fr>          +#+  +:+       +#+        */
+/*   By: lbaumann <lbaumann@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: Invalid date        by                   #+#    #+#             */
-/*   Updated: 2023/07/18 10:54:10 by aehrlich         ###   ########.fr       */
+/*   Created: 2023/07/18 11:33:09 by lbaumann          #+#    #+#             */
+/*   Updated: 2023/07/18 11:33:13 by lbaumann         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
-
 
 #include "../includes/error.h"
 
