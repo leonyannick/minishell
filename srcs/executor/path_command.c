@@ -3,36 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   path_command.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aehrlich <aehrlich@student.42.fr>          +#+  +:+       +#+        */
+/*   By: lbaumann <lbaumann@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/13 11:58:09 by aehrlich          #+#    #+#             */
-/*   Updated: 2023/07/18 10:20:06 by aehrlich         ###   ########.fr       */
+/*   Updated: 2023/07/18 11:29:54 by lbaumann         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "executor_utils.h"
-
-/* 
-	frees a string array and sets its pointer to NULL
-	to make it unreachable.
-	@argument:	pointer to the array of strings, to make it NULL settable
-	@return:	none
- */
-static char	**free_str_arr(char **strs)
-{
-	int	i;
-
-	i = 0;
-	if (!strs || !*strs)
-		return (NULL);
-	while (strs[i])
-	{
-		strs[i] = ft_free_set_null(strs[i]);
-		i++;
-	}
-	ft_free_set_null(strs);
-	return (NULL);
-}
 
 /* 
 	splits the PATHS data representation of the PATHS environ var
@@ -57,7 +35,7 @@ static char	**get_paths(t_data *data)
  * return true if the path leads to a directory
  * else return false
 */
-static bool	is_dir(char *path)
+static bool	is_dir(char *path, bool print_err)
 {
 	struct stat		file_stat;
 
@@ -65,10 +43,31 @@ static bool	is_dir(char *path)
 		return (false);
 	if (S_ISDIR(file_stat.st_mode))
 	{
-		ft_fd_printf(STDERR_FILENO, "ushelless: %s: Is a directory\n", path);
+		if (print_err)
+			ft_fd_printf(STDERR_FILENO, "ushelless: %s: Is a directory\n", path);
 		return (true);
 	}
 	return (false);
+}
+
+static bool	contains_valid_dir(char *path)
+{
+	char	*slash;
+	char	*candidate;
+	bool	ret;
+
+	slash = ft_strchr((const char *)path, '/');
+	if (!slash)
+		return (false);
+	if ((slash - path) == 0)
+		return (true);
+	candidate = ft_substr(path, 0, slash - path);
+	if (is_dir(candidate, false))
+		ret = true;
+	else
+		ret = false;
+	free(candidate);
+	return (ret);
 }
 
 /*
@@ -99,10 +98,9 @@ static char	*build_path(t_command *command, t_data *data)
 		joined_path = ft_free_set_null(joined_path);
 		paths++;
 	}
-	start = free_str_arr(start);
+	start = ft_free_split_arr(start);
 	return (joined_path);
 }
-
 
 /* 
 	Searchs for a vaild execution path with the envp.
@@ -117,23 +115,24 @@ void	execute_path_cmd(t_data *data, t_command *command)
 	char	**envp;
 	char	*path;
 
+	joined_path = NULL;
 	path = (char *)command->arguments->content;
-	if (is_dir(path))
+	if (is_dir(path, true))
 		exit_child(data, 126);
 	if (!access(path, X_OK))
-		joined_path = ft_strdup((char *)command->arguments->content);
-	else
+		joined_path = ft_strdup(path);
+	else if (!contains_valid_dir(path))
 		joined_path = build_path(command, data);
-	if (!ft_dict_get_value(data->env_dict, "PATH"))
-		exit_child(data, error_continue((char *)command->arguments->content,
-			NULL, "No such file or directory", 127));
+	if (!ft_dict_get_value(data->env_dict, "PATH")
+		|| (contains_valid_dir(path) && access(path, X_OK)))
+		exit_child(data, error_continue(path, NULL, NOFILE, 127));
 	if (!joined_path)
-		exit_child(data, error_continue(NULL, path, "command not found", 127));
+		exit_child(data, error_continue(NULL, path, NOCMD, 127));
 	arg_list = ft_lst_strarr(command->arguments);
 	envp = ft_dict_to_strarr(data->env_dict);
 	if (!envp)
 		exit_child(data, EXIT_FAILURE);
 	execve(joined_path, arg_list, envp);
-	arg_list = free_str_arr(arg_list);
+	arg_list = ft_free_split_arr(arg_list);
 	exit_child(data, EXIT_FAILURE);
 }

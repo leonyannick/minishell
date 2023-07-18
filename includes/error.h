@@ -6,7 +6,7 @@
 /*   By: lbaumann <lbaumann@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/25 10:33:09 by lbaumann          #+#    #+#             */
-/*   Updated: 2023/07/07 16:07:58 by lbaumann         ###   ########.fr       */
+/*   Updated: 2023/07/18 11:25:04 by lbaumann         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,9 @@
 # include <stdlib.h>
 # include <errno.h>
 # include "../libft/includes/libft.h"
+
+# define NOFILE "No such file or directory"
+# define NOCMD "command not found"
 
 extern int	g_exit_code;
 
