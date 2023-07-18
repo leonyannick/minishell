@@ -3,12 +3,13 @@
 /*                                                        :::      ::::::::   */
 /*   error.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lbaumann <lbaumann@student.42.fr>          +#+  +:+       +#+        */
+/*   By: aehrlich <aehrlich@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/05/25 10:32:54 by lbaumann          #+#    #+#             */
-/*   Updated: 2023/07/17 18:09:42 by lbaumann         ###   ########.fr       */
+/*   Created: Invalid date        by                   #+#    #+#             */
+/*   Updated: 2023/07/18 10:54:10 by aehrlich         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
+
 
 #include "../includes/error.h"
 
@@ -26,7 +27,9 @@
 int	error_continue(const char *err_origin, const char *err_object,
 	const char *cstm_err_descr, int cstm_exit_code)
 {
-	ft_fd_printf(STDERR_FILENO, "ushelless: %s: ", err_origin);
+	ft_fd_printf(STDERR_FILENO, "ushelless: ");
+	if (err_origin)
+		ft_fd_printf(STDERR_FILENO, "%s: ", err_origin);
 	if (err_object)
 		ft_fd_printf(STDERR_FILENO, "%s: ", err_object);
 	if (cstm_err_descr)

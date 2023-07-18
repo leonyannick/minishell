@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   path_command.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lbaumann <lbaumann@student.42.fr>          +#+  +:+       +#+        */
+/*   By: aehrlich <aehrlich@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/13 11:58:09 by aehrlich          #+#    #+#             */
-/*   Updated: 2023/07/13 12:39:21 by lbaumann         ###   ########.fr       */
+/*   Updated: 2023/07/18 10:20:06 by aehrlich         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,7 +60,7 @@ static char	**get_paths(t_data *data)
 static bool	is_dir(char *path)
 {
 	struct stat		file_stat;
-	
+
 	if (stat((const char *)path, &file_stat))
 		return (false);
 	if (S_ISDIR(file_stat.st_mode))
@@ -124,12 +124,11 @@ void	execute_path_cmd(t_data *data, t_command *command)
 		joined_path = ft_strdup((char *)command->arguments->content);
 	else
 		joined_path = build_path(command, data);
+	if (!ft_dict_get_value(data->env_dict, "PATH"))
+		exit_child(data, error_continue((char *)command->arguments->content,
+			NULL, "No such file or directory", 127));
 	if (!joined_path)
-	{
-		ft_fd_printf(STDERR_FILENO, "%s: command not found\n",
-			(char *)command->arguments->content);
-		exit_child(data, EXIT_FAILURE);
-	}
+		exit_child(data, error_continue(NULL, path, "command not found", 127));
 	arg_list = ft_lst_strarr(command->arguments);
 	envp = ft_dict_to_strarr(data->env_dict);
 	if (!envp)

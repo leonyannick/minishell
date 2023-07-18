@@ -6,7 +6,7 @@
 /*   By: aehrlich <aehrlich@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/13 11:29:38 by aehrlich          #+#    #+#             */
-/*   Updated: 2023/07/11 11:36:29 by aehrlich         ###   ########.fr       */
+/*   Updated: 2023/07/17 18:44:26 by aehrlich         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,7 +48,7 @@ static int	redirect_input(t_command *cmd)
 		file = (t_file *)file_head->content;
 		file->fd = open(file->path, get_flags(cmd->in_redir_type), 0777);
 		if (file->open_mode == I_RED && file->fd == -1)
-			perror("Infile");
+			error_continue(NULL, file->path, NULL, 0);
 		if (file_head->next == NULL)
 		{
 			file->fd = open(file->path, O_RDONLY, 0777);
@@ -80,7 +80,7 @@ static int	redirect_output(t_command *cmd)
 		file = (t_file *)file_head->content;
 		file->fd = open(file->path, get_flags(cmd->out_redir_type), 0777);
 		if (file->fd == -1)
-			perror("Outfile");
+			return (error_continue(NULL, file->path, NULL, 0), -1);
 		if (file_head->next == NULL)
 			dup2(file->fd, STDOUT_FILENO);
 		close(file->fd);
