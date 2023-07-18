@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   lexer_utils_token_1.c                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lbaumann <lbaumann@student.42berlin.de>    +#+  +:+       +#+        */
+/*   By: lbaumann <lbaumann@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/05 10:03:20 by lbaumann          #+#    #+#             */
-/*   Updated: 2023/07/17 09:56:28 by lbaumann         ###   ########.fr       */
+/*   Updated: 2023/07/18 12:25:47 by lbaumann         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,7 +85,8 @@ char	*quote_token(char *line, size_t *i, t_token_types *type,
 		else
 			token_str = append_str(token_str, char_to_str(line[(*i)++]));
 	}
-	(*i)++;
+	if (line[*i])
+		(*i)++;
 	*type = WORD;
 	return (token_str);
 }
