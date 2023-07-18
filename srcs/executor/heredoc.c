@@ -6,7 +6,7 @@
 /*   By: lbaumann <lbaumann@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/16 15:12:17 by aehrlich          #+#    #+#             */
-/*   Updated: 2023/07/18 16:33:02 by lbaumann         ###   ########.fr       */
+/*   Updated: 2023/07/18 16:43:57 by lbaumann         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,7 +61,7 @@ int	read_heredocs(t_list *cmd_head)
 			if (in_file->open_mode == I_RED_HD)
 			{
 				in_file->fd = open(in_file->path, O_CREAT | O_RDWR, 0777);
-				if (!in_file->fd)
+				if (in_file->fd == -1)
 					return (-1);
 				ft_read_heredoc(in_file->fd, in_file->herdoc_lim);
 			}
