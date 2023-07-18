@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   error.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lbaumann <lbaumann@student.42berlin.de>    +#+  +:+       +#+        */
+/*   By: aehrlich <aehrlich@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/25 10:32:54 by lbaumann          #+#    #+#             */
-/*   Updated: 2023/07/17 09:41:03 by lbaumann         ###   ########.fr       */
+/*   Updated: 2023/07/17 18:37:39 by aehrlich         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,9 @@ void	error_fatal(char *error_msg, void *mem)
 int	error_continue(const char *err_origin, const char *err_object,
 	const char *cstm_err_descr, int cstm_exit_code)
 {
-	ft_fd_printf(STDERR_FILENO, "ushelless: %s: ", err_origin);
+	ft_fd_printf(STDERR_FILENO, "ushelless: ");
+	if (err_origin)
+		ft_fd_printf(STDERR_FILENO, "%s: ", err_origin);
 	if (err_object)
 		ft_fd_printf(STDERR_FILENO, "%s: ", err_object);
 	if (cstm_err_descr)
