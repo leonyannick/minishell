@@ -6,7 +6,7 @@
 /*   By: lbaumann <lbaumann@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/16 15:12:17 by aehrlich          #+#    #+#             */
-/*   Updated: 2023/07/17 17:55:59 by lbaumann         ###   ########.fr       */
+/*   Updated: 2023/07/18 16:33:02 by lbaumann         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,6 +29,7 @@ static int	ft_read_heredoc(int fd, char *lim)
 	{
 		write(fd, read, ft_strlen(read));
 		write(fd, "\n", 1);
+		read = ft_free_set_null(read);
 		read = readline("> ");
 		if (!read)
 			ft_fd_printf(STDERR_FILENO,
