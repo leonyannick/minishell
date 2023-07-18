@@ -6,7 +6,7 @@
 /*   By: lbaumann <lbaumann@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/16 15:13:03 by lbaumann          #+#    #+#             */
-/*   Updated: 2023/07/18 09:51:08 by lbaumann         ###   ########.fr       */
+/*   Updated: 2023/07/18 15:52:30 by lbaumann         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,21 +28,19 @@ static int	update_paths(char *new_path, const char *arg, t_list *env_dict)
 	char	*oldpwd;
 	char	*pwd;
 
+	if (!new_path)
+		return (error_continue("cd", arg, "HOME not set", EXIT_FAILURE));
 	if (!getcwd(cwd, PATH_MAX))
 		return (error_continue("cd", NULL, NULL, 0));
 	oldpwd = ft_strdup(cwd); 
 	if (chdir(new_path))
-		return (error_continue("cd", arg, "No such file or directory",
-				EXIT_FAILURE));
+		return (free(oldpwd), free(new_path), error_continue("cd", arg,
+				"No such file or directory", EXIT_FAILURE));
 	if (!getcwd(cwd, PATH_MAX))
 		return (error_continue("cd", NULL, NULL, 0));
 	pwd = ft_strdup(cwd);
-	ft_dict_modify_value(env_dict, "OLDPWD", oldpwd);
-	ft_dict_modify_value(env_dict, "PWD", pwd);
-	if (!ft_dict_get_value(env_dict, "OLDPWD"))
-		free(oldpwd);
-	if (!ft_dict_get_value(env_dict, "PWD"))
-		free(pwd);
+	ft_dict_add_node(&env_dict, "PWD", pwd);
+	ft_dict_add_node(&env_dict, "OLDPWD", oldpwd);
 	new_path = ft_free_set_null(new_path);
 	return (0);
 }
@@ -62,7 +60,7 @@ static char	*process_path(const char *arg, t_list *env_dict)
 	char	*curpath;
 
 	if (arg[0] == '~' && arg[1] == 0)
-		return (ft_strdup(getenv("HOME")));
+		return (ft_strdup(ft_dict_get_value(env_dict, "HOME")));
 	if (!ft_strncmp(arg, ".", 1) || !ft_strncmp(arg, "..", 2)
 		|| !ft_strncmp(arg, "/", 1))
 		curpath = ft_strdup(arg);

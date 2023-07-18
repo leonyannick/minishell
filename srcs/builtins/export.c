@@ -6,7 +6,7 @@
 /*   By: lbaumann <lbaumann@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/14 17:51:49 by lbaumann          #+#    #+#             */
-/*   Updated: 2023/07/18 12:52:57 by lbaumann         ###   ########.fr       */
+/*   Updated: 2023/07/18 15:44:38 by lbaumann         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@
  * value = key_val[1]
  * equals is a pointer to the first occurrence of '='
 */
-static char	**split_key_val(const char *arg, char **key_val)
+static char	**split_key_val(const char *arg, char **key_val, t_list *env_dict)
 {
 	char	*equals;
 	size_t	len;
@@ -32,7 +32,7 @@ static char	**split_key_val(const char *arg, char **key_val)
 	key_val[0] = ft_substr(arg, 0, equals - arg);
 	key_val[1] = ft_substr(equals + 1, 0, &arg[len] - equals);
 	if (key_val[1][0] == '~' && key_val[1][1] == 0)
-		key_val[1] = getenv("HOME");
+		key_val[1] = ft_strdup(ft_dict_get_value(env_dict, "HOME"));
 	return (key_val);
 }
 
@@ -88,7 +88,7 @@ int	builtin_export(const char **argv, t_list *env_dict)
 		if (!is_valid_identifier(argv[i]))
 			return (error_continue("export", argv[i], "not a valid identifier",
 					EXIT_FAILURE));
-		if (split_key_val(argv[i], key_val))
+		if (split_key_val(argv[i], key_val, env_dict))
 		{
 			ft_dict_add_node(&env_dict, key_val[0], key_val[1]);
 			key_val[0] = ft_free_set_null(key_val[0]);

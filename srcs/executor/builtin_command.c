@@ -6,7 +6,7 @@
 /*   By: lbaumann <lbaumann@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/27 18:08:41 by aehrlich          #+#    #+#             */
-/*   Updated: 2023/07/18 11:28:21 by lbaumann         ###   ########.fr       */
+/*   Updated: 2023/07/18 15:44:07 by lbaumann         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ int	execute_builtin_cmd(t_data *data, t_command *command)
 
 	arg_arr = ft_lst_strarr(command->arguments);
 	if (ft_strcmp((const char *)arg_arr[0], "echo") == 0)
-		exit_code = builtin_echo((const char **)arg_arr);
+		exit_code = builtin_echo((const char **)arg_arr, data);
 	if (ft_strcmp((const char *)arg_arr[0], "cd") == 0)
 		exit_code = builtin_cd((const char **)arg_arr, data->env_dict);
 	if (ft_strcmp((const char *)arg_arr[0], "pwd") == 0)

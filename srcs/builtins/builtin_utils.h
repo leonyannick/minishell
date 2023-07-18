@@ -6,7 +6,7 @@
 /*   By: lbaumann <lbaumann@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/07 12:56:13 by lbaumann          #+#    #+#             */
-/*   Updated: 2023/07/17 16:31:01 by lbaumann         ###   ########.fr       */
+/*   Updated: 2023/07/18 15:45:12 by lbaumann         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@
 # include "../../includes/builtins.h"
 # include "../../includes/minishell.h"
 
-char	*replace_home(char *old_arg);
+char	*replace_home(char *old_arg, t_list *env_dict);
 
 extern int	g_exit_code;
 

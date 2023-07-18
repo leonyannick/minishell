@@ -6,7 +6,7 @@
 /*   By: lbaumann <lbaumann@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/07 12:55:20 by lbaumann          #+#    #+#             */
-/*   Updated: 2023/07/17 16:54:02 by lbaumann         ###   ########.fr       */
+/*   Updated: 2023/07/18 15:57:30 by lbaumann         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,11 +30,13 @@ static bool	check_n_flag(const char *arg)
 	return (true);
 }
 
-char	*replace_home(char *old_arg)
+char	*replace_home(char *old_arg, t_list *env_dict)
 {
 	char	*arg;
 
-	arg = ft_strjoin(&old_arg[1], getenv("HOME"));
+	if (!ft_dict_get_value(env_dict, "HOME"))
+		ft_fd_printf(STDERR_FILENO, "ushelless: echo: HOME not set\n");
+	arg = ft_strjoin(&old_arg[1], ft_dict_get_value(env_dict, "HOME"));
 	free(old_arg);
 	return (arg);
 }
@@ -46,7 +48,7 @@ char	*replace_home(char *old_arg)
  * preluding -n flag strings are skipped (once a str that is no n flag is
  * reached, further n flags are treated as normal strings and printed out)
 */
-int	builtin_echo(const char **argv)
+int	builtin_echo(const char **argv, t_data *data)
 {
 	bool	n_flag;
 	size_t	i;
@@ -61,7 +63,9 @@ int	builtin_echo(const char **argv)
 	while (argv[i])
 	{
 		if (argv[i][0] == '~' && argv[i][1] == 0)
-			argv[i] = replace_home((char *)argv[i]);
+			argv[i] = replace_home((char *)argv[i], data->env_dict);
+		if (!argv[i])
+			return (EXIT_FAILURE);
 		printf("%s", argv[i]);
 		if (argv[i + 1])
 			printf(" ");
