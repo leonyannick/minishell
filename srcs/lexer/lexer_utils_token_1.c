@@ -6,7 +6,7 @@
 /*   By: lbaumann <lbaumann@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/05 10:03:20 by lbaumann          #+#    #+#             */
-/*   Updated: 2023/07/18 12:25:47 by lbaumann         ###   ########.fr       */
+/*   Updated: 2023/07/18 17:32:40 by lbaumann         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,9 +47,14 @@ char	*redirection_token(char *line, size_t *i, t_token_types *type)
 char	*parameter_token(char *line, size_t *i, t_token_types *type,
 			t_list *env_dict)
 {
+	char	*expanded_str;
+
 	(*i)++;
 	*type = PARAMETER;
-	return (expand(line, i, env_dict));
+	expanded_str = expand(line, i, env_dict);
+	if (!ft_strcmp(expanded_str, "$"))
+		*type = WORD;
+	return (expanded_str);
 }
 
 /**
