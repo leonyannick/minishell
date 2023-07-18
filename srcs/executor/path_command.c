@@ -6,7 +6,7 @@
 /*   By: lbaumann <lbaumann@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/13 11:58:09 by aehrlich          #+#    #+#             */
-/*   Updated: 2023/07/18 11:29:54 by lbaumann         ###   ########.fr       */
+/*   Updated: 2023/07/18 12:05:53 by lbaumann         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -121,7 +121,7 @@ void	execute_path_cmd(t_data *data, t_command *command)
 		exit_child(data, 126);
 	if (!access(path, X_OK))
 		joined_path = ft_strdup(path);
-	else if (!contains_valid_dir(path))
+	else if (!contains_valid_dir(path) && ft_strcmp(path, ""))
 		joined_path = build_path(command, data);
 	if (!ft_dict_get_value(data->env_dict, "PATH")
 		|| (contains_valid_dir(path) && access(path, X_OK)))
