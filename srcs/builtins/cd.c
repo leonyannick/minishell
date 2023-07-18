@@ -6,7 +6,7 @@
 /*   By: lbaumann <lbaumann@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/16 15:13:03 by lbaumann          #+#    #+#             */
-/*   Updated: 2023/07/17 16:59:47 by lbaumann         ###   ########.fr       */
+/*   Updated: 2023/07/18 09:51:08 by lbaumann         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,7 @@ static int	update_paths(char *new_path, const char *arg, t_list *env_dict)
 	oldpwd = ft_strdup(cwd); 
 	if (chdir(new_path))
 		return (error_continue("cd", arg, "No such file or directory",
-			EXIT_FAILURE));
+				EXIT_FAILURE));
 	if (!getcwd(cwd, PATH_MAX))
 		return (error_continue("cd", NULL, NULL, 0));
 	pwd = ft_strdup(cwd);

@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: aehrlich <aehrlich@student.42.fr>          +#+  +:+       +#+         #
+#    By: lbaumann <lbaumann@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/02/19 09:17:44 by lbaumann          #+#    #+#              #
-#    Updated: 2023/07/10 11:36:34 by aehrlich         ###   ########.fr        #
+#    Updated: 2023/07/18 09:57:25 by lbaumann         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -106,9 +106,11 @@ $(LIBFT):
 
 clean:
 	rm -rf $(OBJDIR)
+	$(MAKE) clean -C $(LIBFTDIR)
 
 fclean: clean
 	rm -f $(NAME)
+	$(MAKE) fclean -C $(LIBFTDIR)
 
 re: fclean all
 

@@ -6,7 +6,7 @@
 /*   By: lbaumann <lbaumann@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/14 17:51:49 by lbaumann          #+#    #+#             */
-/*   Updated: 2023/07/17 17:19:20 by lbaumann         ###   ########.fr       */
+/*   Updated: 2023/07/18 09:50:52 by lbaumann         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,7 +87,7 @@ int	builtin_export(const char **argv, t_list *env_dict)
 	{
 		if (!is_valid_identifier(argv[i]))
 			return (error_continue("export", argv[i], "not a valid identifier",
-				EXIT_FAILURE));
+					EXIT_FAILURE));
 		if (split_key_val(argv[i], key_val))
 		{
 			ft_dict_add_node(&env_dict, key_val[0], key_val[1]);
